@@ -1,0 +1,12 @@
+{
+  "basemap": { "title": "Bản đồ nền", "setting": "Cài đặt" },
+  "action": {
+    "fullscreen-control-enter": "Mở toàn màn hình",
+    "fullscreen-control-exit": "Thoát toàn màn hình",
+    "geolocate-control-find-my-location": "Tìm vị trí của tôi",
+    "geolocate-control-location-not-available": "Định vị không khả dụng",
+    "navigation-control-zoom-in": "Phóng to",
+    "navigation-control-zoom-out": "Thu nhỏ",
+    "navigation-control-reset-bearing": "Đặt lại phương vị"
+  }
+}

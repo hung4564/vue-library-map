@@ -1,0 +1,6 @@
+{
+  "map": {
+    "spriteUrl": "https://tiles.eofactory.ai/styles/basic/sprite",
+    "glyphsUrl": "https://tiles.eofactory.ai/fonts/{fontstack}/{range}.pbf"
+  }
+}

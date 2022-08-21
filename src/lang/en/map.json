@@ -1,0 +1,12 @@
+{
+  "basemap": { "title": "Map basemap", "setting": "Setting" },
+  "action": {
+    "fullscreen-control-enter": "Enter fullscreen",
+    "fullscreen-control-exit": "Exit fullscreen",
+    "geolocate-control-find-my-location": "Find my location",
+    "geolocate-control-location-not-available": "Location not available",
+    "navigation-control-zoom-in": "Zoom in",
+    "navigation-control-zoom-out": "Zoom out",
+    "navigation-control-reset-bearing": "Reset bearing to north"
+  }
+}

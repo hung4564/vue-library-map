@@ -1,0 +1,60 @@
+@import "clickable";
+
+@import "@mdi/font/css/materialdesignicons.css";
+@import "map";
+a {
+  text-decoration: none;
+}
+.full-width {
+  width: 100%;
+}
+.full-height {
+  height: 100%;
+}
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pointer {
+  cursor: pointer;
+}
+.cursor-crosshair {
+  cursor: crosshair;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.fill-container {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+html {
+  height: 100%;
+  position: relative;
+  overflow: hidden !important;
+}
+body {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

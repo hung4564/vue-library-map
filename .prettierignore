@@ -1,0 +1,7 @@
+**/public/**/*
+**/bootstrap/**/*
+**/storage/**/*
+**/vendor/**/*
+**/node_modules/**/*
+composer.lock
+docker-compose.yml
