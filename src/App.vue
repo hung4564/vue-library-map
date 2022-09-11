@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Map locale="vi">
+      <MeasurementControl position="top-right" />
       <BaseMapControl position="bottom-left" />
       <GeolocateControl />
       <HomeControl />
@@ -21,6 +22,7 @@ import {
   HomeControl,
   GeolocateControl,
   BaseMapControl,
+  MeasurementControl,
   Map
 } from "@components/Map";
 export default {
@@ -32,6 +34,7 @@ export default {
     HomeControl,
     GeolocateControl,
     BaseMapControl,
+    MeasurementControl,
     Map
   }
 };

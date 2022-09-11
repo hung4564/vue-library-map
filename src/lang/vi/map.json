@@ -1,4 +1,25 @@
 {
+  "measurement": {
+    "title": "Công cụ đo đạc",
+    "result": "Kết quả đo lường",
+    "field": {
+      "unit-distance": "Đơn vị độ dài",
+      "unit-area": "Đơn vị diện tích"
+    },
+    "tools": {
+      "point": "Đánh dấu",
+      "distance": "Đo độ dài",
+      "area": "Đo diện tích",
+      "azimuth": "Đo phương vị"
+    },
+    "unit": {
+      "meter": "Mét",
+      "kilometer": "Kilômét",
+      "square-meter": "Mét vuông",
+      "hecta": "Hecta",
+      "square-kilometer": "Kilômét vuông"
+    }
+  },
   "basemap": { "title": "Bản đồ nền", "setting": "Cài đặt" },
   "action": {
     "fullscreen-control-enter": "Mở toàn màn hình",

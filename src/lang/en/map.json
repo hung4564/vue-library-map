@@ -1,4 +1,25 @@
 {
+  "measurement": {
+    "title": "Measurement",
+    "result": "Measurement Result",
+    "field": {
+      "unit-distance": "Unit distance",
+      "unit-area": "Unit area"
+    },
+    "tools": {
+      "point": "Measure Point",
+      "distance": "Measure Distance",
+      "area": "Measure Area",
+      "azimuth": "Measure azimuth"
+    },
+    "unit": {
+      "meter": "Meter",
+      "kilometer": "Kilometer",
+      "square-meter": "Square Meter",
+      "hecta": "Hecta",
+      "square-kilometer": "Square Kilometer"
+    }
+  },
   "basemap": { "title": "Map basemap", "setting": "Setting" },
   "action": {
     "fullscreen-control-enter": "Enter fullscreen",
