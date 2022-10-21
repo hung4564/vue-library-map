@@ -4,10 +4,10 @@ import GeolocateControl from "./GeolocateControl/GeolocateControl.vue";
 import HomeControl from "./HomeControl/HomeControl.vue";
 import MeasurementControl from "./MeasurementControl/MeasurementControl.vue";
 import MouseCoordinatesControl from "./MouseCoordinatesControl/MouseCoordinatesControl.vue";
+import PrintControl from "./PrintControl/PrintControl.vue";
 import ShowDataControl from "./ShowControl/ShowDataControl.vue";
 import ShowGeometryControl from "./ShowControl/ShowGeometryControl.vue";
 import ZoomControl from "./ZoomControl/ZoomControl.vue";
-
 export {
   FullScreenControl,
   MouseCoordinatesControl,
@@ -17,5 +17,6 @@ export {
   BaseMapControl,
   MeasurementControl,
   ShowGeometryControl,
-  ShowDataControl
+  ShowDataControl,
+  PrintControl
 };
