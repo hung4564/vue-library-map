@@ -23,6 +23,7 @@
               style="margin-left: 4px"
               class="selectable"
               v-html="currentPoint"
+              :style="{ 'min-width': isDMS ? '210px' : '100px' }"
             >
             </div>
             <i
