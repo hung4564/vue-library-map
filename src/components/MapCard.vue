@@ -1,6 +1,12 @@
 <template>
-  <div class="map-card" :style="cardStyle" v-on="$listeners">
-    <slot></slot>
+  <div class="card" :style="cardStyle" v-on="$listeners" v-bind="$attrs">
+    <slot />
+    <div class="card-arrow">
+      <div class="card-arrow-top-left"></div>
+      <div class="card-arrow-top-right"></div>
+      <div class="card-arrow-bottom-left"></div>
+      <div class="card-arrow-bottom-right"></div>
+    </div>
   </div>
 </template>
 
@@ -20,29 +26,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.map-card {
-  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%),
-    0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
-  background-color: #ffffff;
-  color: rgba(0, 0, 0, 0.87);
-  border-width: thin;
-  display: block;
-  max-width: 100%;
-  outline: none;
-  text-decoration: none;
-  transition-property: box-shadow, opacity;
-  overflow-wrap: break-word;
-  position: relative;
-  white-space: normal;
-  box-sizing: border-box;
-}
-.map-card > *:last-child {
-  border-bottom-left-radius: inherit;
-  border-bottom-right-radius: inherit;
-}
-.map-card > *:first-child {
-  border-top-left-radius: inherit;
-  border-top-right-radius: inherit;
-}
-</style>
+<style scoped></style>

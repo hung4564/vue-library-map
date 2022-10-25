@@ -1,0 +1,112 @@
+.card {
+  background-color: rgba(32, 43, 54, 0.9);
+  color: #fff;
+  button {
+    color: #fff;
+  }
+
+  position: relative;
+  border: none;
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+  }
+  &:not(.border-0):before {
+    left: 15px;
+    right: 15px;
+    top: 0;
+    bottom: 0;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #fff;
+    opacity: 0.3;
+  }
+  &:not(.border-0):after {
+    top: 15px;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+    border-left: 1px solid #fff;
+    border-right: 1px solid #fff;
+    opacity: 0.3;
+  }
+
+  &
+    > *:not(.card-arrow):not(.card-img-overlay):not(.card-img):not(.hljs-container) {
+    position: relative;
+    z-index: 10;
+  }
+  & .card-arrow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  & .card-arrow-top-left,
+  & .card-arrow-top-right,
+  & .card-arrow-bottom-left,
+  & .card-arrow-bottom-right {
+    width: 10px;
+    height: 10px;
+    position: absolute;
+
+    &:before {
+      content: "";
+      position: absolute;
+      width: 2px;
+      height: 8px;
+      background: #fff;
+      opacity: 0.75;
+    }
+    &:after {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 2px;
+      background: #fff;
+      opacity: 0.75;
+    }
+  }
+  & .card-arrow-top-left,
+  & .card-arrow-top-right {
+    top: 0;
+
+    &:before {
+      top: 2px;
+    }
+    &:after {
+      top: 0;
+    }
+  }
+  & .card-arrow-bottom-left,
+  & .card-arrow-bottom-right {
+    bottom: 0;
+
+    &:before {
+      bottom: 2px;
+    }
+    &:after {
+      bottom: 0;
+    }
+  }
+  & .card-arrow-top-left,
+  & .card-arrow-bottom-left {
+    left: 0;
+
+    &:before,
+    &:after {
+      left: 0;
+    }
+  }
+  & .card-arrow-top-right,
+  & .card-arrow-bottom-right {
+    right: 0;
+
+    &:before,
+    &:after {
+      right: 0;
+    }
+  }
+}

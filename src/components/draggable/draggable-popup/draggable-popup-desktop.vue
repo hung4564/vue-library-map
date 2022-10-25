@@ -17,7 +17,11 @@
     :z="zIndex"
     @resizing="onResize"
   >
-    <map-card class="draggable-popup-desktop">
+    <map-card
+      class="draggable-popup-desktop"
+      :width="p_width"
+      :height="p_height"
+    >
       <div class="draggable-popup-desktop-heading">
         <div class="draggable-popup-desktop-heading__content">
           <map-icon class="drag grabbing">mdi-drag</map-icon>

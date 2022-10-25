@@ -24,37 +24,41 @@
     <template #draggable="props">
       <DraggablePopup
         v-bind="props"
-        :height="70 * (Math.floor(c_baseMaps.length / 3) + 1) + 48 + 2"
+        :height="70 * (Math.floor(c_baseMaps.length / 3) + 1) + 48 + 10"
         :show.sync="show"
         :is-resizable="false"
         :title="trans('map.basemap.setting')"
-        :width="70 * 3 + 16"
+        :width="70 * 3 + 24"
       >
-        <map-card class="base-map-control-setting" flat>
-          <map-card
+        <div class="base-map-control-setting">
+          <div
             v-for="baseMap in c_baseMaps"
             :key="baseMap.id"
             class="clickable base-map-control-setting-item"
-            flat
-            height="70px"
+            :style="{ width: sizeBaseMap + 'px' }"
             :title="baseMap.title"
-            width="70px"
             @click="onClick(baseMap)"
           >
-            <map-card height="36px" width="36px">
-              <map-image :src="baseMap.thumbnail"> </map-image>
-            </map-card>
+            <div
+              :style="{
+                width: sizeBaseMap - 34 + 'px',
+                height: sizeBaseMap - 34 + 'px'
+              }"
+            >
+              <img style="width: 100%; height: 100%" :src="baseMap.thumbnail" />
+            </div>
             <div
               class="base-map-control-setting-item__title"
               :class="{
                 'base-map-control-setting-item__active':
                   current_baseMaps && baseMap.id == current_baseMaps.id
               }"
+              style="font-size: 14px"
             >
               {{ baseMap.title }}
             </div>
-          </map-card>
-        </map-card>
+          </div>
+        </div>
       </DraggablePopup>
     </template>
     <slot />
@@ -113,6 +117,11 @@ export default {
         this.setDefaultValueForMap(value);
       },
       immediate: true
+    }
+  },
+  computed: {
+    sizeBaseMap() {
+      return 70;
     }
   },
   methods: {

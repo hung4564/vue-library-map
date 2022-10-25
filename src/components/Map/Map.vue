@@ -335,7 +335,8 @@ function getProp(object, path, defaultVal) {
   border: solid;
   border-width: thin 0 0 0;
   transition: inherit;
-  border-color: rgba(0, 0, 0, 0.12);
+  border-color: #fff;
+  opacity: 0.3;
 }
 .map-spacer {
   flex-grow: 1;
