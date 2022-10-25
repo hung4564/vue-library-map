@@ -13,13 +13,13 @@
           <MapControlButton
             icon="mdi-content-save-outline"
             :loading="print.loading"
-            :tooltip="$t('actions.save')"
+            :tooltip="trans('actions.save')"
             @click="onSave()"
           />
           <MapControlButton
             :disabled="print.loading"
             icon="mdi-close"
-            :tooltip="$t('actions.clear')"
+            :tooltip="trans('actions.clear')"
             @click="onClosePrint()"
           />
         </MapControlGroupButton>

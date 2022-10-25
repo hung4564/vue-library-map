@@ -1,10 +1,6 @@
 <template>
   <div v-resize="onResize" class="full-height full-width">
-    <portal-target
-      :class="{ 'full-height full-width': isMobile }"
-      multiple
-      :name="draggableTo"
-    />
+    <portal-target multiple :name="draggableTo" />
   </div>
 </template>
 
@@ -36,16 +32,20 @@ export default {
   },
   mounted() {
     this.onResize();
+    window.addEventListener("resize", this.onResize);
   },
-  computed: {
-    draggableTo() {
-      return `${this.mapId || this.dragId}-map-draggable`;
-    },
-    isMobile() {
-      return false;
-    }
+  beforeDestroy() {
+    window.removeEventListener("resize", this.onResize);
   },
 
+  computed: {
+    draggableTo() {
+      return `map-draggable-${this.mapId || this.dragId}`;
+    },
+    isMobile() {
+      return this.parentWidth && this.parentWidth <= 600;
+    }
+  },
   provide() {
     const option = {};
     Object.defineProperty(option, "isMobile", {

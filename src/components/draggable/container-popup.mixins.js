@@ -7,6 +7,7 @@ export default {
   provide() {
     return {
       $parentHeight: () => this.parentHeight,
+      $isMobile: () => this.isMobile,
       $popupIds: () => this.popupIdsShow,
       $parentWidth: () => this.parentWidth,
       registerPopup: this.registerPopup,

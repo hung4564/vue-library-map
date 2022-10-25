@@ -42,10 +42,10 @@ export default {
   },
   computed: {
     btnTo() {
-      return `${this.prefix}-${this.position}`;
+      return `${this.position}-${this.prefix}`;
     },
     draggableTo() {
-      return `${this.prefix}-map-draggable`;
+      return `map-draggable-${this.prefix}`;
     },
     bindDrag() {
       let bind = {};

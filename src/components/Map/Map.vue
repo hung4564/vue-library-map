@@ -78,16 +78,16 @@ export default {
   },
   computed: {
     rightBottomTo() {
-      return `${this.id}-bottom-right`;
+      return `bottom-right-${this.id}`;
     },
     leftBottomTo() {
-      return `${this.id}-bottom-left`;
+      return `bottom-left-${this.id}`;
     },
     rightTopTo() {
-      return `${this.id}-top-right`;
+      return `top-right-${this.id}`;
     },
     leftTopTo() {
-      return `${this.id}-top-left`;
+      return `top-left-${this.id}`;
     }
   },
 
@@ -142,8 +142,6 @@ export default {
       });
       this.map.id = this.id;
       setMap(this.id, this.map);
-      this.map.touchZoomRotate.disableRotation();
-      this.map.dragRotate.disable();
       this.map.once("load", () => {
         this.loaded = true;
         // Emit for parent component

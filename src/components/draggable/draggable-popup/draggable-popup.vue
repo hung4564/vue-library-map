@@ -13,9 +13,9 @@
       <slot name="extra-btn" />
     </template>
     <template #title>
-      <div class="text-truncate" :title="title">
-        <slot name="title">{{ title }}</slot>
-      </div>
+      <slot name="title">
+        <span :title="title">{{ title }} </span>
+      </slot>
     </template>
     <div class="fill-height"> <slot /> </div>
   </component>
@@ -49,7 +49,8 @@ export default {
   inject: {
     registerPopup: { default: () => {} },
     registerPopupShow: { default: () => {} },
-    unRegisterPopup: { default: () => {} }
+    unRegisterPopup: { default: () => {} },
+    $isMobile: { default: () => false }
   },
   data: () => ({
     idPopup: "",
@@ -75,6 +76,9 @@ export default {
     }
   },
   computed: {
+    isMobile() {
+      return this.$isMobile();
+    },
     c_show: {
       get() {
         return this.p_show;

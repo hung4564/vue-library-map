@@ -176,6 +176,9 @@ export default {
   z-index: 0;
   flex: 1 1 auto;
 }
+.draggable-popup-desktop-heading__content .drag {
+  margin: 4px;
+}
 .draggable-popup-desktop-heading,
 .draggable-popup-desktop-heading__content {
   height: 48px;

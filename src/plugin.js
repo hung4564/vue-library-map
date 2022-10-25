@@ -6,11 +6,6 @@ export default {
   install(Vue) {
     Vue.directive("resize", resize);
     Vue.mixin({
-      computed: {
-        isMobile() {
-          return false;
-        }
-      },
       methods: {
         $t(key) {
           return key;
