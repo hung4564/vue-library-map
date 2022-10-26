@@ -21,6 +21,7 @@
     border-top: 1px solid #fff;
     border-bottom: 1px solid #fff;
     opacity: 0.3;
+    background: transparent;
   }
   &:not(.border-0):after {
     top: 15px;
@@ -30,6 +31,7 @@
     border-left: 1px solid #fff;
     border-right: 1px solid #fff;
     opacity: 0.3;
+    background: transparent;
   }
 
   &

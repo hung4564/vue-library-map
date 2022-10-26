@@ -1,6 +1,8 @@
 <template>
   <div class="card" :style="cardStyle" v-on="$listeners" v-bind="$attrs">
-    <slot />
+    <div>
+      <slot />
+    </div>
     <div class="card-arrow">
       <div class="card-arrow-top-left"></div>
       <div class="card-arrow-top-right"></div>

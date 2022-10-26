@@ -8,14 +8,16 @@
           width="70px"
           @click="onToggleList"
         >
-          <map-image :src="current_baseMaps.thumbnail">
-            <div class="base-map-button__title">
-              <map-icon dark small>{{ controlIcon }}</map-icon>
-              <div class="">
-                {{ title || trans("map.basemap.title") }}
+          <div class="base-map-button__content">
+            <map-image :src="current_baseMaps.thumbnail">
+              <div class="base-map-button__title">
+                <map-icon dark small>{{ controlIcon }}</map-icon>
+                <div class="">
+                  {{ title || trans("map.basemap.title") }}
+                </div>
               </div>
-            </div>
-          </map-image>
+            </map-image>
+          </div>
         </map-card>
       </MapControlButton>
 
@@ -156,7 +158,7 @@ export default {
 .base-map-button__title > div {
   font-size: 0.6rem;
 }
-.base-map-button__container {
+.base-map-button__content {
   padding: 2px;
 }
 .base-map-control-setting {
