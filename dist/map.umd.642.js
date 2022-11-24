@@ -1,0 +1,11 @@
+"use strict";
+((typeof self !== 'undefined' ? self : this)["webpackChunkmap"] = (typeof self !== 'undefined' ? self : this)["webpackChunkmap"] || []).push([[642],{
+
+/***/ 5642:
+/***/ (function(module) {
+
+module.exports = JSON.parse('{"measurement":{"title":"Công cụ đo đạc","result":"Kết quả đo lường","field":{"unit-distance":"Đơn vị độ dài","unit-area":"Đơn vị diện tích"},"tools":{"point":"Đánh dấu","distance":"Đo độ dài","area":"Đo diện tích","azimuth":"Đo phương vị"},"unit":{"meter":"Mét","kilometer":"Kilômét","square-meter":"Mét vuông","hecta":"Hecta","square-kilometer":"Kilômét vuông"}},"basemap":{"title":"Bản đồ nền","setting":"Cài đặt"},"action":{"fullscreen-control-enter":"Mở toàn màn hình","fullscreen-control-exit":"Thoát toàn màn hình","geolocate-control-find-my-location":"Tìm vị trí của tôi","geolocate-control-location-not-available":"Định vị không khả dụng","navigation-control-zoom-in":"Phóng to","navigation-control-zoom-out":"Thu nhỏ","navigation-control-reset-bearing":"Đặt lại phương vị"}}');
+
+/***/ })
+
+}]);

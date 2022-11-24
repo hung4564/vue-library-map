@@ -1,6 +1,5 @@
-export * from "/Map";
-export * from "/draggable";
-export * from "/async";
+export * from "./Map";
+export * from "./draggable";
 
 import MapButton from "./MapButton.vue";
 import MapCard from "./MapCard.vue";

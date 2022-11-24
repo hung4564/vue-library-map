@@ -23,21 +23,10 @@
 
 <script>
 import { getUUIDv4 } from "@utils";
-import asyncComponent from "@components/async";
 export default {
   components: {
-    DraggablePopupDesktop: () =>
-      asyncComponent(import("./draggable-popup-desktop.vue"), {
-        disableLoading: true
-      }),
-    DraggablePopupMobile: () =>
-      asyncComponent(import("./draggable-popup-mobile.vue"), {
-        disableLoading: true
-      }),
-    DraggableSidebar: () =>
-      asyncComponent(import("./draggable-sidebar.vue"), {
-        disableLoading: true
-      })
+    DraggablePopupDesktop: () => import("./draggable-popup-desktop.vue"),
+    DraggablePopupMobile: () => import("./draggable-popup-mobile.vue")
   },
   props: {
     show: Boolean,

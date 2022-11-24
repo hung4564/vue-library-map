@@ -88,6 +88,7 @@ export default {
     this.p_y = 0;
     this.p_height = this.height;
     this.p_width = this.width;
+    this.init();
   },
   watch: {
     height: {
@@ -102,20 +103,7 @@ export default {
     },
     show: {
       handler(val) {
-        if (val) {
-          if (!isNil(this.left)) {
-            this.p_x = this.left;
-          }
-          if (!isNil(this.top)) {
-            this.p_y = this.top;
-          }
-          if (!isNil(this.right)) {
-            this.p_x = this.c_parentWidth - this.right - this.p_width;
-          }
-          if (!isNil(this.bottom)) {
-            this.p_y = this.c_parentHeight - this.bottom - this.p_height;
-          }
-        }
+        this.init();
         this.p_show = val;
       },
       immediate: true
@@ -142,6 +130,21 @@ export default {
     }
   },
   methods: {
+    init() {
+      if (!this.show) return;
+      if (!isNil(this.left)) {
+        this.p_x = this.left;
+      }
+      if (!isNil(this.top)) {
+        this.p_y = this.top;
+      }
+      if (!isNil(this.right)) {
+        this.p_x = this.c_parentWidth - this.right - this.p_width;
+      }
+      if (!isNil(this.bottom)) {
+        this.p_y = this.c_parentHeight - this.bottom - this.p_height;
+      }
+    },
     toggleExpanded() {
       this.p_height = !this.isExpanded ? this.height : 50;
     },

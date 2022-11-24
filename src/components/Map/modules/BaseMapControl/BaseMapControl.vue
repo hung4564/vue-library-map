@@ -25,6 +25,7 @@
     </template>
     <template #draggable="props">
       <DraggablePopup
+        v-if="show"
         v-bind="props"
         :height="70 * (Math.floor(c_baseMaps.length / 3) + 1) + 48 + 10"
         :show.sync="show"

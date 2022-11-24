@@ -60,6 +60,7 @@ export default {
     unRegisterPopup(id) {
       this.setPopupShowId(id, false);
       this.$delete(this.popupUpAction, id);
+      this.popupIds = this.popupIds.filter((x) => x != id);
     },
     setLayerToBack(id) {
       let index = this.popupIdsShow.findIndex((x) => x == id);

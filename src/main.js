@@ -1,3 +1,4 @@
+import "@mdi/font/css/materialdesignicons.css";
 import "@/assets/sass/app.scss";
 
 import App from "./App.vue";

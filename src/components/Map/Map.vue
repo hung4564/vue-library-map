@@ -43,13 +43,11 @@ const DEFAULTOPTION = {
   maxZoom: 22
 };
 import mapboxgl from "mapbox-gl";
-import "mapbox-gl/dist/mapbox-gl.css";
 import DraggableMapContianer from "@components/draggable/draggable-map-contianer.vue";
 import { getGlyphs, getSprite } from "@constant";
 import { getUUIDv4 } from "@utils";
 import { setMap } from "./store/store-map";
 import enLang from "@/lang/en/map";
-import vnLang from "@/lang/vi/map";
 export default {
   components: { DraggableMapContianer, PortalTarget },
   props: {
@@ -122,7 +120,6 @@ export default {
     },
     getLocaleObject(locale) {
       if (typeof locale == "object") return locale;
-      if (this.locale == "vi") return { map: vnLang };
       return { map: enLang };
     },
     init() {

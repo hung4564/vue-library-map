@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <Map locale="vi">
-      <MeasurementControl position="top-right" />
       <BaseMapControl position="bottom-left" />
       <PrintControl />
       <GeolocateControl />
@@ -23,7 +22,6 @@ import {
   HomeControl,
   GeolocateControl,
   BaseMapControl,
-  MeasurementControl,
   Map,
   PrintControl
 } from "@components/Map";
@@ -36,7 +34,6 @@ export default {
     HomeControl,
     GeolocateControl,
     BaseMapControl,
-    MeasurementControl,
     Map,
     PrintControl
   }

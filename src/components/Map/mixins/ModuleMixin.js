@@ -78,9 +78,8 @@ export default {
           try {
             await command;
           } catch (error) {
-            console.error(error);
             this.$emit("module-failed");
-            return;
+            throw error;
           }
         }
       }
