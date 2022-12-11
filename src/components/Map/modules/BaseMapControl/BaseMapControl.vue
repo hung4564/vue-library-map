@@ -71,7 +71,7 @@
 <script>
 import MapImage from "../../../MapImage.vue";
 import MapIcon from "../../../MapIcon.vue";
-import { DraggablePopup } from "@components/draggable";
+import { DraggablePopup } from "@hungpv4564/vue-libary-draggable";
 import ModuleMixin from "@/components/Map/mixins/ModuleMixin";
 //import MapControlGroupButton from "@/components/Map/control/MapControlGroupButton.vue";
 import MapControlButton from "@/components/Map/control/MapControlButton.vue";

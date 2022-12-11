@@ -1001,6 +1001,21 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
+"@hungpv4564/vue-libary-draggable@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@hungpv4564/vue-libary-draggable/-/vue-libary-draggable-1.0.7.tgz#ba237dcf46f37a7ee8fec4cde23a591d93daff7b"
+  integrity sha512-EDD3Hbg+GoSuhufJdaHXo+WBAsv+eONwuId1QOKb5dW4rtDZ8afwKrJkXq5ZLext/vLo+X/4MvjMtqovCCJnGg==
+  dependencies:
+    "@mdi/font" "^7.0.96"
+    "@vue/runtime-dom" "^3.2.37"
+    core-js "^3.8.3"
+    minify-css-string "^1.0.0"
+    sass "^1.53.0"
+    sass-loader "^13.0.2"
+    vue "^2.6.14"
+    vue-drag-resize "^1.5.4"
+    vue-resize-directive "^1.2.0"
+
 "@jridgewell/gen-mapping@^0.1.0":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@jridgewell/gen-mapping/-/gen-mapping-0.1.1.tgz#e5d2e450306a9491e3bd77e323e38d7aff315996"

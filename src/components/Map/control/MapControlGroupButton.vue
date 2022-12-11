@@ -57,13 +57,13 @@ export default {
 </script>
 
 <style scoped>
-.button-group-container >>> .map-control-button {
+.button-group-container ::deep(.map-control-button) {
   background-color: unset !important;
 }
-.button-group-row-container >>> .map-control-button:not(:last-child) {
+.button-group-row-container ::deep(.map-control-button:not(:last-child)) {
   border-right: thin solid rgba(0, 0, 0, 0.12);
 }
-.button-group-column-container >>> .map-control-button:not(:first-child) {
+.button-group-column-container ::deep(.map-control-button:not(:first-child)) {
   border-top: thin solid rgba(0, 0, 0, 0.12);
 }
 .button-group-sheet {

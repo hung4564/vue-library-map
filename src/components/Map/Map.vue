@@ -25,11 +25,9 @@
       />
       <portal-target class="right-top-container" multiple :name="rightTopTo" />
       <portal-target class="left-top-container" multiple :name="leftTopTo" />
-      <draggable-map-contianer
-        class="drag-container"
-        :isShowSidebar.sync="isShowSidebar"
-        :mapId="id"
-      />
+      <draggable-contianer class="drag-container">
+        <portal-target multiple :name="draggableTo" />
+      </draggable-contianer>
       <slot v-if="loaded" />
     </div>
   </div>
@@ -43,13 +41,13 @@ const DEFAULTOPTION = {
   maxZoom: 22
 };
 import mapboxgl from "mapbox-gl";
-import DraggableMapContianer from "@components/draggable/draggable-map-contianer.vue";
+import { DraggableContianer } from "@hungpv4564/vue-libary-draggable";
 import { getGlyphs, getSprite } from "@constant";
 import { getUUIDv4 } from "@utils";
 import { setMap } from "./store/store-map";
 import enLang from "@/lang/en/map";
 export default {
-  components: { DraggableMapContianer, PortalTarget },
+  components: { DraggableContianer, PortalTarget },
   props: {
     mapboxAccessToken: {
       type: String,
@@ -68,13 +66,15 @@ export default {
 
   data() {
     return {
-      isShowSidebar: false,
       isSupport: true,
       loaded: false,
       id: getUUIDv4()
     };
   },
   computed: {
+    draggableTo() {
+      return `map-draggable-${this.id}`;
+    },
     rightBottomTo() {
       return `bottom-right-${this.id}`;
     },
