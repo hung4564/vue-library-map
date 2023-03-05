@@ -41,7 +41,7 @@ import {
   BaseMapControl,
   Map,
   PrintControl
-} from "@components/Map";
+} from "@hungpv4564/vue-library-draggable";
 export default {
   name: "App",
   components: {
