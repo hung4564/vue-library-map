@@ -32,7 +32,7 @@
     "axios": "^0.27.2",
     "core-js": "^3.8.3",
     "file-saver": "^2.0.5",
-    "mapbox-gl": "^1.15.0",
+    "mapbox-gl": "^1.13.0",
     "minify-css-string": "^1.0.0",
     "portal-vue": "^2.1.7",
     "proj4": "^2.8.0",
