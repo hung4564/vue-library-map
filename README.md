@@ -42,6 +42,9 @@ import {
   Map,
   PrintControl
 } from "@hungpv4564/vue-library-draggable";
+import "@hungpv4564/vue-library-map/dist/map.css";
+import "@mdi/font/css/materialdesignicons.css";
+
 export default {
   name: "App",
   components: {
