@@ -15,7 +15,7 @@
   },
   "bugs": "https://github.com/hung4564/vue-library-map/issues",
   "license": "MIT",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "files": [
     "dist/*"
   ],
@@ -25,14 +25,14 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@hungpv4564/vue-library-draggable": "^0.0.7",
+    "@hungpv4564/vue-library-draggable": "^1.0.1",
     "@mdi/font": "^7.0.96",
     "@turf/turf": "^6.5.0",
     "@vue/runtime-dom": "^3.2.37",
     "axios": "^0.27.2",
     "core-js": "^3.8.3",
     "file-saver": "^2.0.5",
-    "mapbox-gl": "^1.1.2",
+    "mapbox-gl": "^1.15.0",
     "minify-css-string": "^1.0.0",
     "portal-vue": "^2.1.7",
     "proj4": "^2.8.0",

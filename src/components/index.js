@@ -1,5 +1,4 @@
 export * from "./Map";
-export * from "./draggable";
 
 const MapButton = () => import("./MapButton.vue");
 const MapCard = () => import("./MapCard.vue");
