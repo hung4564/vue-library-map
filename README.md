@@ -9,7 +9,7 @@ npm i @hungpv4564/vue-library-draggable
 ```
 
 ```
-yarn @hungpv4564/vue-library-draggable
+yarn add @hungpv4564/vue-library-draggable
 ```
 
 ## Usage

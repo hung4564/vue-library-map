@@ -1,19 +1,19 @@
 {
   "main": "./dist/map.common.js",
-  "name": "@hungpv4564/vue-libary-map",
+  "name": "@hungpv4564/vue-library-map",
   "author": {
     "name": "hung.pv"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hung4564/vue-libary-map"
+    "url": "https://github.com/hung4564/vue-library-map"
   },
   "private": false,
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "bugs": "https://github.com/hung4564/vue-libary-map/issues",
+  "bugs": "https://github.com/hung4564/vue-library-map/issues",
   "license": "MIT",
   "version": "1.0.0",
   "files": [
@@ -25,7 +25,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@hungpv4564/vue-libary-draggable": "^1.0.7",
+    "@hungpv4564/vue-library-draggable": "^0.0.7",
     "@mdi/font": "^7.0.96",
     "@turf/turf": "^6.5.0",
     "@vue/runtime-dom": "^3.2.37",

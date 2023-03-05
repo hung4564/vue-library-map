@@ -1001,10 +1001,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@hungpv4564/vue-libary-draggable@^1.0.7":
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/@hungpv4564/vue-libary-draggable/-/vue-libary-draggable-1.0.7.tgz#ba237dcf46f37a7ee8fec4cde23a591d93daff7b"
-  integrity sha512-EDD3Hbg+GoSuhufJdaHXo+WBAsv+eONwuId1QOKb5dW4rtDZ8afwKrJkXq5ZLext/vLo+X/4MvjMtqovCCJnGg==
+"@hungpv4564/vue-library-draggable@^0.0.7":
+  version "0.0.7"
+  resolved "https://registry.yarnpkg.com/@hungpv4564/vue-library-draggable/-/vue-library-draggable-0.0.7.tgz#0ef2166e2db0015123a3240a9c02c7ef5fa90f7b"
+  integrity sha512-wI0+mnO7XkYMDtMzHN7PLVLZFyvg8XdKQBCu9EltQzdHF3YOCGjwcNl2dPL0Tlu6dc4TGK/yDiMIz3S+bDXLuw==
   dependencies:
     "@mdi/font" "^7.0.96"
     "@vue/runtime-dom" "^3.2.37"
