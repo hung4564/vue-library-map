@@ -13,20 +13,12 @@
     <div class="map-viewer">
       <div ref="mapContainer" class="map-content"> </div>
 
-      <portal-target
-        class="right-bottom-container"
-        multiple
-        :name="rightBottomTo"
-      />
-      <portal-target
-        class="left-bottom-container"
-        multiple
-        :name="leftBottomTo"
-      />
-      <portal-target class="right-top-container" multiple :name="rightTopTo" />
-      <portal-target class="left-top-container" multiple :name="leftTopTo" />
-      <draggable-contianer class="drag-container">
-        <portal-target multiple :name="draggableTo" />
+      <div class="right-bottom-container" :id="rightBottomTo" />
+      <div class="left-bottom-container" :id="leftBottomTo" />
+      <div class="right-top-container" :id="rightTopTo" />
+      <div class="left-top-container" :id="leftTopTo" />
+      <draggable-contianer class="drag-container" @init-done="onDragInitDone">
+        <div :id="draggableTo" />
       </draggable-contianer>
       <slot v-if="loaded" />
     </div>
@@ -34,7 +26,6 @@
 </template>
 
 <script>
-import { PortalTarget } from "portal-vue";
 const DEFAULTOPTION = {
   center: [105.19084739818732, 15.827971829957548],
   zoom: 5.297175623863693,
@@ -47,7 +38,7 @@ import { getUUIDv4 } from "@utils";
 import { setMap } from "./store/store-map";
 import enLang from "@/lang/en/map";
 export default {
-  components: { DraggableContianer, PortalTarget },
+  components: { DraggableContianer },
   props: {
     mapboxAccessToken: {
       type: String,
@@ -68,7 +59,8 @@ export default {
     return {
       isSupport: true,
       loaded: false,
-      id: getUUIDv4()
+      id: getUUIDv4(),
+      dragId: undefined
     };
   },
   computed: {
@@ -90,10 +82,18 @@ export default {
   },
 
   provide() {
+    const $map = {};
+    Object.defineProperty($map, "dragId", {
+      enumerable: true,
+      get: () => this.dragId
+    });
+
     return {
       getMap: this.getMap,
       mapId: this.id,
-      trans: this.trans || this.transLocal
+      dragId: this.dragId,
+      trans: this.trans || this.transLocal,
+      $map
     };
   },
 
@@ -115,6 +115,9 @@ export default {
   },
 
   methods: {
+    onDragInitDone(drag) {
+      this.dragId = drag.id;
+    },
     transLocal(key) {
       return getProp(this.getLocaleObject(this.locale), key, key);
     },
@@ -140,11 +143,13 @@ export default {
       this.map.id = this.id;
       setMap(this.id, this.map);
       this.map.once("load", () => {
-        this.loaded = true;
         // Emit for parent component
-        this.$emit("map-loaded", this.map);
         this.$nextTick(() => {
           this.map.resize();
+          setTimeout(() => {
+            this.loaded = true;
+            this.$emit("map-loaded", this.map);
+          }, 100);
         });
       });
     },

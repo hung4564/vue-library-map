@@ -35,7 +35,7 @@ export default {
 
   watch: {},
 
-  inject: ["getMap", "mapId", "trans"],
+  inject: ["getMap", "mapId", "trans", "$map"],
   computed: {
     isLeft() {
       return this.position.includes("left");
@@ -54,7 +54,8 @@ export default {
         controlVisible: this.controlVisible,
         order: this.order,
         position: this.position,
-        prefix: this.mapId
+        prefix: this.mapId,
+        dragId: this.$map.dragId
       };
     }
   },

@@ -1,23 +1,28 @@
 <template>
   <div class="module__container">
-    <portal v-if="controlVisible && $slots['btn']" :order="order" :to="btnTo">
+    <portal
+      v-if="controlVisible && $slots['btn']"
+      :order="order"
+      :selector="btnTo"
+    >
       <div>
         <slot name="btn" />
       </div>
     </portal>
     <slot />
-    <portal :to="draggableTo">
+    <portal :selector="draggableTo" v-if="dragId">
       <slot v-bind="bindDrag" name="draggable" />
     </portal>
   </div>
 </template>
 
 <script>
-import { Portal } from "portal-vue";
+import { Portal } from "@linusborg/vue-simple-portal";
 export default {
   components: { Portal },
   props: {
     prefix: { type: String, default: "mapbox" },
+    dragId: { type: String, default: "" },
     btnWidth: { type: Number, default: 32 },
     position: {
       type: String,
@@ -42,13 +47,14 @@ export default {
   },
   computed: {
     btnTo() {
-      return `${this.position}-${this.prefix}`;
+      return `#${this.position}-${this.prefix}`;
     },
     draggableTo() {
-      return `map-draggable-${this.prefix}`;
+      return `#map-draggable-${this.prefix}`;
     },
     bindDrag() {
       let bind = {};
+      bind.containerId = this.dragId;
       if (this.position.includes("left")) {
         bind.left = 18 + this.btnWidth;
       }
