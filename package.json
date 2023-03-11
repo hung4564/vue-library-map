@@ -21,7 +21,7 @@
   },
   "bugs": "https://github.com/hung4564/vue-library-map/issues",
   "license": "MIT",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "files": [
     "dist/*"
   ],
@@ -33,7 +33,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@hungpv4564/vue-library-draggable": "1.0.5",
+    "@hungpv4564/vue-library-draggable": "1.0.7",
     "@mdi/font": "7.1.96",
     "@turf/turf": "6.5.0",
     "@vue/runtime-dom": "3.2.47",
