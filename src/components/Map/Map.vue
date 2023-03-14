@@ -37,6 +37,8 @@ import { getGlyphs, getSprite } from "@constant";
 import { getUUIDv4 } from "@utils";
 import { setMap, removeMap } from "./store/store-map";
 import { setMapLang, removeMapLang, mapLang } from "./store/store-lang";
+import enLang from "@/lang/en/map";
+import viLang from "@/lang/vi/map";
 export default {
   components: { DraggableContianer },
   props: {
@@ -139,10 +141,7 @@ export default {
       if (typeof locale == "object") {
         setMapLang(this.id, locale);
       } else if (["en", "vi"].includes(locale)) {
-        let res = await import(
-          /* webpackChunkName: "json_menu" */
-          `@/lang/${locale}/map`
-        );
+        let res = locale == "en" ? enLang : viLang;
         setMapLang(this.id, { map: res });
       }
     },

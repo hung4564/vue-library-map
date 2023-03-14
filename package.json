@@ -3,7 +3,7 @@
   "name": "@hungpv4564/vue-library-map",
   "exports": {
     ".": "./dist/map.common.js",
-    "./*": "./dist/map.common.js/*",
+    "./*": "./dist/*",
     "./mixin": "./dist/mixin.common.js",
     "./store": "./dist/store.common.js",
     "./main.css": "./dist/map.css"
@@ -22,7 +22,7 @@
   },
   "bugs": "https://github.com/hung4564/vue-library-map/issues",
   "license": "MIT",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "files": [
     "dist/*"
   ],
