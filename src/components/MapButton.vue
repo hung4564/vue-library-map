@@ -21,7 +21,7 @@ export default {
 .map-control-button {
   cursor: pointer;
   border-style: none;
-  background-color: #f5f5f5;
+  background-color: #ffffff;
   font-size: 0.625rem;
   align-items: center;
   border-radius: 4px;
@@ -57,5 +57,8 @@ export default {
     transition: inherit;
     transition-property: opacity;
   }
+}
+.map-control-button:hover {
+  background-color: #f5f5f5;
 }
 </style>
