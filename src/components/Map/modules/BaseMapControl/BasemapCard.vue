@@ -9,7 +9,7 @@
       <div class="px-2">
         <div class="d-flex align-center">
           <span class="text-caption d-inline-block text-truncate flex-grow-1">
-            <span>{{ title || trans("map.basemap.title") }}</span>
+            <span>{{ title || $map.trans("map.basemap.title") }}</span>
           </span>
         </div>
         <div>

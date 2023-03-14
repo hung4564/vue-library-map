@@ -39,10 +39,10 @@ export default {
     },
     tooltipGeolocate() {
       if (this.disable)
-        return this.trans(
+        return this.$map.trans(
           "map.action.geolocate-control-location-not-available"
         );
-      return this.trans("map.action.geolocate-control-find-my-location");
+      return this.$map.trans("map.action.geolocate-control-find-my-location");
     }
   },
   methods: {

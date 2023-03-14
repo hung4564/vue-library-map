@@ -1,7 +1,11 @@
 <template>
   <ModuleContainer v-bind="bindModule">
     <template #btn>
-      <MapControlButton icon="mdi-home" @click="onGoHome" />
+      <MapControlButton
+        icon="mdi-home"
+        @click="onGoHome"
+        :tooltip="$map.trans('map.home.title')"
+      />
     </template>
     <slot />
   </ModuleContainer>

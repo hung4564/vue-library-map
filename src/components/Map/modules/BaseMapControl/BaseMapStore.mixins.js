@@ -23,7 +23,7 @@ export default {
   },
   computed: {
     c_mapId() {
-      return this.i_mapId || this.mapId;
+      return this.i_mapId || (this.$map && this.$map.id);
     },
     c_baseMaps() {
       return baseMaps(this.c_mapId);

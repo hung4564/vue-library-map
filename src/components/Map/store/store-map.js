@@ -3,26 +3,30 @@ import { initMapListener, removeMapListener } from "./store-event";
 
 import Vue from "vue";
 
-const store = new Vue.observable({});
-let MAP_OBJECT = {};
+if (!Vue.prototype.$_map_store) {
+  Vue.prototype.$_map_store = new Vue.observable({});
+}
+if (!Vue.prototype.$_map_object) {
+  Vue.prototype.$_map_object = {};
+}
 export const setMap = (id, map) => {
-  MAP_OBJECT[id] = map;
+  Vue.prototype.$_map_object[id] = map;
   initMapListener(id);
   initMapBaseMap(id);
-  Vue.set(store, id, {
+  Vue.set(Vue.prototype.$_map_store, id, {
     sources: [],
     layers: []
   });
 };
 export const removeMap = (id) => {
-  delete MAP_OBJECT[id];
-  Vue.delete(store, id);
+  delete Vue.prototype.$_map_object[id];
+  Vue.delete(Vue.prototype.$_map_store, id);
   removeBaseMap(id);
   removeMapListener(id);
 };
-export const getMap = (id) => MAP_OBJECT[id] || {};
+export const getMap = (id) => Vue.prototype.$_map_object[id] || {};
 
-export const getStoreMap = (id) => store[id] || {};
+export const getStoreMap = (id) => Vue.prototype.$_map_store[id] || {};
 
 //style
 
@@ -40,10 +44,10 @@ export const updateSource = (mapId, source) => {
   let index = sources.findIndex((x) => x.id == source.id);
   if (index < 0) return;
   // state.sources[index] = source;
-  Vue.set(store[mapId].sources, index, source);
+  Vue.set(Vue.prototype.$_map_store[mapId].sources, index, source);
 };
 export const setSources = (mapId, sources) => {
-  Vue.set(store[mapId], "sources", sources);
+  Vue.set(Vue.prototype.$_map_store[mapId], "sources", sources);
 };
 export const removeSource = (mapId, source) => {
   let sources = getSources(mapId);
@@ -76,7 +80,7 @@ export const setLayers = (mapId, layers) => {
     .slice()
     .reverse()
     .forEach((item) => item.addToMap(getMap(mapId)));
-  Vue.set(store[mapId], "layers", layers);
+  Vue.set(Vue.prototype.$_map_store[mapId], "layers", layers);
 };
 export const removeLayer = (mapId, layer) => {
   let layers = getLayers(mapId);
@@ -87,4 +91,4 @@ export const removeLayer = (mapId, layer) => {
   layers.splice(index, 1);
 };
 
-export default () => store;
+export default () => Vue.prototype.$_map_store;

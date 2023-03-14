@@ -13,7 +13,7 @@
               <div class="base-map-button__title">
                 <map-icon dark small>{{ controlIcon }}</map-icon>
                 <div class="">
-                  {{ title || trans("map.basemap.title") }}
+                  {{ title || $map.trans("map.basemap.title") }}
                 </div>
               </div>
             </map-image>
@@ -30,7 +30,7 @@
         :height="70 * (Math.floor(c_baseMaps.length / 3) + 1) + 48 + 10"
         :show.sync="show"
         :is-resizable="false"
-        :title="trans('map.basemap.setting')"
+        :title="$map.trans('map.basemap.setting')"
         :width="70 * 3 + 24"
       >
         <div class="base-map-control-setting">

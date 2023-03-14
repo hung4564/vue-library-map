@@ -5,8 +5,8 @@
         icon="mdi-fullscreen"
         :title="
           !isFullScreen
-            ? trans('map.action.fullscreen-control-enter')
-            : trans('map.action.fullscreen-control-exit')
+            ? $map.trans('map.action.fullscreen-control-enter')
+            : $map.trans('map.action.fullscreen-control-exit')
         "
         @click="onToggleFullScreen"
       />

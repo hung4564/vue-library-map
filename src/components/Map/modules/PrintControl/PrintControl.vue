@@ -5,7 +5,7 @@
         v-if="!print.show"
         :active="print.show"
         icon="mdi-printer-outline"
-        tooltip="In ấn"
+        :tooltip="$map.trans('map.print.title')"
         @click="onSaveAll()"
       />
       <template v-else>
@@ -13,13 +13,13 @@
           <MapControlButton
             icon="mdi-content-save-outline"
             :loading="print.loading"
-            :tooltip="trans('actions.save')"
+            :tooltip="$map.trans('actions.save')"
             @click="onSave()"
           />
           <MapControlButton
             :disabled="print.loading"
             icon="mdi-close"
-            :tooltip="trans('actions.clear')"
+            :tooltip="$map.trans('actions.clear')"
             @click="onClosePrint()"
           />
         </MapControlGroupButton>
@@ -118,7 +118,7 @@ export default {
     },
     onInit() {
       this.mapResizeBind = this.onMapResize.bind(this);
-      initPrint(this.mapId, {
+      initPrint(this.$map.mapId, {
         show: (options) => this.onShowPrint(options),
         close: () => this.onClosePrint(),
         save: (cb) => this.onSave(cb),

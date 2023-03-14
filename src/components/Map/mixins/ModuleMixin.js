@@ -35,7 +35,7 @@ export default {
 
   watch: {},
 
-  inject: ["getMap", "mapId", "trans", "$map"],
+  inject: ["getMap", "$map"],
   computed: {
     isLeft() {
       return this.position.includes("left");
@@ -54,7 +54,7 @@ export default {
         controlVisible: this.controlVisible,
         order: this.order,
         position: this.position,
-        prefix: this.mapId,
+        prefix: this.$map.id,
         dragId: this.$map.dragId
       };
     }
@@ -102,10 +102,10 @@ export default {
 
   methods: {
     removeListenerMap(event, eventId) {
-      removeListenerMap(this.mapId, event, eventId);
+      removeListenerMap(this.$map.id, event, eventId);
     },
     addListenerMap(event, eventId, cb) {
-      addListenerMap(this.mapId, event, eventId, cb);
+      addListenerMap(this.$map.id, event, eventId, cb);
     },
     actionAfterMapLoaded(cb) {
       if (!this.map) {

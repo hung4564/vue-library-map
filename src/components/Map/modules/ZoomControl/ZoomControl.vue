@@ -4,7 +4,7 @@
       <MapControlGroupButton>
         <MapControlButton
           v-if="showCompass"
-          :title="trans('map.action.navigation-control-reset-bearing')"
+          :title="$map.trans('map.action.navigation-control-reset-bearing')"
           @click="onResetBearing"
         >
           <svg
@@ -24,13 +24,13 @@
         <MapControlButton
           v-if="showZoom"
           icon="mdi-plus"
-          :title="trans('map.action.navigation-control-zoom-in')"
+          :title="$map.trans('map.action.navigation-control-zoom-in')"
           @click="onZoomIn"
         />
         <MapControlButton
           v-if="showZoom"
           icon="mdi-minus"
-          :title="trans('map.action.navigation-control-zoom-out')"
+          :title="$map.trans('map.action.navigation-control-zoom-out')"
           @click="onZoomOut"
         />
       </MapControlGroupButton>

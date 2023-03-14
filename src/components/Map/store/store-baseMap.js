@@ -3,12 +3,17 @@ import axios from "axios";
 import { getMap } from "./store-map";
 
 export const BASEMAP_PREFIX = "base_map_control";
-let BASE_MAP_OBJECT = {};
 
-const state = Vue.observable({});
+if (!Vue.prototype.$_map_base_map_store) {
+  Vue.prototype.$_map_base_map_store = new Vue.observable({});
+}
+if (!Vue.prototype.$_map_base_map_object) {
+  Vue.prototype.$_map_base_map_object = {};
+}
+
 export function initMapBaseMap(mapId) {
-  BASE_MAP_OBJECT[mapId] = {};
-  Vue.set(state, mapId, {
+  Vue.prototype.$_map_base_map_object[mapId] = {};
+  Vue.set(Vue.prototype.$_map_base_map_store, mapId, {
     baseMaps: [],
     current_baseMaps: null,
     loading: false,
@@ -18,11 +23,11 @@ export function initMapBaseMap(mapId) {
   });
 }
 export const removeBaseMap = (mapId) => {
-  delete BASE_MAP_OBJECT[mapId];
-  Vue.delete(state, mapId);
+  delete Vue.prototype.$_map_base_map_object[mapId];
+  Vue.delete(Vue.prototype.$_map_base_map_store, mapId);
 };
 
-const getStoreMap = (id) => state[id] || {};
+const getStoreMap = (id) => Vue.prototype.$_map_base_map_store[id] || {};
 export const setBaseMaps = (mapId, baseMaps = []) => {
   getStoreMap(mapId).baseMaps = baseMaps;
   setBaseMapForMap(mapId, baseMaps[getIndexDefault(mapId)]);

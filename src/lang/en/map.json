@@ -21,6 +21,8 @@
     }
   },
   "basemap": { "title": "Map basemap", "setting": "Setting" },
+  "print": { "title": "Print" },
+  "home": { "title": "Default view" },
   "action": {
     "fullscreen-control-enter": "Enter fullscreen",
     "fullscreen-control-exit": "Exit fullscreen",

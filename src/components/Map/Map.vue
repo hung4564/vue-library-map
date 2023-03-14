@@ -35,8 +35,8 @@ import mapboxgl from "mapbox-gl";
 import { DraggableContianer } from "@hungpv4564/vue-library-draggable";
 import { getGlyphs, getSprite } from "@constant";
 import { getUUIDv4 } from "@utils";
-import { setMap } from "./store/store-map";
-import enLang from "@/lang/en/map";
+import { setMap, removeMap } from "./store/store-map";
+import { setMapLang, removeMapLang, mapLang } from "./store/store-lang";
 export default {
   components: { DraggableContianer },
   props: {
@@ -64,6 +64,9 @@ export default {
     };
   },
   computed: {
+    transText() {
+      return mapLang(this.id);
+    },
     draggableTo() {
       return `map-draggable-${this.id}`;
     },
@@ -88,11 +91,22 @@ export default {
       get: () => this.dragId
     });
 
+    Object.defineProperty($map, "trans", {
+      enumerable: true,
+      get: () => this.trans || this.transLocal
+    });
+    Object.defineProperty($map, "id", {
+      enumerable: true,
+      get: () => this.id
+    });
+    Object.defineProperty($map, "locale", {
+      enumerable: true,
+      get: () => this.locale
+    });
+
     return {
       getMap: this.getMap,
-      mapId: this.id,
       dragId: this.dragId,
-      trans: this.trans || this.transLocal,
       $map
     };
   },
@@ -103,6 +117,7 @@ export default {
 
   mounted() {
     this.isSupport = mapboxgl.supported();
+    this.setLocale(this.locale);
     if (this.isSupport) {
       this.$nextTick(() => {
         this.init();
@@ -113,17 +128,29 @@ export default {
   destroyed() {
     this.destroy();
   },
+  watch: {
+    locale() {
+      this.setLocale(this.locale);
+    }
+  },
 
   methods: {
+    async setLocale(locale) {
+      if (typeof locale == "object") {
+        setMapLang(this.id, locale);
+      } else if (["en", "vi"].includes(locale)) {
+        let res = await import(
+          /* webpackChunkName: "json_menu" */
+          `@/lang/${locale}/map`
+        );
+        setMapLang(this.id, { map: res });
+      }
+    },
     onDragInitDone(drag) {
       this.dragId = drag.id;
     },
     transLocal(key) {
-      return getProp(this.getLocaleObject(this.locale), key, key);
-    },
-    getLocaleObject(locale) {
-      if (typeof locale == "object") return locale;
-      return { map: enLang };
+      return getProp(this.transText, key, key);
     },
     init() {
       const initOptions = Object.assign({}, DEFAULTOPTION, this.initOptions);
@@ -167,6 +194,8 @@ export default {
     destroy() {
       this.map.remove();
       this.map = null;
+      removeMap(this.id);
+      removeMapLang(this.id);
     }
   }
 };

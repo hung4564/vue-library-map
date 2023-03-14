@@ -5,6 +5,7 @@
     ".": "./dist/map.common.js",
     "./*": "./dist/map.common.js/*",
     "./mixin": "./dist/mixin.common.js",
+    "./store": "./dist/store.common.js",
     "./main.css": "./dist/map.css"
   },
   "author": {
@@ -21,25 +22,28 @@
   },
   "bugs": "https://github.com/hung4564/vue-library-map/issues",
   "license": "MIT",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "files": [
     "dist/*"
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "npm-run-all --parallel build-app build-mixin",
+    "build": "npm-run-all --parallel build-app build-mixin build-store",
     "build-app": "vue-cli-service build --target lib --name map build/app.js",
     "build-mixin": "vue-cli-service build --target lib --name mixin build/mixin.js",
+    "build-store": "vue-cli-service build --target lib --name store build/store.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@hungpv4564/vue-library-draggable": "1.0.7",
+    "@linusborg/vue-simple-portal": "^0.1.5",
     "@mdi/font": "7.1.96",
     "@turf/turf": "6.5.0",
     "@vue/runtime-dom": "3.2.47",
     "axios": "1.3.4",
     "core-js": "3.29.0",
     "file-saver": "2.0.5",
+    "lodash": "^4.17.21",
     "mapbox-gl": "1.13.0",
     "minify-css-string": "^1.0.0",
     "proj4": "2.9.0",
@@ -47,8 +51,7 @@
     "sass-loader": "13.2.0",
     "vue": "2.7.14",
     "vue-drag-resize": "1.5.4",
-    "vue-resize-directive": "1.2.0",
-    "@linusborg/vue-simple-portal": "^0.1.5"
+    "vue-resize-directive": "1.2.0"
   },
   "devDependencies": {
     "@babel/core": "7.21.0",

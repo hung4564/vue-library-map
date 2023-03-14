@@ -21,6 +21,8 @@
     }
   },
   "basemap": { "title": "Bản đồ nền", "setting": "Cài đặt" },
+  "print": { "title": "In ấn" },
+  "home": { "title": "Góc nhìn mặc định" },
   "action": {
     "fullscreen-control-enter": "Mở toàn màn hình",
     "fullscreen-control-exit": "Thoát toàn màn hình",

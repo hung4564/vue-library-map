@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Map locale="vi">
+    <Map locale="en">
       <BaseMapControl position="bottom-left" />
       <PrintControl />
       <GeolocateControl />
