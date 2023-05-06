@@ -1140,12 +1140,11 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@hungpv4564/vue-library-draggable@1.0.7":
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/@hungpv4564/vue-library-draggable/-/vue-library-draggable-1.0.7.tgz#f0d926f33bf30f3be595fb61f93aee2f34f88fa8"
-  integrity sha512-2VhwwSrtqPAGACRut9HhjsWK9CQ/GoZhrX1v5TCPpOt/8cOCI2t2jjdqR69D7DceifXDAtzCd9+9kiWLFse4Aw==
+"@hungpv4564/vue-library-draggable@1.0.9":
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/@hungpv4564/vue-library-draggable/-/vue-library-draggable-1.0.9.tgz#9651d6018a071ea164b81d28a4cbfcee9da18571"
+  integrity sha512-PperIy0cnbqloerWxvVE+FoUEi3bVxWVFTB7YvzznzDBl5PixSR8mxdmW6GhFsoURcOi0M6Ps5bqVPfX/P2Z/A==
   dependencies:
-    "@mdi/font" "^7.0.96"
     "@vue/runtime-dom" "3.2.37"
     core-js "^3.8.3"
     minify-css-string "^1.0.0"
@@ -1153,7 +1152,13 @@
     sass-loader "^13.0.2"
     vue "^2.6.14"
     vue-drag-resize "^1.5.4"
+    vue-material-design-icons "^5.2.0"
     vue-resize-directive "^1.2.0"
+
+"@jamescoyle/vue-icon@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@jamescoyle/vue-icon/-/vue-icon-0.1.2.tgz#b9e254187de6716b81bf9e0e8400ec012231bd05"
+  integrity sha512-KFrImXx5TKIi6iQXlnyLEBl4rNosNKbTeRnr70ucTdUaciVmd9qK9d/pZAaKt1Ob/8xNnX2GMp8LisyHdKtEgw==
 
 "@jridgewell/gen-mapping@^0.1.0":
   version "0.1.1"
@@ -1273,15 +1278,10 @@
   resolved "https://registry.yarnpkg.com/@mapbox/whoots-js/-/whoots-js-3.1.0.tgz#497c67a1cef50d1a2459ba60f315e448d2ad87fe"
   integrity sha512-Es6WcD0nO5l+2BOQS4uLfNPYQaNDfbot3X1XUoloz+x0mPDS3eeORZJl06HXjwBG1fOGwCRnzK88LMdxKRrd6Q==
 
-"@mdi/font@7.1.96":
-  version "7.1.96"
-  resolved "https://registry.yarnpkg.com/@mdi/font/-/font-7.1.96.tgz#211ca4acfa31964278e5085de595e8c73967d400"
-  integrity sha512-Imag6npmfkBDi2Ze2jiZVAPTDIKLxhz2Sx82xJ2zctyAU5LYJejLI5ChnDwiD9bMkQfVuzEsI98Q8toHyC+HCg==
-
-"@mdi/font@^7.0.96":
-  version "7.0.96"
-  resolved "https://registry.yarnpkg.com/@mdi/font/-/font-7.0.96.tgz#9853c222623072f5575b4039c8c195ea929b61fc"
-  integrity sha512-rzlxTfR64hqY8yiBzDjmANfcd8rv+T5C0Yedv/TWk2QyAQYdc66e0kaN1ipmnYU3RukHRTRcBARHzzm+tIhL7w==
+"@mdi/js@^7.2.96":
+  version "7.2.96"
+  resolved "https://registry.yarnpkg.com/@mdi/js/-/js-7.2.96.tgz#a2a20be740a75e65c8b8b9e12a2b699c06a9208f"
+  integrity sha512-paR9M9ZT7rKbh2boksNUynuSZMHhqRYnEZOm/KrZTjQ4/FzyhjLHuvw/8XYzP+E7fS4+/Ms/82EN1pl/OFsiIA==
 
 "@nicolo-ribaudo/eslint-scope-5-internals@5.1.1-v1":
   version "5.1.1-v1"
@@ -8000,6 +8000,11 @@ vue-loader@^17.0.0:
     chalk "^4.1.0"
     hash-sum "^2.0.0"
     loader-utils "^2.0.0"
+
+vue-material-design-icons@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/vue-material-design-icons/-/vue-material-design-icons-5.2.0.tgz#4e0cf50a68cb6900e8bd2550acbb44fad99bbd8e"
+  integrity sha512-fcdcJHQ9fQw2CAytuLAzWSELcxH138sCdMItVhvmO7Lu9afIgojB/UCWv7XHt/lURsnq/n6O+muM4AQgw8yfig==
 
 vue-resize-directive@1.2.0, vue-resize-directive@^1.2.0:
   version "1.2.0"
