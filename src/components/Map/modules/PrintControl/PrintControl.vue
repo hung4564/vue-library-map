@@ -4,24 +4,28 @@
       <MapControlButton
         v-if="!print.show"
         :active="print.show"
-        icon="mdi-printer-outline"
         :tooltip="$map.trans('map.print.title')"
         @click="onSaveAll()"
-      />
+        :loading="print.loading"
+      >
+        <SvgIcon :size="18" type="mdi" :path="path.print" />
+      </MapControlButton>
       <template v-else>
         <MapControlGroupButton row>
           <MapControlButton
-            icon="mdi-content-save-outline"
             :loading="print.loading"
             :tooltip="$map.trans('actions.save')"
             @click="onSave()"
-          />
+          >
+            <SvgIcon :size="18" type="mdi" :path="path.save" />
+          </MapControlButton>
           <MapControlButton
             :disabled="print.loading"
-            icon="mdi-close"
             :tooltip="$map.trans('actions.clear')"
             @click="onClosePrint()"
-          />
+          >
+            <SvgIcon :size="18" type="mdi" :path="path.close" />
+          </MapControlButton>
         </MapControlGroupButton>
       </template>
     </template>
@@ -30,6 +34,7 @@
 </template>
 
 <script>
+import { mdiPrinterOutline, mdiClose, mdiContentSaveOutline } from "@mdi/js";
 import MapControlButton from "@/components/Map/control/MapControlButton.vue";
 import MapControlGroupButton from "@/components/Map/control/MapControlGroupButton.vue";
 import ModuleMixin from "@/components/Map/mixins/ModuleMixin";
@@ -43,7 +48,15 @@ export default {
   data: () => ({
     print: { show: false, loading: false }
   }),
-
+  computed: {
+    path() {
+      return {
+        print: mdiPrinterOutline,
+        close: mdiClose,
+        save: mdiContentSaveOutline
+      };
+    }
+  },
   methods: {
     onDestroy() {
       this.onClosePrint();

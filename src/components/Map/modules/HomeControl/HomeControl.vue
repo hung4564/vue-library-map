@@ -2,17 +2,18 @@
   <ModuleContainer v-bind="bindModule">
     <template #btn>
       <MapControlButton
-        icon="mdi-home"
         @click="onGoHome"
         :tooltip="$map.trans('map.home.title')"
-      />
+      >
+        <SvgIcon :size="18" type="mdi" :path="path.home" />
+      </MapControlButton>
     </template>
     <slot />
   </ModuleContainer>
 </template>
 
 <script>
-//import mapboxgl from '@plugins/mapbox-gl'
+import { mdiHome } from "@mdi/js";
 import ModuleMixin from "@/components/Map/mixins/ModuleMixin";
 import MapControlButton from "@/components/Map/control/MapControlButton.vue";
 
@@ -28,6 +29,11 @@ export default {
       },
       zoom: 0
     };
+  },
+  computed: {
+    path() {
+      return { home: mdiHome };
+    }
   },
 
   methods: {

@@ -19,7 +19,7 @@
   </MapButton>
   <div v-else class="button-container">
     <div :title="tooltip || title">
-      <slot>
+      <slot name="content">
         <MapButton
           v-bind="$attrs"
           class="button-elevation"
@@ -46,7 +46,7 @@ export default {
   components: { MapButton, MapIcon },
   props: {
     icon: {
-      type: String
+      type: [String, Boolean]
     },
     tooltip: String,
     title: String,

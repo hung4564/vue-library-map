@@ -1,9 +1,10 @@
 import { addListenerMap, removeListenerMap } from "../store/store-event";
 
 import ModuleContainer from "../ModuleContainer.vue";
+import SvgIcon from "@jamescoyle/vue-icon";
 
 export default {
-  components: { ModuleContainer },
+  components: { ModuleContainer, SvgIcon },
   props: {
     position: {
       type: String,

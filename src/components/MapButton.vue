@@ -1,17 +1,30 @@
 <template>
   <button class="map-control-button" :style="bindStyle" v-on="$listeners">
     <span class="map-control-button__content">
-      <slot />
+      <SvgIcon
+        :size="(height * 2) / 3"
+        type="mdi"
+        :path="path.loading"
+        v-if="loading"
+        class="spin"
+      />
+      <slot v-else />
     </span>
   </button>
 </template>
 
 <script>
+import { mdiLoading } from "@mdi/js";
+import SvgIcon from "@jamescoyle/vue-icon";
 export default {
-  props: { height: { default: 32 }, width: { default: 32 } },
+  components: { SvgIcon },
+  props: { height: { default: 32 }, width: { default: 32 }, loading: Boolean },
   computed: {
     bindStyle() {
       return { width: `${this.width}px`, height: `${this.height}px` };
+    },
+    path() {
+      return { loading: mdiLoading };
     }
   }
 };
@@ -60,5 +73,13 @@ export default {
 }
 .map-control-button:hover {
   background-color: #f5f5f5;
+}
+.spin {
+  animation: 2s linear 0s infinite normal none running spin;
+}
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

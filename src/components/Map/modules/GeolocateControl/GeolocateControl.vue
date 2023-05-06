@@ -6,7 +6,9 @@
         :icon="iconGeolocate"
         :tooltip="tooltipGeolocate"
         @click="onClick"
-      />
+      >
+        <SvgIcon :size="18" type="mdi" :path="iconGeolocate" />
+      </MapControlButton>
     </template>
     <slot />
   </ModuleContainer>
@@ -15,6 +17,7 @@
 <script>
 import ModuleMixin from "@components/Map/mixins/ModuleMixin";
 
+import { mdiCrosshairsOff, mdiCrosshairsGps } from "@mdi/js";
 import { getLocation } from "@utils";
 import { Marker } from "mapbox-gl";
 //import MapControlGroupButton from "@components/Map/control/MapControlGroupButton.vue";
@@ -34,8 +37,8 @@ export default {
   }),
   computed: {
     iconGeolocate() {
-      if (this.disable) return "mdi-crosshairs-off";
-      return "mdi-crosshairs-gps";
+      if (this.disable) return mdiCrosshairsOff;
+      return mdiCrosshairsGps;
     },
     tooltipGeolocate() {
       if (this.disable)

@@ -1,14 +1,14 @@
 <template>
   <div id="app">
     <Map locale="en">
-      <BaseMapControl position="bottom-left" />
-      <PrintControl />
-      <GeolocateControl />
-      <HomeControl />
-      <ZoomControl />
+      <BaseMapControl position="bottom-left" :order="1" />
+      <PrintControl :order="6" />
+      <GeolocateControl :order="5" />
+      <HomeControl :order="4" />
+      <ZoomControl :order="3" />
 
-      <FullScreenControl />
-      <MouseCoordinatesControl />
+      <FullScreenControl :order="2" />
+      <MouseCoordinatesControl :order="1" />
     </Map>
   </div>
 </template>

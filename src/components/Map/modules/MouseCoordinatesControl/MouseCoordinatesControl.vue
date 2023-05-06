@@ -8,16 +8,22 @@
           <div
             class="mapboxgl-ctrl-mouse-coordinates-zoom flex-grow-0 d-flex pr-2"
           >
-            <i :class="[zoomIcon]" title="Current Zoom" />
+            <span title="Current Zoom">
+              <SvgIcon
+                :size="14"
+                type="mdi"
+                :path="path.zoom"
+                v-if="!zoomIcon"
+              />
+              <i :class="[zoomIcon]" v-else title="Current Zoom" />
+            </span>
             <div style="margin-left: 4px">{{ currentZoom }}</div>
           </div>
           <div class="mapboxgl-ctrl-mouse-coordinates-point">
-            <i
-              class="icon-clickable"
-              :class="icon"
-              title="Add Marker"
-              @click="onAddMarker"
-            />
+            <span title="Add Marker" @click="onAddMarker">
+              <SvgIcon :size="14" type="mdi" :path="path.icon" v-if="!icon" />
+              <i class="icon-clickable" :class="icon" v-else />
+            </span>
 
             <div
               style="margin-left: 4px"
@@ -34,8 +40,10 @@
               "
               style="margin-left: 4px"
               @click="changeDisplayTypePixelValue"
-              class="icon-clickable mdi mdi-cached"
-            />
+              class="icon-clickable"
+            >
+              <SvgIcon :size="14" type="mdi" :path="path.change" />
+            </i>
           </div>
         </div>
 
@@ -46,6 +54,7 @@
 </template>
 
 <script>
+import { mdiCached, mdiMapMarkerOutline, mdiMagnify } from "@mdi/js";
 import mapboxgl from "mapbox-gl";
 import ModuleMixin from "@/components/Map/mixins/ModuleMixin";
 
@@ -61,15 +70,20 @@ export default {
   props: {
     icon: {
       type: String,
-      default: "mdi mdi-map-marker-outline"
+      default: ""
     },
 
     zoomIcon: {
       type: String,
-      default: "mdi mdi-magnify"
+      default: ""
     }
   },
 
+  computed: {
+    path() {
+      return { icon: mdiMapMarkerOutline, zoom: mdiMagnify, change: mdiCached };
+    }
+  },
   data() {
     return {
       lngLat: { latitude: 0, longitude: 0 },

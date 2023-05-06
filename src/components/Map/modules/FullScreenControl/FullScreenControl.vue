@@ -2,20 +2,27 @@
   <ModuleContainer v-bind="bindModule">
     <template #btn>
       <MapControlButton
-        icon="mdi-fullscreen"
+        icon
         :title="
           !isFullScreen
             ? $map.trans('map.action.fullscreen-control-enter')
             : $map.trans('map.action.fullscreen-control-exit')
         "
         @click="onToggleFullScreen"
-      />
+      >
+        <SvgIcon
+          :size="18"
+          type="mdi"
+          :path="isFullScreen ? path.exitFullscreen : path.fullscreen"
+        />
+      </MapControlButton>
     </template>
     <slot />
   </ModuleContainer>
 </template>
 
 <script>
+import { mdiFullscreen, mdiFullscreenExit } from "@mdi/js";
 import ModuleMixin from "@/components/Map/mixins/ModuleMixin";
 import MapControlButton from "@/components/Map/control/MapControlButton.vue";
 export default {
@@ -70,6 +77,14 @@ export default {
         this.onFullScreenChangeHandle,
         false
       );
+    }
+  },
+  computed: {
+    path() {
+      return {
+        fullscreen: mdiFullscreen,
+        exitFullscreen: mdiFullscreenExit
+      };
     }
   },
   methods: {

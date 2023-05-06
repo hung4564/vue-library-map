@@ -2,23 +2,28 @@
   <ModuleContainer v-bind="bindModule" :btnWidth="70">
     <template #btn>
       <MapControlButton v-if="current_baseMaps" :tooltip="title">
-        <map-card
-          class="clickable base-map-button__container"
-          height="70px"
-          width="70px"
-          @click="onToggleList"
-        >
-          <div class="base-map-button__content">
-            <map-image :src="current_baseMaps.thumbnail">
-              <div class="base-map-button__title">
-                <map-icon dark small>{{ controlIcon }}</map-icon>
-                <div class="">
-                  {{ title || $map.trans("map.basemap.title") }}
+        <template #content>
+          <map-card
+            class="clickable base-map-button__container"
+            height="70px"
+            width="70px"
+            @click="onToggleList"
+          >
+            <div class="base-map-button__content">
+              <map-image :src="current_baseMaps.thumbnail">
+                <div class="base-map-button__title">
+                  <map-icon dark small v-if="controlIcon">
+                    {{ controlIcon }}
+                  </map-icon>
+                  <SvgIcon type="mdi" :path="path.layer" v-else />
+                  <div class="">
+                    {{ title || $map.trans("map.basemap.title") }}
+                  </div>
                 </div>
-              </div>
-            </map-image>
-          </div>
-        </map-card>
+              </map-image>
+            </div>
+          </map-card>
+        </template>
       </MapControlButton>
 
       <div v-else></div>
@@ -78,8 +83,16 @@ import MapControlButton from "@/components/Map/control/MapControlButton.vue";
 import defaultbasemap from "./basemap";
 import BaseMapMixin from "./BaseMapStore.mixins";
 import MapCard from "../../../MapCard.vue";
+
+import { mdiLayersOutline } from "@mdi/js";
 export default {
-  components: { MapControlButton, DraggablePopup, MapCard, MapImage, MapIcon },
+  components: {
+    MapControlButton,
+    DraggablePopup,
+    MapCard,
+    MapImage,
+    MapIcon
+  },
   mixins: [ModuleMixin, BaseMapMixin],
   props: {
     baseMaps: {
@@ -96,7 +109,7 @@ export default {
     },
     controlIcon: {
       type: String,
-      default: "mdi mdi-layers-outline"
+      default: ""
     }
   },
   data: () => ({ p_baseMaps: [], show: false }),
@@ -125,6 +138,9 @@ export default {
   computed: {
     sizeBaseMap() {
       return 70;
+    },
+    path() {
+      return { layer: mdiLayersOutline };
     }
   },
   methods: {

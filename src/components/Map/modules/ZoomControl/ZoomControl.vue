@@ -23,16 +23,18 @@
         </MapControlButton>
         <MapControlButton
           v-if="showZoom"
-          icon="mdi-plus"
           :title="$map.trans('map.action.navigation-control-zoom-in')"
           @click="onZoomIn"
-        />
+        >
+          <SvgIcon :size="18" type="mdi" :path="path.plus" />
+        </MapControlButton>
         <MapControlButton
           v-if="showZoom"
-          icon="mdi-minus"
           :title="$map.trans('map.action.navigation-control-zoom-out')"
           @click="onZoomOut"
-        />
+        >
+          <SvgIcon :size="18" type="mdi" :path="path.minus" />
+        </MapControlButton>
       </MapControlGroupButton>
     </template>
     <slot />
@@ -40,6 +42,7 @@
 </template>
 
 <script>
+import { mdiPlus, mdiMinus } from "@mdi/js";
 import ModuleMixin from "@/components/Map/mixins/ModuleMixin";
 import MapControlButton from "@/components/Map/control/MapControlButton.vue";
 
@@ -54,6 +57,14 @@ export default {
   data: () => ({
     transform: "rotate(0deg)"
   }),
+  computed: {
+    path() {
+      return {
+        plus: mdiPlus,
+        minus: mdiMinus
+      };
+    }
+  },
 
   methods: {
     onInit() {
