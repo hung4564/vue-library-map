@@ -1,5 +1,4 @@
-import { Marker } from "mapbox-gl";
-import { getMap } from "./store/store-map";
+import { getMap } from "../store/store-map";
 
 function loadImage(map, link) {
   return new Promise(function (resolve, reject) {
@@ -35,22 +34,4 @@ function createHTMLImageElement(link) {
     img.onload = resolve(img);
     img.onerror = reject;
   });
-}
-export function createMarkerNode({ color, size = 12 } = {}) {
-  const element = document.createElement("div");
-  element.style.width = size + "px";
-  element.style.height = size + "px";
-  element.style.borderRadius = "50%";
-  element.style.background = "#fff";
-  element.style.boxSizing = "border-box";
-  element.style.border = `2px solid ${color}`;
-  element.style.cursor = "pointer";
-  let marker = new Marker({
-    element,
-    draggable: true
-  });
-  return {
-    marker,
-    element
-  };
 }

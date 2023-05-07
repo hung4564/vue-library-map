@@ -91,14 +91,13 @@ export default {
   },
 
   destroyed() {
-    if (this.onDestroy instanceof Function) {
-      try {
+    try {
+      if (this.onDestroy instanceof Function) {
         this.onDestroy();
-      } catch (e) {
-        console.error(e);
       }
+    } finally {
+      this.map = null;
     }
-    this.map = null;
   },
 
   methods: {

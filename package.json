@@ -6,6 +6,7 @@
     "./*": "./dist/*",
     "./mixin": "./dist/mixin.common.js",
     "./store": "./dist/store.common.js",
+    "./helper": "./dist/helper.common.js",
     "./main.css": "./dist/map.css"
   },
   "author": {
@@ -22,20 +23,21 @@
   },
   "bugs": "https://github.com/hung4564/vue-library-map/issues",
   "license": "MIT",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "files": [
     "dist/*"
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "npm-run-all --parallel build-app build-mixin build-store",
+    "build": "npm-run-all --parallel build-app build-mixin build-store build-helper",
     "build-app": "vue-cli-service build --target lib --name map build/app.js",
     "build-mixin": "vue-cli-service build --target lib --name mixin build/mixin.js",
     "build-store": "vue-cli-service build --target lib --name store build/store.js",
+    "build-helper": "vue-cli-service build --target lib --name helper build/helper.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@hungpv4564/vue-library-draggable": "1.0.9",
+    "@hungpv4564/vue-library-draggable": "^1.0.9",
     "@jamescoyle/vue-icon": "^0.1.2",
     "@linusborg/vue-simple-portal": "^0.1.5",
     "@mdi/js": "^7.2.96",
