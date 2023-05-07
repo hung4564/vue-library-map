@@ -1,5 +1,10 @@
 <template>
-  <button class="map-control-button" :style="bindStyle" v-on="$listeners">
+  <button
+    class="map-control-button"
+    :style="bindStyle"
+    v-on="$listeners"
+    :class="{ 'map-control-button-active': active }"
+  >
     <span class="map-control-button__content">
       <SvgIcon
         :size="(height * 2) / 3"
@@ -18,7 +23,12 @@ import { mdiLoading } from "@mdi/js";
 import SvgIcon from "@jamescoyle/vue-icon";
 export default {
   components: { SvgIcon },
-  props: { height: { default: 32 }, width: { default: 32 }, loading: Boolean },
+  props: {
+    height: { default: 32 },
+    width: { default: 32 },
+    loading: Boolean,
+    active: Boolean
+  },
   computed: {
     bindStyle() {
       return { width: `${this.width}px`, height: `${this.height}px` };
@@ -69,6 +79,9 @@ export default {
     position: relative;
     transition: inherit;
     transition-property: opacity;
+  }
+  &-active {
+    color: "#004E98";
   }
 }
 .map-control-button:hover {
