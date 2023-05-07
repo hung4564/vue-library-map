@@ -81,7 +81,7 @@ export default {
     transition-property: opacity;
   }
   &-active {
-    color: "#004E98";
+    color: #004e98;
   }
 }
 .map-control-button:hover {

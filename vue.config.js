@@ -7,7 +7,8 @@ function getProdExternals() {
     axios: "axios",
     "mapbox-gl": "mapbox-gl",
     "@mdi/js": "@mdi/js",
-    vue: "Vue",
+    vue: "vue",
+    Vue: "vue",
     lodash: "lodash"
   };
 }
