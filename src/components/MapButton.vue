@@ -3,7 +3,11 @@
     class="map-control-button"
     :style="bindStyle"
     v-on="$listeners"
-    :class="{ 'map-control-button-active': active }"
+    :disabled="disabled"
+    :class="{
+      'map-control-button-active': active,
+      'map-control-button-disabled': disabled
+    }"
   >
     <span class="map-control-button__content">
       <SvgIcon
@@ -27,7 +31,8 @@ export default {
     height: { default: 32 },
     width: { default: 32 },
     loading: Boolean,
-    active: Boolean
+    active: Boolean,
+    disabled: Boolean
   },
   computed: {
     bindStyle() {
@@ -82,6 +87,11 @@ export default {
   }
   &-active {
     color: #004e98;
+  }
+  &-disabled {
+    cursor: default;
+    pointer-events: none;
+    color: rgba(0, 0, 0, 0.25);
   }
 }
 .map-control-button:hover {

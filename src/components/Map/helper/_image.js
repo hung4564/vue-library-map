@@ -1,5 +1,3 @@
-import { getMap } from "../store/store-map";
-
 function loadImage(map, link) {
   return new Promise(function (resolve, reject) {
     map.loadImage(link, function (error, image) {
@@ -8,18 +6,16 @@ function loadImage(map, link) {
     });
   });
 }
-export async function createMapboxImageUrl(mapId, id, link, option) {
-  let map = getMap(mapId);
+export async function createMapboxImageUrl(map, id, link, option) {
   if (!map.hasImage(id)) {
     map.addImage(id, await loadImage(map, link), option);
   }
 
   return id;
 }
-export async function createMapboxImage(mapId, id, link) {
-  let map = getMap(mapId);
+export async function createMapboxImage(map, id, link, option) {
   if (!map.hasImage(id)) {
-    map.addImage(id, await createHTMLImageElement(link));
+    map.addImage(id, await createHTMLImageElement(link), option);
   }
 
   return id;

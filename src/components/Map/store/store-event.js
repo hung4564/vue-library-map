@@ -1,48 +1,84 @@
 import Vue from "vue";
 import { getMap } from "./store-map";
-
+import { getUUIDv4 } from "@/utils";
 if (!Vue.prototype.$_map_event_store) {
-  Vue.prototype.$_map_event_store = new Vue.observable({});
+  Vue.prototype.$_map_event_store = {};
+}
+if (!Vue.prototype.$_map_event_bind) {
+  Vue.prototype.$_map_event_bind = {};
 }
 export function initMapListener(mapId) {
   Vue.prototype.$_map_event_store[mapId] = {};
+  Vue.prototype.$_map_event_bind[mapId] = {};
+}
+export const removeMapListener = (mapId) => {
+  delete Vue.prototype.$_map_event_store[mapId];
+  delete Vue.prototype.$_map_event_bind[mapId];
+};
+export function addListenerMap(mapId, event, cb) {
+  let { name, handle } = cb;
+  let uuid = getUUIDv4();
+  let id = `event-${uuid}`;
+  if (!handle) {
+    name = `Event ${uuid}`;
+    handle = cb;
+  }
+  let mapListener = getMapListener(mapId, event);
+  let items = mapListener.items;
+  items.unshift({ id, handle, name });
+  let map = getMap(mapId);
+  setMapEvent(map, event);
+  return id;
+}
+export function removeListenerMap(mapId, event, eventId) {
+  let mapListener = getMapListener(mapId, event);
+  mapListener.items = mapListener.items.filter((x) => x.id !== eventId);
+  let items = mapListener.items;
+  if (!items || items.length == 0) {
+    let map = getMap(mapId);
+    removeMapEvent(map, event);
+  }
+  return eventId;
 }
 export function getMapListener(mapId, event) {
+  if (!Vue.prototype.$_map_event_store[mapId]) {
+    Vue.prototype.$_map_event_store[mapId] = {
+      items: []
+    };
+  }
   if (!Vue.prototype.$_map_event_store[mapId][event]) {
     Vue.prototype.$_map_event_store[mapId][event] = {
-      items: [],
-      listener: null
+      items: []
     };
   }
   return Vue.prototype.$_map_event_store[mapId][event];
 }
-export const removeMapListener = (mapId) => {
-  delete Vue.prototype.$_map_event_store[mapId];
-};
-export function addListenerMap(mapId, eventId, cb, event = "click") {
-  let mapListener = getMapListener(mapId, event);
-  let map = getMap(mapId);
-  let items = mapListener.items;
-  items.unshift({ id: eventId, cb });
-  mapListener.listener = (e) => {
-    let first = items[0];
-    if (first) first.cb(e);
-  };
-  map.on(event, mapListener.listener);
+function setMapEvent(map, event) {
+  let mapId = map.id;
+  if (!Vue.prototype.$_map_event_store[mapId]) {
+    Vue.prototype.$_map_event_store[mapId] = {};
+  }
+  if (!Vue.prototype.$_map_event_bind[mapId][event]) {
+    let handle = function (mapId, event, e) {
+      let mapListener = getMapListener(mapId, event);
+      let items = mapListener.items;
+      let first_cb = items[0];
+      if (!first_cb) return;
+      first_cb.handle(e);
+    };
+    Vue.prototype.$_map_event_bind[mapId][event] = handle.bind(
+      null,
+      map.id,
+      event
+    );
+  }
+  map.on(event, Vue.prototype.$_map_event_bind[mapId][event]);
 }
-export function removeListenerMap(mapId, eventId, event = "click") {
-  let mapListener = getMapListener(mapId, event);
-  if (!mapListener) return;
-  let items = mapListener.items;
-  if (!items || items.length < 1) {
-    return;
-  }
-  let index = items.findIndex((x) => x.id == eventId);
-  if (index !== -1) {
-    items.splice(index, 1);
-  }
-  if (!items || items.length < 1) {
-    let map = getMap(mapId);
-    map.off(event, mapListener.listener);
-  }
+function removeMapEvent(map, event) {
+  let mapId = map.id;
+  if (
+    Vue.prototype.$_map_event_bind[mapId] &&
+    Vue.prototype.$_map_event_bind[mapId][event]
+  )
+    map.off(event, Vue.prototype.$_map_event_bind[mapId][event]);
 }

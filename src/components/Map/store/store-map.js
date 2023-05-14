@@ -24,7 +24,10 @@ export const removeMap = (id) => {
   removeBaseMap(id);
   removeMapListener(id);
 };
-export const getMap = (id) => Vue.prototype.$_map_object[id] || {};
+export const getMap = (id) => {
+  if (typeof id != "string") return id;
+  return Vue.prototype.$_map_object[id] || {};
+};
 
 export const getStoreMap = (id) => Vue.prototype.$_map_store[id] || {};
 

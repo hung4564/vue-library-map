@@ -14,6 +14,7 @@ function getProdExternals() {
 }
 
 module.exports = {
+  productionSourceMap: process.env.NODE_ENV !== "production",
   transpileDependencies: true,
   configureWebpack: {
     resolve: {

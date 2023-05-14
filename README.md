@@ -1,15 +1,15 @@
-<h1 align="center">Vue library draggable</h1>
+<h1 align="center">Vue library map</h1>
 
 # Vue library draggable
 
 ## Install
 
 ```
-npm i @hungpv4564/vue-library-draggable
+npm i @hungpv4564/vue-library-map
 ```
 
 ```
-yarn add @hungpv4564/vue-library-draggable
+yarn add @hungpv4564/vue-library-map
 ```
 
 ## Usage
@@ -42,8 +42,7 @@ import {
   Map,
   PrintControl
 } from "@hungpv4564/vue-library-draggable";
-import "@hungpv4564/vue-library-map/dist/map.css";
-import "@mdi/font/css/materialdesignicons.css";
+import "@hungpv4564/vue-library-map/map.css";
 
 export default {
   name: "App",

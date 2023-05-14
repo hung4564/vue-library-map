@@ -101,14 +101,14 @@ export default {
     changePixelValue() {
       if (this.isDMS)
         this.currentPoint =
-          latDMS(+this.lngLat.latitude.toFixed(4)) +
+          lngDMS(+this.lngLat.longitude.toFixed(4)) +
           ", &nbsp;" +
-          lngDMS(+this.lngLat.longitude.toFixed(4));
+          latDMS(+this.lngLat.latitude.toFixed(4));
       else
         this.currentPoint =
-          this.lngLat.latitude.toFixed(4) +
+          this.lngLat.longitude.toFixed(4) +
           ",&nbsp;&nbsp;" +
-          this.lngLat.longitude.toFixed(4);
+          this.lngLat.latitude.toFixed(4);
     },
 
     onInit() {

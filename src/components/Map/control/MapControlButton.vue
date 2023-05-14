@@ -10,6 +10,7 @@
     :title="tooltip || title"
     :width="groupSize"
     v-on="$listeners"
+    :disabled="disabled"
   >
     <slot>
       <MapIcon>
@@ -27,6 +28,7 @@
           :loading="loading"
           :width="size"
           v-on="$listeners"
+          :disabled="disabled"
         >
           <slot>
             <MapIcon>
@@ -52,7 +54,8 @@ export default {
     title: String,
     loading: Boolean,
     size: { type: Number, default: 32 },
-    active: Boolean
+    active: Boolean,
+    disabled: Boolean
   },
   inject: {
     isGroup: { default: false },
