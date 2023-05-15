@@ -2,11 +2,15 @@
   <ModuleContainer v-bind="bindModule">
     <template #btn>
       <div
-        class="button-container d-flex mapboxgl-ctrl-mouse-coordinates-container"
+        class="button-container mouse-coordinates-container"
+        :class="{
+          'mouse-coordinates-container-mobile': isMobile
+        }"
       >
-        <div class="mapboxgl-ctrl-mouse-coordinates">
+        <div class="mouse-coordinates">
           <div
-            class="mapboxgl-ctrl-mouse-coordinates-zoom flex-grow-0 d-flex pr-2"
+            class="mouse-coordinates-zoom flex-grow-0 d-flex pr-2"
+            v-if="!isMobile"
           >
             <span title="Current Zoom">
               <SvgIcon
@@ -19,7 +23,7 @@
             </span>
             <div style="margin-left: 4px">{{ currentZoom }}</div>
           </div>
-          <div class="mapboxgl-ctrl-mouse-coordinates-point">
+          <div class="mouse-coordinates-point">
             <span title="Add Marker" @click="onAddMarker">
               <SvgIcon :size="14" type="mdi" :path="path.icon" v-if="!icon" />
               <i class="icon-clickable" :class="icon" v-else />
@@ -46,8 +50,14 @@
             </i>
           </div>
         </div>
-
-        <div ref="scale" class="mapboxgl-ctrl-scale-custom"> </div>
+        <div class="zoom-coordinates" v-if="isMobile">
+          <span title="Current Zoom">
+            <SvgIcon :size="14" type="mdi" :path="path.zoom" v-if="!zoomIcon" />
+            <i :class="[zoomIcon]" v-else title="Current Zoom" />
+          </span>
+          <div style="margin-left: 4px">{{ currentZoom }}</div>
+        </div>
+        <div ref="scale" class="scale-custom"> </div>
       </div>
     </template>
   </ModuleContainer>
@@ -82,6 +92,9 @@ export default {
   computed: {
     path() {
       return { icon: mdiMapMarkerOutline, zoom: mdiMagnify, change: mdiCached };
+    },
+    isMobile() {
+      return this.$map.isMobile;
     }
   },
   data() {
@@ -138,8 +151,15 @@ export default {
     },
     onMapMove() {
       updateScale(this.map, this.$refs.scale, this.options);
+      if (this.isMobile) {
+        let center = this.map.getCenter();
+        this.lngLat.latitude = center.lat;
+        this.lngLat.longitude = center.lng;
+        this.changePixelValue();
+      }
     },
     onMouseMove: debounce(function (e) {
+      if (this.isMobile) return;
       // this.lngLat.latitude = e.lngLat.lat.toFixed(4)
       // this.lngLat.longitude = e.lngLat.lng.toFixed(4)
       let point = [e.lngLat.lng, e.lngLat.lat];
@@ -288,15 +308,9 @@ function getRoundNum(num) {
 </script>
 
 <style scoped>
-.mapboxgl-ctrl-scale-custom {
-  background-color: hsla(0, 0%, 100%, 0.7529411764705882);
-  border-radius: 4px;
-  min-width: 100px;
-  font-size: 14px;
-  color: #333;
-  padding: 4px;
-}
-.mapboxgl-ctrl-mouse-coordinates {
+.mouse-coordinates,
+.scale-custom,
+.zoom-coordinates {
   background-color: hsla(0, 0%, 100%, 0.7529411764705882);
   border-radius: 4px;
   min-width: 160px;
@@ -304,11 +318,11 @@ function getRoundNum(num) {
   color: #333;
   padding: 4px;
 }
-.mapboxgl-ctrl-mouse-coordinates > div:not(:last-child) {
+.mouse-coordinates > div:not(:last-child) {
   border-right: 1px solid #7c7c7c;
   padding-right: 4px;
 }
-.mapboxgl-ctrl-mouse-coordinates > div:not(:first-child) {
+.mouse-coordinates > div:not(:first-child) {
   padding-left: 4px;
 }
 .icon-clickable {

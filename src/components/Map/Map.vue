@@ -62,7 +62,8 @@ export default {
       isSupport: true,
       loaded: false,
       id: getUUIDv4(),
-      dragId: undefined
+      dragId: undefined,
+      isMobile: false
     };
   },
   computed: {
@@ -88,6 +89,11 @@ export default {
 
   provide() {
     const $map = {};
+    Object.defineProperty($map, "isMobile", {
+      enumerable: true,
+      get: () => this.isMobile
+    });
+
     Object.defineProperty($map, "dragId", {
       enumerable: true,
       get: () => this.dragId
@@ -112,6 +118,9 @@ export default {
       $map
     };
   },
+  beforeDestroy() {
+    window.removeEventListener("resize", this.onResize);
+  },
 
   created() {
     mapboxgl.accessToken = this.mapboxAccessToken;
@@ -122,6 +131,8 @@ export default {
     this.setLocale(this.locale);
     if (this.isSupport) {
       this.$nextTick(() => {
+        this.onResize();
+        window.addEventListener("resize", this.onResize);
         this.init();
       });
     }
@@ -137,6 +148,10 @@ export default {
   },
 
   methods: {
+    onResize() {
+      let width = this.$el.clientWidth;
+      this.isMobile = width && width <= 600;
+    },
     async setLocale(locale) {
       if (typeof locale == "object") {
         setMapLang(this.id, locale);
