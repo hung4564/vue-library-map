@@ -23,7 +23,6 @@
       <slot name="content">
         <MapButton
           v-bind="$attrs"
-          class="button-elevation"
           :height="size"
           :loading="loading"
           :width="size"

@@ -11,7 +11,7 @@
     }"
   >
     <div
-      class="button-group-sheet button-elevation"
+      class="button-group-sheet"
       :class="{ 'button-group-sheet-column': !row }"
       style="border-radius: 150px"
     >

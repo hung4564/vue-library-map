@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isSupport" class="full-width full-height position-relative">
+  <div v-if="!isSupport" class="position-relative">
     <v-overlay :value="!isSupport">
       <div class="not-support-map">
         <p class="">
