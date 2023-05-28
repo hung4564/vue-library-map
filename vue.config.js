@@ -9,7 +9,8 @@ function getProdExternals() {
     "@mdi/js": "@mdi/js",
     vue: "vue",
     Vue: "vue",
-    lodash: "lodash"
+    lodash: "lodash",
+    papaparse: "papaparse"
   };
 }
 

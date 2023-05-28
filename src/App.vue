@@ -1,14 +1,15 @@
 <template>
   <div id="app">
     <Map locale="en">
-      <BaseMapControl position="bottom-left" :order="1" />
-      <PrintControl :order="6" />
-      <GeolocateControl :order="5" />
-      <HomeControl :order="4" />
-      <ZoomControl :order="3" />
+      <BaseMapControl position="bottom-left" />
+      <FileUploadForMap />
+      <PrintControl />
+      <GeolocateControl />
+      <HomeControl />
+      <ZoomControl />
 
-      <FullScreenControl :order="2" />
-      <MouseCoordinatesControl :order="1" />
+      <FullScreenControl />
+      <MouseCoordinatesControl />
     </Map>
   </div>
 </template>
@@ -25,6 +26,7 @@ import {
   Map,
   PrintControl
 } from "@components/Map";
+import FileUploadForMap from "./components/FileUploadForMap.vue";
 export default {
   name: "App",
   components: {
@@ -35,7 +37,8 @@ export default {
     GeolocateControl,
     BaseMapControl,
     Map,
-    PrintControl
+    PrintControl,
+    FileUploadForMap
   }
 };
 </script>
