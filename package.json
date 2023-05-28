@@ -24,7 +24,7 @@
   },
   "bugs": "https://github.com/hung4564/vue-library-map/issues",
   "license": "MIT",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "files": [
     "dist/*"
   ],
