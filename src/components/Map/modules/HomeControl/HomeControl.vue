@@ -8,27 +8,17 @@
         <SvgIcon :size="18" type="mdi" :path="path.home" />
       </MapControlButton>
     </template>
-    <template #draggable="props">
-      <DraggableSidebar
-        title="siderbar 1"
-        show
-        :containerId="props.containerId"
-      >
-        <div style="height: 100vh"></div>
-      </DraggableSidebar>
-    </template>
     <slot />
   </ModuleContainer>
 </template>
 
 <script>
-import { DraggableSidebar } from "@hungpv4564/vue-library-draggable";
 import { mdiHome } from "@mdi/js";
 import ModuleMixin from "@/components/Map/mixins/ModuleMixin";
 import MapControlButton from "@/components/Map/control/MapControlButton.vue";
 
 export default {
-  components: { MapControlButton, DraggableSidebar },
+  components: { MapControlButton },
   mixins: [ModuleMixin],
 
   data() {
