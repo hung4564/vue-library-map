@@ -21,6 +21,7 @@ import { mdiUpload } from "@mdi/js";
 import ModuleMixin from "@/components/Map/mixins/ModuleMixin";
 import MapControlButton from "@/components/Map/control/MapControlButton.vue";
 import { Reader } from "@/utils/GeojsonIO/Reader/Reader";
+import { fitBounds } from "@components/Map/helper";
 
 export default {
   props: {
@@ -56,7 +57,7 @@ export default {
       }
       const reader = new Reader();
       reader.read(files[0]).then((res) => {
-        console.log("🚀 ~ reader.read ~ res", res);
+        fitBounds(this.map, res);
       });
     }
   }

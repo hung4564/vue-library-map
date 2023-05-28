@@ -3,12 +3,11 @@ function getProdExternals() {
   return {
     "@hungpv4564/vue-library-draggable": "@hungpv4564/vue-library-draggable",
     "@jamescoyle/vue-icon": "@jamescoyle/vue-icon",
-    "@turf/turf": "@turf/turf",
+    "@turf/bbox": "@turf/bbox",
     axios: "axios",
     "mapbox-gl": "mapbox-gl",
     "@mdi/js": "@mdi/js",
     vue: "vue",
-    Vue: "vue",
     lodash: "lodash",
     papaparse: "papaparse"
   };

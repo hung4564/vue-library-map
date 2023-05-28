@@ -10,14 +10,24 @@
     </v-overlay>
   </div>
   <div v-else class="map-container mapbox-gl-viewer position-relative">
-    <div class="map-viewer">
+    <div
+      class="map-viewer"
+      :class="{
+        'sidebar-left-show': sidebar_count.left_count > 0,
+        'sidebar-right-show': sidebar_count.right_count > 0
+      }"
+    >
       <div ref="mapContainer" class="map-content"> </div>
 
       <div class="right-bottom-container" :id="rightBottomTo" />
       <div class="left-bottom-container" :id="leftBottomTo" />
       <div class="right-top-container" :id="rightTopTo" />
       <div class="left-top-container" :id="leftTopTo" />
-      <draggable-contianer class="drag-container" @init-done="onDragInitDone">
+      <draggable-contianer
+        class="drag-container"
+        @init-done="onDragInitDone"
+        @show-count:side-bar="onChangeSidebar"
+      >
         <div :id="draggableTo" />
       </draggable-contianer>
       <slot v-if="loaded" />
@@ -35,7 +45,7 @@ import mapboxgl from "mapbox-gl";
 import { DraggableContianer } from "@hungpv4564/vue-library-draggable";
 import { getGlyphs, getSprite } from "@constant";
 import { getUUIDv4 } from "@utils";
-import { setMap, removeMap } from "./store/store-map";
+import { setMap, removeMap, setSideBarCount } from "./store/store-map";
 import { setMapLang, removeMapLang, mapLang } from "./store/store-lang";
 import enLang from "@/lang/en/map";
 import viLang from "@/lang/vi/map";
@@ -63,7 +73,8 @@ export default {
       loaded: false,
       id: getUUIDv4(),
       dragId: undefined,
-      isMobile: false
+      isMobile: false,
+      sidebar_count: { left_count: 0, right_count: 0 }
     };
   },
   computed: {
@@ -148,6 +159,11 @@ export default {
   },
 
   methods: {
+    onChangeSidebar({ left_count, right_count }) {
+      this.sidebar_count.left_count = left_count;
+      this.sidebar_count.right_count = right_count;
+      setSideBarCount(this.id, { left_count, right_count });
+    },
     onResize() {
       let width = this.$el.clientWidth;
       this.isMobile = width && width <= 600;
@@ -385,5 +401,50 @@ function getProp(object, path, defaultVal) {
 }
 .map-spacer {
   flex-grow: 1;
+}
+</style>
+
+<style lang="scss">
+.sidebar-left-show:not(.sidebar-left-close) {
+  @media only screen and (min-width: 600px) and (max-width: 1264px) {
+    .left-bottom-container {
+      left: calc(320px + 10px);
+    }
+
+    .left-top-container {
+      left: calc(320px + 10px);
+    }
+  }
+
+  @media only screen and (min-width: 1264px) {
+    .left-bottom-container {
+      left: calc(400px + 10px);
+    }
+
+    .left-top-container {
+      left: calc(400px + 10px);
+    }
+  }
+}
+.sidebar-right-show:not(.sidebar-left-close) {
+  @media only screen and (min-width: 600px) and (max-width: 1264px) {
+    .right-bottom-container {
+      right: calc(320px + 10px);
+    }
+
+    .right-top-container {
+      right: calc(320px + 10px);
+    }
+  }
+
+  @media only screen and (min-width: 1264px) {
+    .right-bottom-container {
+      right: calc(400px + 10px);
+    }
+
+    .right-top-container {
+      right: calc(400px + 10px);
+    }
+  }
 }
 </style>

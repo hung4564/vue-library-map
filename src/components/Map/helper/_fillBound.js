@@ -1,4 +1,5 @@
 import bbox from "@turf/bbox";
+import { getSideBarCount } from "../store/store-map";
 
 export const fitBounds = (map, value, { zoom = 15 } = {}) => {
   if (!value || !map) return;
@@ -18,9 +19,9 @@ export const fitBounds = (map, value, { zoom = 15 } = {}) => {
     });
     return;
   }
-  // let count = COUNT_MAP_SIDEBAR[mapId] || { left_count: 0, right_count: 0 };
-  // padding.left = count.left_count ? 450 : padding.left;
-  // padding.right = count.right_count ? 450 : padding.right;
+  let count = getSideBarCount(map.id) || { left_count: 0, right_count: 0 };
+  padding.left = count.left_count ? 450 : padding.left;
+  padding.right = count.right_count ? 450 : padding.right;
 
   let bboxFil = undefined;
   if (value.length == 4) {
