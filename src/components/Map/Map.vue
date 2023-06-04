@@ -1,15 +1,13 @@
 <template>
-  <div v-if="!isSupport" class="position-relative">
-    <v-overlay :value="!isSupport">
-      <div class="not-support-map">
-        <p class="">
-          Trình duyệt của bạn không hỗ trợ hiển thị bản đồ, vui lòng đổi trình
-          duyệt hoặc cập nhật bản mới để xem.
-        </p>
-      </div>
-    </v-overlay>
+  <div v-if="!isSupport" class="">
+    <div class="not-support-map">
+      <p class="">
+        Trình duyệt của bạn không hỗ trợ hiển thị bản đồ, vui lòng đổi trình
+        duyệt hoặc cập nhật bản mới để xem.
+      </p>
+    </div>
   </div>
-  <div v-else class="map-container mapbox-gl-viewer position-relative">
+  <div v-else class="map-container">
     <div
       class="map-viewer"
       :class="{
@@ -18,18 +16,19 @@
       }"
     >
       <div ref="mapContainer" class="map-content"> </div>
-
-      <div class="right-bottom-container" :id="rightBottomTo" />
-      <div class="left-bottom-container" :id="leftBottomTo" />
-      <div class="right-top-container" :id="rightTopTo" />
-      <div class="left-top-container" :id="leftTopTo" />
-      <draggable-contianer
-        class="drag-container"
-        @init-done="onDragInitDone"
-        @show-count:side-bar="onChangeSidebar"
-      >
-        <div :id="draggableTo" />
-      </draggable-contianer>
+      <template v-if="!dragIdCustom">
+        <div class="right-bottom-container" :id="rightBottomTo" />
+        <div class="left-bottom-container" :id="leftBottomTo" />
+        <div class="right-top-container" :id="rightTopTo" />
+        <div class="left-top-container" :id="leftTopTo" />
+        <draggable-contianer
+          class="drag-container"
+          @init-done="onDragInitDone"
+          @show-count:side-bar="onChangeSidebar"
+        >
+          <div :id="draggableTo" />
+        </draggable-contianer>
+      </template>
       <slot v-if="loaded" />
     </div>
   </div>
@@ -45,8 +44,8 @@ import mapboxgl from "mapbox-gl";
 import { DraggableContianer } from "@hungpv4564/vue-library-draggable";
 import { getGlyphs, getSprite } from "@constant";
 import { getUUIDv4 } from "@utils";
-import { setMap, removeMap, setSideBarCount } from "./store/store-map";
-import { setMapLang, removeMapLang, mapLang } from "./store/store-lang";
+import { setMap, removeMap, setSideBarCount } from "@/store/store-map";
+import { setMapLang, removeMapLang, mapLang } from "@/store/store-lang";
 import enLang from "@/lang/en/map";
 import viLang from "@/lang/vi/map";
 export default {
@@ -64,7 +63,9 @@ export default {
       })
     },
     trans: { type: Function },
-    locale: { type: [String, Object], default: "en" }
+    locale: { type: [String, Object], default: "en" },
+    dragIdCustom: { type: String },
+    prefix: String
   },
 
   data() {
@@ -107,7 +108,7 @@ export default {
 
     Object.defineProperty($map, "dragId", {
       enumerable: true,
-      get: () => this.dragId
+      get: () => this.dragIdCustom || this.dragId
     });
 
     Object.defineProperty($map, "trans", {
@@ -121,6 +122,10 @@ export default {
     Object.defineProperty($map, "locale", {
       enumerable: true,
       get: () => this.locale
+    });
+    Object.defineProperty($map, "prefix", {
+      enumerable: true,
+      get: () => this.prefix || this.id
     });
 
     return {
@@ -241,89 +246,6 @@ function getProp(object, path, defaultVal) {
   return getProp(object[_path.shift()], _path, defaultVal);
 }
 </script>
-<style>
-.mapboxgl-ctrl-logo {
-  display: none !important;
-  visibility: hidden;
-}
-</style>
-<style lang="scss">
-.drag-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 800;
-  width: 100%;
-}
-.main-map-container {
-  pointer-events: none;
-  z-index: 2;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  & > div {
-    position: relative;
-  }
-}
-.button-container {
-  clear: both;
-  pointer-events: auto;
-  -webkit-transform: translate(0);
-  transform: translate(0);
-}
-.mapbox-gl-viewer {
-  .button-container.button-group-container:not(:first-child) {
-    margin-left: 10px;
-  }
-  .right-bottom-container,
-  .right-top-container,
-  .left-bottom-container,
-  .left-top-container {
-    pointer-events: none;
-    z-index: 2;
-    position: absolute;
-    & > * {
-      clear: both;
-    }
-  }
-  .right-bottom-container {
-    bottom: 0;
-    right: 0;
-    & > * {
-      margin: 0 10px 10px 0;
-      float: right;
-      clear: both;
-    }
-  }
-  .left-bottom-container {
-    bottom: 0;
-    left: 0;
-    & > * {
-      margin: 0 0 10px 10px;
-      float: left;
-    }
-  }
-  .left-top-container {
-    top: 0;
-    left: 0;
-    & > * {
-      margin: 10px 0 0 10px;
-      float: left;
-    }
-  }
-  .right-top-container {
-    top: 0;
-    right: 0;
-    & > * {
-      margin: 10px 10px 0 0;
-      float: right;
-    }
-  }
-}
-</style>
 <style scoped>
 .mapboxgl-ctrl-logo {
   display: none !important;
@@ -364,87 +286,5 @@ function getProp(object, path, defaultVal) {
   width: 100%;
   height: 100%;
   position: relative;
-}
-</style>
-
-<style>
-/* Group Control */
-.map-container .mapboxgl-ctrl .mapboxgl-ctrl:first-child {
-  margin: 0;
-}
-
-.map-container .mapboxgl-ctrl .mapboxgl-ctrl:not(:first-child) {
-  margin: 10px 0 0 0;
-}
-
-/* Map Canvas */
-.mapboxgl-canvas:hover,
-.mapboxgl-canvas:focus,
-.mapboxgl-canvas:active {
-  border: none;
-  outline: none;
-}
-.map-container * {
-  box-sizing: border-box;
-}
-.map-divider {
-  display: block;
-  flex: 1 1 0px;
-  max-width: 100%;
-  height: 0px;
-  max-height: 0px;
-  border: solid;
-  border-width: thin 0 0 0;
-  transition: inherit;
-  border-color: #fff;
-  opacity: 0.3;
-}
-.map-spacer {
-  flex-grow: 1;
-}
-</style>
-
-<style lang="scss">
-.sidebar-left-show:not(.sidebar-left-close) {
-  @media only screen and (min-width: 600px) and (max-width: 1264px) {
-    .left-bottom-container {
-      left: calc(320px + 10px);
-    }
-
-    .left-top-container {
-      left: calc(320px + 10px);
-    }
-  }
-
-  @media only screen and (min-width: 1264px) {
-    .left-bottom-container {
-      left: calc(400px + 10px);
-    }
-
-    .left-top-container {
-      left: calc(400px + 10px);
-    }
-  }
-}
-.sidebar-right-show:not(.sidebar-left-close) {
-  @media only screen and (min-width: 600px) and (max-width: 1264px) {
-    .right-bottom-container {
-      right: calc(320px + 10px);
-    }
-
-    .right-top-container {
-      right: calc(320px + 10px);
-    }
-  }
-
-  @media only screen and (min-width: 1264px) {
-    .right-bottom-container {
-      right: calc(400px + 10px);
-    }
-
-    .right-top-container {
-      right: calc(400px + 10px);
-    }
-  }
 }
 </style>

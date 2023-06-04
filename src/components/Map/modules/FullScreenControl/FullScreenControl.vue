@@ -106,7 +106,9 @@ export default {
         this.openFullscreen(elm);
       }
       this.$nextTick(() => {
-        this.map.resize();
+        this.callMap((map) => {
+          map.resize();
+        });
       });
     },
 

@@ -4,6 +4,7 @@ import GeolocateControl from "./GeolocateControl/GeolocateControl.vue";
 import HomeControl from "./HomeControl/HomeControl.vue";
 import MouseCoordinatesControl from "./MouseCoordinatesControl/MouseCoordinatesControl.vue";
 import PrintControl from "./PrintControl/PrintControl.vue";
+import ShowGeometryControl from "./ShowControl/ShowGeometryControl.vue";
 import ZoomControl from "./ZoomControl/ZoomControl.vue";
 export {
   FullScreenControl,
@@ -12,5 +13,6 @@ export {
   HomeControl,
   GeolocateControl,
   BaseMapControl,
-  PrintControl
+  PrintControl,
+  ShowGeometryControl
 };

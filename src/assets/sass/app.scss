@@ -1,8 +1,7 @@
 @import "clickable";
 @import "mapbox-gl/dist/mapbox-gl.css";
-@import "map";
 @import "card";
-
+@import "map";
 .pointer {
   cursor: pointer;
 }
@@ -12,4 +11,123 @@
 
 .overflow-hidden {
   overflow: hidden;
+}
+.map-container {
+  .mapboxgl-ctrl .mapboxgl-ctrl:first-child {
+    margin: 0;
+  }
+  /* Map Canvas */
+  .mapboxgl-canvas:hover,
+  .mapboxgl-canvas:focus,
+  .mapboxgl-canvas:active {
+    border: none;
+    outline: none;
+  }
+  .mapboxgl-ctrl .mapboxgl-ctrl:not(:first-child) {
+    margin: 10px 0 0 0;
+  }
+  .draggable-container {
+    .sidebar-container,
+    .float-container,
+    .draggable-popup-desktop,
+    .draggable-bottom {
+      .map-control-button {
+        box-shadow: unset;
+      }
+    }
+  }
+  .map-container * {
+    box-sizing: border-box;
+  }
+  .map-divider {
+    display: block;
+    flex: 1 1 0px;
+    max-width: 100%;
+    height: 0px;
+    max-height: 0px;
+    border: solid;
+    border-width: thin 0 0 0;
+    transition: inherit;
+    border-color: #fff;
+    opacity: 0.3;
+  }
+  .map-spacer {
+    flex-grow: 1;
+  }
+}
+
+.drag-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 800;
+  width: 100%;
+}
+.main-map-container {
+  pointer-events: none;
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  & > div {
+    position: relative;
+  }
+}
+.button-container {
+  clear: both;
+  pointer-events: auto;
+  -webkit-transform: translate(0);
+  transform: translate(0);
+}
+.map-container {
+  .button-container.button-group-container:not(:first-child) {
+    margin-left: 10px;
+  }
+  .right-bottom-container,
+  .right-top-container,
+  .left-bottom-container,
+  .left-top-container {
+    pointer-events: none;
+    z-index: 2;
+    position: absolute;
+    & > * {
+      clear: both;
+    }
+  }
+  .right-bottom-container {
+    bottom: 0;
+    right: 0;
+    & > * {
+      margin: 0 10px 10px 0;
+      float: right;
+      clear: both;
+    }
+  }
+  .left-bottom-container {
+    bottom: 0;
+    left: 0;
+    & > * {
+      margin: 0 0 10px 10px;
+      float: left;
+    }
+  }
+  .left-top-container {
+    top: 0;
+    left: 0;
+    & > * {
+      margin: 10px 0 0 10px;
+      float: left;
+    }
+  }
+  .right-top-container {
+    top: 0;
+    right: 0;
+    & > * {
+      margin: 10px 10px 0 0;
+      float: right;
+    }
+  }
 }

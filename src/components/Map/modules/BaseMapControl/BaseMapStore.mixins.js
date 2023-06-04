@@ -5,7 +5,7 @@ import {
   setBaseMapForMap,
   setBaseMaps,
   setDefaultValueForMap
-} from "../../store/store-baseMap";
+} from "@/store/store-baseMap";
 
 export default {
   props: {

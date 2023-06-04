@@ -1,7 +1,6 @@
-import { addListenerMap, removeListenerMap } from "../store/store-event";
-
 import ModuleContainer from "../ModuleContainer.vue";
 import SvgIcon from "@jamescoyle/vue-icon";
+import { getMap } from "@/store/store-map";
 
 export default {
   components: { ModuleContainer, SvgIcon },
@@ -50,12 +49,15 @@ export default {
     isBottom() {
       return this.position.includes("bottom");
     },
+    c_mapId() {
+      return this.$map.id;
+    },
     bindModule() {
       return {
         controlVisible: this.controlVisible,
         order: this.order,
         position: this.position,
-        prefix: this.$map.id,
+        prefix: this.$map.prefix,
         dragId: this.$map.dragId
       };
     }
@@ -101,44 +103,17 @@ export default {
   },
 
   methods: {
-    removeListenerMap(event, eventId) {
-      removeListenerMap(this.$map.id, event, eventId);
-    },
-    addListenerMap(event, eventId, cb) {
-      addListenerMap(this.$map.id, event, eventId, cb);
-    },
     actionAfterMapLoaded(cb) {
-      if (!this.map) {
+      if (!this.c_mapId) {
         return this.$once("module-loaded", () => {
           cb();
         });
       }
       cb();
     },
-    removeSource(sourceId) {
-      if (this.map.getSource(sourceId)) {
-        this.map.removeSource(sourceId);
-      }
-    },
-    addLayer(layer, beforeId) {
-      if (!this.map) {
-        return this.$once("module-loaded", () => {
-          this.addLayer(layer, beforeId);
-        });
-      }
-
-      this.map.addLayer(layer, beforeId);
-    },
-    removeLayer(layerId) {
-      if (!this.map) return;
-
-      if (this.map.getLayer(layerId)) {
-        this.map.removeLayer(layerId);
-      }
-
-      if (this.map.getSource(layerId)) {
-        this.map.removeSource(layerId);
-      }
+    callMap(cb) {
+      if (!this.c_mapId) return;
+      getMap(this.c_mapId, cb);
     }
   }
 };

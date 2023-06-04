@@ -21,8 +21,10 @@ import { mdiUpload } from "@mdi/js";
 import ModuleMixin from "@/components/Map/mixins/ModuleMixin";
 import MapControlButton from "@/components/Map/control/MapControlButton.vue";
 import { Reader } from "@/utils/GeojsonIO/Reader/Reader";
-import { fitBounds } from "@components/Map/helper";
-
+import { createLayer } from "@/store/store-datasource";
+import { LayerBuild } from "@/model";
+import bbox from "@turf/bbox";
+import { getUUIDv4 } from "@/utils";
 export default {
   props: {
     accept: {
@@ -34,7 +36,9 @@ export default {
   mixins: [ModuleMixin],
 
   data() {
-    return {};
+    return {
+      geojson: null
+    };
   },
   computed: {
     path() {
@@ -57,7 +61,46 @@ export default {
       }
       const reader = new Reader();
       reader.read(files[0]).then((res) => {
-        fitBounds(this.map, res);
+        let layerId = `draw-controll-layer-${getUUIDv4()}`;
+        let sourceId = `draw-controll-source-${getUUIDv4()}`;
+        let color = "#004e98";
+        let layer = new LayerBuild();
+        layer.disableOpactiy();
+        layer.setSource({
+          id: sourceId,
+          data: {
+            type: "geojson",
+            data: res
+          }
+        });
+        layer.setLayers([
+          {
+            id: `${layerId}-areas-fill`,
+            type: "fill", // For fill
+            source: sourceId,
+            filter: ["==", "$type", "Polygon"],
+            paint: {
+              "fill-color": color,
+              "fill-opacity": 0.3
+            }
+          },
+          {
+            id: `${layerId}-areas-outline`,
+            type: "line", // For outline
+            source: sourceId,
+            filter: ["==", "$type", "Polygon"],
+            paint: {
+              "line-color": color,
+              "line-width": 2
+            }
+          }
+        ]);
+        layer.setMetadata({ bounds: bbox(res) });
+        layer.setInfo({
+          name: "Geojson show",
+          menus: []
+        });
+        createLayer(this.c_mapId, layer.build());
       });
     }
   }

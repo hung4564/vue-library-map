@@ -1,19 +1,19 @@
 import Vue from "vue";
 import { getMap } from "./store-map";
 import { getUUIDv4 } from "@/utils";
-if (!Vue.prototype.$_map_event_store) {
-  Vue.prototype.$_map_event_store = {};
+if (!Vue.prototype.$_hungpv_map_event_store) {
+  Vue.prototype.$_hungpv_map_event_store = {};
 }
-if (!Vue.prototype.$_map_event_bind) {
-  Vue.prototype.$_map_event_bind = {};
+if (!Vue.prototype.$_hungpv_map_event_bind) {
+  Vue.prototype.$_hungpv_map_event_bind = {};
 }
 export function initMapListener(mapId) {
-  Vue.prototype.$_map_event_store[mapId] = {};
-  Vue.prototype.$_map_event_bind[mapId] = {};
+  Vue.prototype.$_hungpv_map_event_store[mapId] = {};
+  Vue.prototype.$_hungpv_map_event_bind[mapId] = {};
 }
 export const removeMapListener = (mapId) => {
-  delete Vue.prototype.$_map_event_store[mapId];
-  delete Vue.prototype.$_map_event_bind[mapId];
+  delete Vue.prototype.$_hungpv_map_event_store[mapId];
+  delete Vue.prototype.$_hungpv_map_event_bind[mapId];
 };
 export function addListenerMap(mapId, event, cb) {
   let { name, handle } = cb;
@@ -41,24 +41,24 @@ export function removeListenerMap(mapId, event, eventId) {
   return eventId;
 }
 export function getMapListener(mapId, event) {
-  if (!Vue.prototype.$_map_event_store[mapId]) {
-    Vue.prototype.$_map_event_store[mapId] = {
+  if (!Vue.prototype.$_hungpv_map_event_store[mapId]) {
+    Vue.prototype.$_hungpv_map_event_store[mapId] = {
       items: []
     };
   }
-  if (!Vue.prototype.$_map_event_store[mapId][event]) {
-    Vue.prototype.$_map_event_store[mapId][event] = {
+  if (!Vue.prototype.$_hungpv_map_event_store[mapId][event]) {
+    Vue.prototype.$_hungpv_map_event_store[mapId][event] = {
       items: []
     };
   }
-  return Vue.prototype.$_map_event_store[mapId][event];
+  return Vue.prototype.$_hungpv_map_event_store[mapId][event];
 }
 function setMapEvent(map, event) {
   let mapId = map.id;
-  if (!Vue.prototype.$_map_event_store[mapId]) {
-    Vue.prototype.$_map_event_store[mapId] = {};
+  if (!Vue.prototype.$_hungpv_map_event_store[mapId]) {
+    Vue.prototype.$_hungpv_map_event_store[mapId] = {};
   }
-  if (!Vue.prototype.$_map_event_bind[mapId][event]) {
+  if (!Vue.prototype.$_hungpv_map_event_bind[mapId][event]) {
     let handle = function (mapId, event, e) {
       let mapListener = getMapListener(mapId, event);
       let items = mapListener.items;
@@ -66,19 +66,19 @@ function setMapEvent(map, event) {
       if (!first_cb) return;
       first_cb.handle(e);
     };
-    Vue.prototype.$_map_event_bind[mapId][event] = handle.bind(
+    Vue.prototype.$_hungpv_map_event_bind[mapId][event] = handle.bind(
       null,
       map.id,
       event
     );
   }
-  map.on(event, Vue.prototype.$_map_event_bind[mapId][event]);
+  map.on(event, Vue.prototype.$_hungpv_map_event_bind[mapId][event]);
 }
 function removeMapEvent(map, event) {
   let mapId = map.id;
   if (
-    Vue.prototype.$_map_event_bind[mapId] &&
-    Vue.prototype.$_map_event_bind[mapId][event]
+    Vue.prototype.$_hungpv_map_event_bind[mapId] &&
+    Vue.prototype.$_hungpv_map_event_bind[mapId][event]
   )
-    map.off(event, Vue.prototype.$_map_event_bind[mapId][event]);
+    map.off(event, Vue.prototype.$_hungpv_map_event_bind[mapId][event]);
 }

@@ -1,20 +1,18 @@
 <template>
   <div id="app">
-    <Map locale="en">
+    <MapCompare locale="en">
+      <template #map-before>
+        <BaseMapControl position="bottom-left"></BaseMapControl>
+      </template>
+      <template #map-after>
+        <BaseMapControl
+          position="bottom-right"
+          defaultBaseMap="Dark"
+        ></BaseMapControl>
+      </template>
       <FileUploadForMap position="bottom-right" />
       <LayerControl position="top-left" />
-      <PrintControl />
-      <GeolocateControl />
-      <HomeControl />
-      <ZoomControl />
-
-      <FullScreenControl />
-      <BaseMapControl
-        position="bottom-right"
-        defaultBaseMap="Dark"
-      ></BaseMapControl>
-      <MouseCoordinatesControl />
-    </Map>
+    </MapCompare>
   </div>
 </template>
 
@@ -28,24 +26,18 @@ import {
   GeolocateControl,
   BaseMapControl,
   Map,
-  PrintControl
+  PrintControl,
+  MapCompare
 } from "@components/Map";
 import LayerControl from "./components/LayerControl/LayerControl.vue";
 import FileUploadForMap from "./components/FileUploadForMap.vue";
 export default {
   name: "App",
   components: {
-    // MapCompare,
+    MapCompare,
     LayerControl,
-    FullScreenControl,
-    MouseCoordinatesControl,
-    ZoomControl,
-    HomeControl,
-    GeolocateControl,
-    BaseMapControl,
-    Map,
-    PrintControl,
-    FileUploadForMap
+    FileUploadForMap,
+    BaseMapControl
   }
 };
 </script>

@@ -131,7 +131,7 @@ export default {
     },
     onInit() {
       this.mapResizeBind = this.onMapResize.bind(this);
-      initPrint(this.$map.mapId, {
+      initPrint(this.c_mapId, {
         show: (options) => this.onShowPrint(options),
         close: () => this.onClosePrint(),
         save: (cb) => this.onSave(cb),

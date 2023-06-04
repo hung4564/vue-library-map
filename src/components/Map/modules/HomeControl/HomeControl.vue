@@ -38,12 +38,16 @@ export default {
 
   methods: {
     onGoHome() {
-      this.map.setCenter(this.center);
-      this.map.setZoom(this.zoom);
+      this.callMap((map) => {
+        map.setCenter(this.center);
+        map.setZoom(this.zoom);
+      });
     },
     onInit() {
-      this.center = this.map.getCenter();
-      this.zoom = this.map.getZoom();
+      this.callMap((map) => {
+        this.center = map.getCenter();
+        this.zoom = map.getZoom();
+      });
     }
   }
 };

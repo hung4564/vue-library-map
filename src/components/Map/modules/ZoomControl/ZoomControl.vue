@@ -67,22 +67,37 @@ export default {
   },
 
   methods: {
+    onDestroy() {
+      this.callMap((map) => {
+        map.off("rotate", this.syncRotate);
+      });
+    },
     onInit() {
       this.syncRotate = this.syncRotate.bind(this);
-      this.map.on("rotate", this.syncRotate);
+      this.callMap((map) => {
+        map.on("rotate", this.syncRotate);
+      });
     },
     onZoomIn(e) {
-      this.map.zoomIn({}, { originalEvent: e });
+      this.callMap((map) => {
+        map.zoomIn({}, { originalEvent: e });
+      });
     },
     onZoomOut(e) {
-      this.map.zoomOut({}, { originalEvent: e });
+      this.callMap((map) => {
+        map.zoomOut({}, { originalEvent: e });
+      });
     },
     onResetBearing() {
-      this.map.easeTo({ bearing: 0, pitch: 0 });
+      this.callMap((map) => {
+        map.easeTo({ bearing: 0, pitch: 0 });
+      });
     },
     syncRotate() {
-      const angle = this.map.getBearing() * -1;
-      this.transform = `rotate(${angle}deg)`;
+      this.callMap((map) => {
+        const angle = map.getBearing() * -1;
+        this.transform = `rotate(${angle}deg)`;
+      });
     }
   }
 };

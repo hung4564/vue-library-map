@@ -124,7 +124,7 @@ export default {
     p_baseMaps: {
       immediate: true,
       handler(value) {
-        if (!this.map || !value || value.length < 1) return;
+        if (!this.c_mapId || !value || value.length < 1) return;
         this.onInit();
       }
     },
@@ -164,7 +164,7 @@ export default {
 <style scoped>
 .base-map-button__title {
   position: absolute;
-  padding: 4px;
+  padding-bottom: 4px;
   bottom: 0;
   width: 100%;
   text-align: center;
