@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <MapCompare locale="en">
-      <template #map-before>
+      <template #map-0>
         <BaseMapControl position="bottom-left"></BaseMapControl>
       </template>
-      <template #map-after>
+      <template #map-1>
         <BaseMapControl
           position="bottom-right"
           defaultBaseMap="Dark"
@@ -17,18 +17,8 @@
 </template>
 
 <script>
-/* eslint-disable no-unused-vars */
-import {
-  FullScreenControl,
-  MouseCoordinatesControl,
-  ZoomControl,
-  HomeControl,
-  GeolocateControl,
-  BaseMapControl,
-  Map,
-  PrintControl,
-  MapCompare
-} from "@components/Map";
+import { BaseMapControl } from "@components/Map";
+import { MapCompare } from "@components/MapCompare";
 import LayerControl from "./components/LayerControl/LayerControl.vue";
 import FileUploadForMap from "./components/FileUploadForMap.vue";
 export default {

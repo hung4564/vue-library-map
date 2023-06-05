@@ -1,10 +1,13 @@
 import Vue from "vue";
 import mitt from "mitt";
 
-if (!Vue.prototype.$_hungpv_map_eventbus) {
-  Vue.prototype.$_hungpv_map_eventbus = new mitt();
+if (!Vue.prototype.$_hungpv_map) {
+  Vue.prototype.$_hungpv_map = {};
 }
-export const eventBus = Vue.prototype.$_hungpv_map_eventbus;
+if (!Vue.prototype.$_hungpv_map.eventbus) {
+  Vue.prototype.$_hungpv_map.eventbus = new mitt();
+}
+export const eventBus = Vue.prototype.$_hungpv_map.eventbus;
 eventBus.on("*", (type, e) => console.log("eventBus", type, e));
 export default eventBus;
 export const EVENTBUS_TYPE = {

@@ -231,6 +231,7 @@ export default {
       this.map = null;
       removeMap(this.id);
       removeMapLang(this.id);
+      this.$emit("map-destroy", this.map);
     }
   }
 };

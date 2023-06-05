@@ -4,18 +4,21 @@ import { initMapListener, removeMapListener } from "./store-event";
 
 import Vue from "vue";
 
-if (!Vue.prototype.$_hungpv_map_store) {
-  Vue.prototype.$_hungpv_map_store = {};
+if (!Vue.prototype.$_hungpv_map) {
+  Vue.prototype.$_hungpv_map = {};
 }
-if (!Vue.prototype.$_hungpv_map_object) {
-  Vue.prototype.$_hungpv_map_object = {};
+if (!Vue.prototype.$_hungpv_map.store) {
+  Vue.prototype.$_hungpv_map.store = {};
+}
+if (!Vue.prototype.$_hungpv_map.object) {
+  Vue.prototype.$_hungpv_map.object = {};
 }
 export const setMap = (id, map) => {
-  Vue.prototype.$_hungpv_map_object[id] = map;
+  Vue.prototype.$_hungpv_map.object[id] = map;
   initMapListener(id);
   initMapBaseMap(id);
   initLayerStore(id);
-  Vue.set(Vue.prototype.$_hungpv_map_store, id, {
+  Vue.set(Vue.prototype.$_hungpv_map.store, id, {
     sidebar_count: { left_count: 0, right_count: 0 }
   });
 };
@@ -38,8 +41,8 @@ export const getSideBarCount = (id) => {
   return store.sidebar_count;
 };
 export const removeMap = (id) => {
-  delete Vue.prototype.$_hungpv_map_object[id];
-  Vue.delete(Vue.prototype.$_hungpv_map_store, id);
+  delete Vue.prototype.$_hungpv_map.object[id];
+  Vue.delete(Vue.prototype.$_hungpv_map.store, id);
   removeBaseMap(id);
   removeMapListener(id);
   removeLayerStore(id);
@@ -49,8 +52,8 @@ export const getMap = (id, cb = null) => {
   if (typeof id != "string") {
     id = map.id;
   }
-  if (id && Vue.prototype.$_hungpv_map_object[id]) {
-    map = Vue.prototype.$_hungpv_map_object[id];
+  if (id && Vue.prototype.$_hungpv_map.object[id]) {
+    map = Vue.prototype.$_hungpv_map.object[id];
   }
   if (cb) {
     if (Array.isArray(map)) {
@@ -62,6 +65,6 @@ export const getMap = (id, cb = null) => {
   return map;
 };
 
-export const getStoreMap = (id) => Vue.prototype.$_hungpv_map_store[id] || {};
+export const getStoreMap = (id) => Vue.prototype.$_hungpv_map.store[id] || {};
 
-export default () => Vue.prototype.$_hungpv_map_store;
+export default () => Vue.prototype.$_hungpv_map.store;

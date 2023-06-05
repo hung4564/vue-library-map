@@ -7,16 +7,16 @@ import { getMap } from "./store-map";
 
 export const BASEMAP_PREFIX = "base_map_control";
 
-if (!Vue.prototype.$_hungpv_map_base_map_store) {
-  Vue.prototype.$_hungpv_map_base_map_store = new Vue.observable({});
+if (!Vue.prototype.$_hungpv_map.base_map_store) {
+  Vue.prototype.$_hungpv_map.base_map_store = new Vue.observable({});
 }
-if (!Vue.prototype.$_hungpv_map_base_map_object) {
-  Vue.prototype.$_hungpv_map_base_map_object = {};
+if (!Vue.prototype.$_hungpv_map.base_map_object) {
+  Vue.prototype.$_hungpv_map.base_map_object = {};
 }
 
 export function initMapBaseMap(mapId) {
-  Vue.prototype.$_hungpv_map_base_map_object[mapId] = {};
-  Vue.set(Vue.prototype.$_hungpv_map_base_map_store, mapId, {
+  Vue.prototype.$_hungpv_map.base_map_object[mapId] = {};
+  Vue.set(Vue.prototype.$_hungpv_map.base_map_store, mapId, {
     baseMaps: [],
     current_baseMaps: null,
     loading: false,
@@ -25,11 +25,11 @@ export function initMapBaseMap(mapId) {
   });
 }
 export const removeBaseMap = (mapId) => {
-  delete Vue.prototype.$_hungpv_map_base_map_object[mapId];
-  Vue.delete(Vue.prototype.$_hungpv_map_base_map_store, mapId);
+  delete Vue.prototype.$_hungpv_map.base_map_object[mapId];
+  Vue.delete(Vue.prototype.$_hungpv_map.base_map_store, mapId);
 };
 
-const getStoreMap = (id) => Vue.prototype.$_hungpv_map_base_map_store[id] || {};
+const getStoreMap = (id) => Vue.prototype.$_hungpv_map.base_map_store[id] || {};
 export const setBaseMaps = (mapId, baseMaps = []) => {
   getStoreMap(mapId).baseMaps = baseMaps;
   setBaseMapForMap(mapId, baseMaps[getIndexDefault(mapId)]);

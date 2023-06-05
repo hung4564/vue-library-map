@@ -1,4 +1,5 @@
 export * from "./Map";
+export * from "./MapCompare";
 
 import MapButton from "./MapButton.vue";
 import MapCard from "./MapCard.vue";

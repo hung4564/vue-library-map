@@ -1,27 +1,23 @@
 <template lang="">
-  <div class="compare-map-container">
-    <Map
-      v-bind="$attrs"
-      :trans="trans"
-      :locale="locale"
-      class="map-compare"
-      :dragIdCustom="dragId"
-      :prefix="id"
-      @map-loaded="onMapBeforeLoad"
-    >
-      <slot name="map-before" />
-    </Map>
-    <Map
-      v-bind="$attrs"
-      :trans="trans"
-      :locale="locale"
-      class="map-compare"
-      :dragIdCustom="dragId"
-      :prefix="id"
-      @map-loaded="onMapAfterLoad"
-    >
-      <slot name="map-after" />
-    </Map>
+  <div class="map-compare-container">
+    <div class="map-compare__container">
+      <template v-if="dragId">
+        <Map
+          v-for="key in count_map"
+          :key="key"
+          v-bind="$attrs"
+          :trans="trans"
+          :locale="locale"
+          class="map-compare__item"
+          :dragIdCustom="dragId"
+          :prefix="id"
+          @map-loaded="onMapLoad($event, key - 1)"
+          @map-destroy="onMapDestroy($event, key - 1)"
+        >
+          <slot :name="`map-${key - 1}`" />
+        </Map>
+      </template>
+    </div>
 
     <div class="right-bottom-container" :id="rightBottomTo" />
     <div class="left-bottom-container" :id="leftBottomTo" />
@@ -37,8 +33,8 @@
 <script>
 import { DraggableContianer } from "@hungpv4564/vue-library-draggable";
 import { getUUIDv4 } from "@/utils";
-import Map from "./Map.vue";
-import syncMove from "@mapbox/mapbox-gl-sync-move";
+import Map from "../Map/Map.vue";
+// import syncMove from "@mapbox/mapbox-gl-sync-move";
 import { mapLang, removeMapLang } from "@/store/store-lang";
 import { removeMap, setMap } from "@/store/store-map";
 export default {
@@ -55,7 +51,9 @@ export default {
       id: getUUIDv4(),
       dragId: undefined,
       isMobile: false,
-      loaded: false
+      loaded: false,
+      count_map: 1,
+      setting: { compare: false }
     };
   },
   provide() {
@@ -86,6 +84,14 @@ export default {
       enumerable: true,
       get: () => this.id
     });
+    Object.defineProperty($map, "changeSetting", {
+      enumerable: true,
+      get: () => (e) => this.changeSetting(e)
+    });
+    Object.defineProperty($map, "setting", {
+      enumerable: true,
+      get: () => this.setting
+    });
 
     return {
       getMap: this.getMap,
@@ -113,19 +119,48 @@ export default {
       return `top-left-${this.id}`;
     }
   },
+  created() {
+    this.createMaps(this.count_map);
+  },
   mounted() {
-    if (this.isSupport) {
-      this.$nextTick(() => {
-        this.onResize();
-        window.addEventListener("resize", this.onResize);
-      });
-    }
+    this.$nextTick(() => {
+      this.onResize();
+      window.addEventListener("resize", this.onResize);
+    });
   },
   beforeDestroy() {
     this.destroy();
     window.removeEventListener("resize", this.onResize);
   },
   methods: {
+    changeSetting(e = {}) {
+      if (e.compare) {
+        this.count_map = 2;
+      } else {
+        this.count_map = 1;
+      }
+      console.log("🚀 ~ changeSetting ~ e", e);
+      console.log("🚀 ~ changeSetting ~ this", this.count_map);
+      this.createMaps(this.count_map);
+    },
+    createMaps(max) {
+      if (!this.maps) {
+        this.maps = {};
+      }
+      for (let i = 0; i < max; i++) {
+        if (!this.maps[i]) {
+          this.$set(this.maps, i, null);
+        }
+      }
+    },
+    onMapLoad(map, index) {
+      this.maps[index] = map;
+      this.initCompare();
+    },
+    onMapDestroy(map, index) {
+      console.log("🚀 ~ onMapDestroy ~ index", index);
+      delete this.maps[index];
+    },
     transLocal(key) {
       return getProp(this.transText, key, key);
     },
@@ -135,14 +170,6 @@ export default {
     onResize() {
       let width = this.$el.clientWidth;
       this.isMobile = width && width <= 600;
-    },
-    onMapBeforeLoad(map) {
-      this.beforeMap = map;
-      this.initCompare();
-    },
-    onMapAfterLoad(map) {
-      this.afterMap = map;
-      this.initCompare();
     },
     getMap(callback) {
       if (this.loaded) {
@@ -155,19 +182,22 @@ export default {
     },
     initCompare() {
       let vm = this;
-      if (!vm.beforeMap || !vm.afterMap) return;
-      vm.clear = syncMove(vm.beforeMap, vm.afterMap);
+      if (!this.maps || Object.values(this.maps).some((x) => !x)) return;
+      let maps = Object.values(vm.maps);
+      // vm.clear = syncMove(vm.beforeMap, vm.afterMap);
+
       vm.$emit("map-compare-loaded", {
         id: vm.id,
-        maps: [vm.beforeMap, vm.afterMap]
+        maps: maps
       });
-      setMap(this.id, [this.beforeMap, this.afterMap]);
+      setMap(this.id, maps);
       this.loaded = true;
     },
     destroy() {
       if (this.clear) {
         this.clear();
       }
+      this.maps = {};
       removeMap(this.id);
       removeMapLang(this.id);
     }
@@ -187,7 +217,7 @@ function getProp(object, path, defaultVal) {
 </script>
 
 <style lang="scss">
-.compare-map-container {
+.map-compare-container {
   position: relative;
   min-height: 100%;
   height: 100%;
@@ -195,18 +225,14 @@ function getProp(object, path, defaultVal) {
   flex-direction: column;
   box-sizing: border-box;
   flex: 1 1 auto;
-  .map-compare:first-child {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 50%;
-  }
-  .map-compare:nth-child(2) {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 50%;
+  .map-compare__container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    .map-compare__item {
+      flex: 1 1 auto;
+      height: 100%;
+    }
   }
 }
 </style>

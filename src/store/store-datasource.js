@@ -5,35 +5,35 @@ import { createDefaultData } from "@/model/data";
 import { createDefaultView } from "@/model/view";
 import { getMap } from "./store-map";
 
-if (!Vue.prototype.$_hungpv_map_layer_control_store_layers) {
-  Vue.prototype.$_hungpv_map_layer_control_store_layers = {};
+if (!Vue.prototype.$_hungpv_map.layer_control_store_layers) {
+  Vue.prototype.$_hungpv_map.layer_control_store_layers = {};
 }
-if (!Vue.prototype.$_hungpv_map_layer_control_store) {
-  Vue.prototype.$_hungpv_map_layer_control_store = new Vue.observable({
+if (!Vue.prototype.$_hungpv_map.layer_control_store) {
+  Vue.prototype.$_hungpv_map.layer_control_store = new Vue.observable({
     layers_view: []
   });
 }
 export function initLayerStore(mapId) {
-  Vue.prototype.$_hungpv_map_layer_control_store_layers[mapId] = {};
-  Vue.set(Vue.prototype.$_hungpv_map_layer_control_store, mapId, {
+  Vue.prototype.$_hungpv_map.layer_control_store_layers[mapId] = {};
+  Vue.set(Vue.prototype.$_hungpv_map.layer_control_store, mapId, {
     layers_view: []
   });
 }
 export const removeLayerStore = (mapId) => {
-  delete Vue.prototype.$_hungpv_map_layer_control_store_layers[mapId];
-  Vue.delete(Vue.prototype.$_hungpv_map_layer_control_store, mapId);
+  delete Vue.prototype.$_hungpv_map.layer_control_store_layers[mapId];
+  Vue.delete(Vue.prototype.$_hungpv_map.layer_control_store, mapId);
 };
 function getDataStore(mapId) {
-  if (!Vue.prototype.$_hungpv_map_layer_control_store_layers[mapId]) {
-    Vue.prototype.$_hungpv_map_layer_control_store_layers[mapId] = {};
+  if (!Vue.prototype.$_hungpv_map.layer_control_store_layers[mapId]) {
+    Vue.prototype.$_hungpv_map.layer_control_store_layers[mapId] = {};
   }
-  return Vue.prototype.$_hungpv_map_layer_control_store_layers[mapId];
+  return Vue.prototype.$_hungpv_map.layer_control_store_layers[mapId];
 }
 function getStore(mapId) {
-  if (!Vue.prototype.$_hungpv_map_layer_control_store[mapId]) {
-    Vue.prototype.$_hungpv_map_layer_control_store[mapId] = {};
+  if (!Vue.prototype.$_hungpv_map.layer_control_store[mapId]) {
+    Vue.prototype.$_hungpv_map.layer_control_store[mapId] = {};
   }
-  return Vue.prototype.$_hungpv_map_layer_control_store[mapId];
+  return Vue.prototype.$_hungpv_map.layer_control_store[mapId];
 }
 export const layersView = (mapId) => {
   return getStore(mapId).layers_view;
