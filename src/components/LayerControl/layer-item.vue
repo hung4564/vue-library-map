@@ -39,6 +39,7 @@
           class="layer-item__button"
           @click.stop="toggleShow"
           :disabled="loading"
+          v-if="!isCompare"
         >
           <SvgIcon size="14" type="mdi" :path="path.show" v-if="isShow" />
           <SvgIcon size="14" type="mdi" :path="path.hide" v-else />
@@ -63,6 +64,11 @@
           :disabled="loading"
           v-if="!item.disabled_opacity"
         />
+      </div>
+      <div class="v-spacer"></div>
+      <div v-if="isCompare" class="layer-item__compare">
+        <button :class="{ active: item.show }">L</button>
+        <button :class="{ active: item.show }">R</button>
       </div>
     </div>
   </div>
@@ -97,7 +103,8 @@ export default {
         disable_delete: false
       })
     },
-    isSelected: Boolean
+    isSelected: Boolean,
+    isCompare: Boolean
   },
   computed: {
     path() {
@@ -170,6 +177,9 @@ export default {
   display: flex;
   align-items: center;
 }
+.layer-item__action {
+  padding-top: 4px;
+}
 .layer-item__opacity {
   flex: 1 1 auto;
   max-width: 75%;
@@ -216,5 +226,36 @@ export default {
   cursor: default;
   pointer-events: none;
   opacity: 0.25;
+}
+.layer-item__compare {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+.layer-item__compare button {
+  font-size: 0.625rem;
+  background-color: transparent;
+  height: 20px;
+  min-width: 30px;
+  padding: 0 8.8888888889px;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  justify-content: center;
+  outline: 0;
+  position: relative;
+  text-decoration: none;
+  text-indent: 0.0892857143em;
+  font-weight: 500;
+  letter-spacing: 0.0892857143em;
+  align-items: center;
+  border: none;
+}
+.layer-item__compare button.active {
+  color: #fff;
+  caret-color: #004e98;
+  background: #004e9830;
+}
+.v-spacer {
+  flex: 1 1 auto;
 }
 </style>

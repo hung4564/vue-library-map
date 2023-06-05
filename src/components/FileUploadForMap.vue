@@ -65,7 +65,7 @@ export default {
         let sourceId = `draw-controll-source-${getUUIDv4()}`;
         let color = "#004e98";
         let layer = new LayerBuild();
-        layer.disableOpactiy();
+        // layer.disableOpactiy();
         layer.setSource({
           id: sourceId,
           data: {

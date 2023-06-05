@@ -10,6 +10,7 @@
           defaultBaseMap="Dark"
         ></BaseMapControl>
       </template>
+      <CompareSetting />
       <FileUploadForMap position="bottom-right" />
       <LayerControl position="top-left" />
     </MapCompare>
@@ -18,7 +19,7 @@
 
 <script>
 import { BaseMapControl } from "@components/Map";
-import { MapCompare } from "@components/MapCompare";
+import { MapCompare, CompareSetting } from "@components/MapCompare";
 import LayerControl from "./components/LayerControl/LayerControl.vue";
 import FileUploadForMap from "./components/FileUploadForMap.vue";
 export default {
@@ -27,7 +28,8 @@ export default {
     MapCompare,
     LayerControl,
     FileUploadForMap,
-    BaseMapControl
+    BaseMapControl,
+    CompareSetting
   }
 };
 </script>

@@ -44,6 +44,7 @@
                     :item="item"
                     :isSelected="isSelected"
                     :toggleSelect="toggleSelect"
+                    :isCompare="isCompare"
                   >
                     <LayerItem
                       :item="item"
@@ -53,6 +54,7 @@
                       @click:remove="onRemoveLayer"
                       @click:action="onLayerAction"
                       @click="toggleSelect(item)"
+                      :isCompare="isCompare"
                     >
                       <template #extra-btn="{ loading }">
                         <div
@@ -129,6 +131,9 @@ export default {
         group: { create: mdiGroup },
         deleteAll: mdiDelete
       };
+    },
+    isCompare() {
+      return this.$map.isCompare;
     }
   },
   watch: {},
