@@ -1,6 +1,6 @@
 {
   "main": "./dist/map.common.js",
-  "name": "@hungpv4564/vue-library-map",
+  "name": "@hungpv97/vue-library-map",
   "exports": {
     ".": "./dist/map.common.js",
     "./*": "./dist/*",
@@ -42,7 +42,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@hungpv4564/vue-library-draggable": "^1.0.0",
+    "@hungpv97/vue-library-draggable": "^1.0.0",
     "@jamescoyle/vue-icon": "^0.1.2",
     "@linusborg/vue-simple-portal": "^0.1.5",
     "@mapbox/mapbox-gl-sync-move": "^0.3.1",

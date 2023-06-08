@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { DraggablePopup } from "@hungpv4564/vue-library-draggable";
+import { DraggablePopup } from "@hungpv97/vue-library-draggable";
 import { mdiCog } from "@mdi/js";
 import ModuleMixin from "@/components/Map/mixins/ModuleMixin";
 import MapControlButton from "@/components/Map/control/MapControlButton.vue";

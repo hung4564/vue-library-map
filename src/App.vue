@@ -2,7 +2,6 @@
   <div id="app">
     <Map locale="en">
       <FileUploadForMap position="bottom-right" />
-      <LayerControl position="top-left" />
       <PrintControl />
       <GeolocateControl />
       <HomeControl />
@@ -27,13 +26,10 @@ import {
   Map,
   PrintControl
 } from "@components/Map";
-import LayerControl from "./components/LayerControl/LayerControl.vue";
 import FileUploadForMap from "./components/FileUploadForMap.vue";
 export default {
   name: "App",
   components: {
-    // MapCompare,
-    LayerControl,
     FullScreenControl,
     MouseCoordinatesControl,
     ZoomControl,

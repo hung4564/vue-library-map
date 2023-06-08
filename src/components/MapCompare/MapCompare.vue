@@ -38,7 +38,7 @@
   </div>
 </template>
 <script>
-import { DraggableContianer } from "@hungpv4564/vue-library-draggable";
+import { DraggableContianer } from "@hungpv97/vue-library-draggable";
 import { getUUIDv4 } from "@/utils";
 import Map from "../Map/Map.vue";
 import syncMove from "@mapbox/mapbox-gl-sync-move";

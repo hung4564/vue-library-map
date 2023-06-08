@@ -41,7 +41,7 @@ const DEFAULTOPTION = {
   maxZoom: 22
 };
 import mapboxgl from "mapbox-gl";
-import { DraggableContianer } from "@hungpv4564/vue-library-draggable";
+import { DraggableContianer } from "@hungpv97/vue-library-draggable";
 import { getGlyphs, getSprite } from "@constant";
 import { getUUIDv4 } from "@utils";
 import { setMap, removeMap, setSideBarCount } from "@/store/store-map";

@@ -1140,10 +1140,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@hungpv4564/vue-library-draggable@^1.0.10":
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/@hungpv4564/vue-library-draggable/-/vue-library-draggable-1.0.10.tgz#19f15e95cd3d80bb45bfbf50b8e4533343470219"
-  integrity sha512-nfxhgxBlDQYLNtzy8Epre5TsnowoV/Nl7jAPUwOUWD+yZ5QRW0Ya0AU5QKjx/3d8+xrieXEmcDpjM0GpyKZKHQ==
+"@hungpv97/vue-library-draggable@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@hungpv97/vue-library-draggable/-/vue-library-draggable-1.0.0.tgz#8a188d26d7cfc8e853190deca20c0e45ba9a20d6"
+  integrity sha512-c5WX99KQEDIV/Vtki5WKQFcboY1Awqcxb37f8yh0T3BmKPCyg5WwJHJAnonlieRoE/NTq5KIurgwZCXb5NwGkA==
   dependencies:
     "@vue/runtime-dom" "3.2.37"
     core-js "^3.8.3"

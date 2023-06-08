@@ -1,7 +1,7 @@
 const path = require("path");
 function getProdExternals() {
   return {
-    "@hungpv4564/vue-library-draggable": "@hungpv4564/vue-library-draggable",
+    "@hungpv97/vue-library-draggable": "@hungpv97/vue-library-draggable",
     "@jamescoyle/vue-icon": "@jamescoyle/vue-icon",
     "@turf/bbox": "@turf/bbox",
     axios: "axios",
