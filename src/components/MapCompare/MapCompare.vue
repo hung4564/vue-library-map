@@ -60,7 +60,7 @@ export default {
       isMobile: false,
       loaded: false,
       count_map: 1,
-      setting: { compare: false, split: true, sync: true }
+      setting: { compare: false, split: true, sync: false }
     };
   },
   provide() {
