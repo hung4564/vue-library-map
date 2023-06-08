@@ -14,7 +14,7 @@
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
   "vueCompilerOptions": {
-    "target": 2,
-    "experimentalDisableTemplateSupport": true
+    "target": 2.7,
+    "extensions": [".vue"]
   }
 }

@@ -1,7 +1,7 @@
-import { MultiLayer } from "../MultiLayer";
+import { MapMultiLayer } from "../MapMultiLayer";
 
-export const BASEMAP_PREFIX = "base_map_control";
-export class BaseMapLayer extends MultiLayer {
+export const BASEMAP_PREFIX = "base_map_control_";
+export class BaseMapLayer extends MapMultiLayer {
   constructor(info) {
     super(info);
     delete this.layer;
@@ -9,6 +9,9 @@ export class BaseMapLayer extends MultiLayer {
     this.source = {};
   }
   async setBaseMap(baseMap) {
+    if (this._baseMap && this._baseMap.id === baseMap.id) {
+      return;
+    }
     this._baseMap = baseMap;
     let { sources, layers } = await getLoader(baseMap.type)(baseMap);
     this.layers = layers;
@@ -28,7 +31,6 @@ export class BaseMapLayer extends MultiLayer {
         map.addLayer(layer, beforeId);
       }
     });
-    this.runViewWithNameFunction("addToMap", map, beforeId);
   }
   removeFromMap(map) {
     this.layers.forEach((layer) => {
@@ -37,13 +39,10 @@ export class BaseMapLayer extends MultiLayer {
       }
     });
     for (const source_id in this.sources) {
-      if (Object.hasOwnProperty.call(this.sources, source_id)) {
-        if (map.getSource(source_id)) {
-          map.removeSource(source_id);
-        }
+      if (map.getSource(source_id)) {
+        map.removeSource(source_id);
       }
     }
-    this.runViewWithNameFunction("removeFromMap", map);
   }
 }
 function getLoader(type) {
@@ -91,8 +90,8 @@ async function loadVector(item) {
 function loadRaster(item) {
   if (!item) throw new Error("Not found item");
 
-  let layerId = `${BASEMAP_PREFIX}-layer`;
-  let sourceId = `${BASEMAP_PREFIX}-source`;
+  let layerId = `${BASEMAP_PREFIX}layer`;
+  let sourceId = `${BASEMAP_PREFIX}source`;
   let sources = {};
   sources[sourceId] = {
     type: "raster",

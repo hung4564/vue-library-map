@@ -1,24 +1,20 @@
 <template>
   <div id="app">
     <MapCompare locale="en">
-      <template #map-0>
-        <BaseMapControl position="bottom-left"></BaseMapControl>
-      </template>
-      <template #map-1>
-        <BaseMapControl
-          position="bottom-right"
-          defaultBaseMap="Dark"
-        ></BaseMapControl>
-      </template>
-      <CompareSetting />
       <FileUploadForMap position="bottom-right" />
+      <CompareSetting />
       <LayerControl position="top-left" />
+      <ZoomControl position="bottom-right"></ZoomControl>
+      <BaseMapControl
+        position="bottom-right"
+        defaultBaseMap="Dark"
+      ></BaseMapControl>
     </MapCompare>
   </div>
 </template>
 
 <script>
-import { BaseMapControl } from "@components/Map";
+import { BaseMapControl, ZoomControl } from "@components/Map";
 import { MapCompare, CompareSetting } from "@components/MapCompare";
 import LayerControl from "./components/LayerControl/LayerControl.vue";
 import FileUploadForMap from "./components/FileUploadForMap.vue";
@@ -29,7 +25,8 @@ export default {
     LayerControl,
     FileUploadForMap,
     BaseMapControl,
-    CompareSetting
+    CompareSetting,
+    ZoomControl
   }
 };
 </script>

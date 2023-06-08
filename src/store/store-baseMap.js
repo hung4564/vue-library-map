@@ -1,31 +1,27 @@
 import { createLayer, getLayerData } from "./store-datasource";
 
-import { BaseMapLayer } from "@/model/data/custom/BaseMapLayer";
+import { BaseMapLayer } from "@/model/map/custom/BaseMapLayer";
 import { LayerBuild } from "@/model";
 import Vue from "vue";
-import { getMap } from "./store-map";
+import { getMap, initForMap } from "./store-map";
 
 export const BASEMAP_PREFIX = "base_map_control";
 
 if (!Vue.prototype.$_hungpv_map.base_map_store) {
   Vue.prototype.$_hungpv_map.base_map_store = new Vue.observable({});
 }
-if (!Vue.prototype.$_hungpv_map.base_map_object) {
-  Vue.prototype.$_hungpv_map.base_map_object = {};
-}
 
 export function initMapBaseMap(mapId) {
-  Vue.prototype.$_hungpv_map.base_map_object[mapId] = {};
-  Vue.set(Vue.prototype.$_hungpv_map.base_map_store, mapId, {
-    baseMaps: [],
-    current_baseMaps: null,
-    loading: false,
-    defaultBaseMap: "",
-    layer: null
-  });
+  if (!Vue.prototype.$_hungpv_map.base_map_store[mapId])
+    Vue.set(Vue.prototype.$_hungpv_map.base_map_store, mapId, {
+      baseMaps: [],
+      current_baseMaps: null,
+      loading: false,
+      defaultBaseMap: "",
+      layer: null
+    });
 }
 export const removeBaseMap = (mapId) => {
-  delete Vue.prototype.$_hungpv_map.base_map_object[mapId];
   Vue.delete(Vue.prototype.$_hungpv_map.base_map_store, mapId);
 };
 
@@ -46,9 +42,9 @@ export const setDefaultValueForMap = (mapId, titleMap) => {
 export const setBaseMapForMap = async (mapId, item) => {
   if (!item) return;
   let store = getStoreMap(mapId);
+  if (store.loading) return;
   store.current_baseMaps = item;
   store.loading = true;
-  let map = getMap(mapId);
   let metadata = {
     loading: false
   };
@@ -62,17 +58,23 @@ export const setBaseMapForMap = async (mapId, item) => {
         menus: []
       })
       .setMetadata(metadata)
-      .setCreateData((info) => new BaseMapLayer(info));
-    store.layer = createLayer(map.id, layer.build(), { hidden: true });
+      .setCreateViewInMap((info) => new BaseMapLayer(info));
+    store.layer = createLayer(mapId, layer.build(), {
+      hidden: true,
+      disableAddToMap: true
+    });
   }
+  metadata.loading = true;
   getLayerData(store.layer, async (map, layer) => {
-    metadata.loading = true;
     layer.removeFromMap(map);
-    await layer.setBaseMap(item);
-    layer.addToMap(map, getLowestLayerId(map));
-    store.loading = false;
-    metadata.loading = false;
   });
+  let layer_data = getLayerData(store.layer);
+  await layer_data.setBaseMap(item);
+  getLayerData(store.layer, async (map, layer) => {
+    layer.addToMap(map, getLowestLayerId(map));
+  });
+  store.loading = false;
+  metadata.loading = false;
 };
 function getIndexDefault(mapId) {
   let store = getStoreMap(mapId);
@@ -96,3 +98,5 @@ function getLowestLayerId(map) {
 
   return layers.length > 0 ? layers[0].id : null;
 }
+
+initForMap(initMapBaseMap, removeBaseMap);

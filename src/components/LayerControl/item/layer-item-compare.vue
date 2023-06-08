@@ -37,15 +37,6 @@
         </div>
         <div
           class="layer-item__button"
-          @click.stop="toggleShow"
-          :disabled="loading"
-          v-if="!isCompare"
-        >
-          <SvgIcon size="14" type="mdi" :path="path.show" v-if="isShow" />
-          <SvgIcon size="14" type="mdi" :path="path.hide" v-else />
-        </div>
-        <div
-          class="layer-item__button"
           v-if="!item.disable_delete"
           :disabled="loading"
           @click.stop="onRemove"
@@ -66,9 +57,13 @@
         />
       </div>
       <div class="v-spacer"></div>
-      <div v-if="isCompare" class="layer-item__compare">
-        <button :class="{ active: item.show }">L</button>
-        <button :class="{ active: item.show }">R</button>
+      <div class="layer-item__compare">
+        <button :class="{ active: isShow[0] }" @click="toggleShow(0)">
+          L
+        </button>
+        <button :class="{ active: isShow[1] }" @click="toggleShow(1)">
+          R
+        </button>
       </div>
     </div>
   </div>
@@ -85,7 +80,7 @@ import {
 } from "@mdi/js";
 import get from "lodash.get";
 import set from "lodash.set";
-import LayerItemSlider from "./layer-item-slider.vue";
+import LayerItemSlider from "../layer-item-slider.vue";
 export default {
   components: { SvgIcon, LayerItemSlider },
   props: {
@@ -103,8 +98,7 @@ export default {
         disable_delete: false
       })
     },
-    isSelected: Boolean,
-    isCompare: Boolean
+    isSelected: Boolean
   },
   computed: {
     path() {
@@ -138,9 +132,10 @@ export default {
     }
   },
   methods: {
-    toggleShow() {
+    toggleShow(index) {
       let item = this.item;
-      item.show = !item.show;
+      item.show[index] = !item.show[index];
+      this.$forceUpdate();
       this.$emit("update:item", item);
     },
     onToBounds() {

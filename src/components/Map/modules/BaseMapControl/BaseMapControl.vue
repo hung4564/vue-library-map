@@ -127,14 +127,9 @@ export default {
         if (!this.c_mapId || !value || value.length < 1) return;
         this.onInit();
       }
-    },
-    defaultBaseMap: {
-      handler(value) {
-        this.setDefaultValueForMap(value);
-      },
-      immediate: true
     }
   },
+  mounted() {},
   computed: {
     sizeBaseMap() {
       return 70;
@@ -145,6 +140,7 @@ export default {
   },
   methods: {
     onInit() {
+      this.setDefaultValueForMap(this.defaultBaseMap);
       if (this.p_baseMaps.length > 0) {
         this.setBaseMaps(this.p_baseMaps);
       }

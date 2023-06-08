@@ -1,6 +1,6 @@
 import { ALayer } from "./ALayer";
 
-export class MultiLayer extends ALayer {
+export class MapMultiLayer extends ALayer {
   constructor(info) {
     super(info);
     this.layers = info.layers;
@@ -18,7 +18,6 @@ export class MultiLayer extends ALayer {
         map.addLayer(layer, beforeId);
       }
     });
-    this.runViewWithNameFunction("addToMap", map, beforeId);
   }
   removeFromMap(map) {
     this.layers.forEach((layer) => {
@@ -29,7 +28,6 @@ export class MultiLayer extends ALayer {
     if (map.getSource(this.source.id)) {
       map.removeSource(this.source.id);
     }
-    this.runViewWithNameFunction("removeFromMap", map);
   }
   moveLayer(map, beforeId) {
     this.layers.forEach((layer) => {
@@ -37,7 +35,6 @@ export class MultiLayer extends ALayer {
         map.moveLayer(layer.id, beforeId);
       }
     });
-    this.runViewWithNameFunction("moveLayer", map, beforeId);
   }
   toggleShow(map, show) {
     this.layers.forEach((layer) => {
@@ -49,7 +46,6 @@ export class MultiLayer extends ALayer {
         );
       }
     });
-    this.runViewWithNameFunction("toggleShow", map, show);
   }
   setOpacity(map, opacity) {
     this.layers.forEach((layer) => {
@@ -60,6 +56,5 @@ export class MultiLayer extends ALayer {
         map.setPaintProperty(layer.id, keyOpacity, opacity);
       }
     });
-    this.runViewWithNameFunction("setOpacity", map, opacity);
   }
 }

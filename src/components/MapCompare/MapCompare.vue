@@ -2,7 +2,7 @@
   <div class="map-compare-container">
     <div
       class="map-compare__container"
-      :class="{ 'map-compare__split': setting.split }"
+      :class="{ 'map-compare__split': isUseSwiper }"
     >
       <template v-if="dragId">
         <Map
@@ -21,8 +21,8 @@
           <slot :name="`map-${key - 1}`" />
         </Map>
       </template>
-      <div class="map-compare__swiper" v-if="setting.split">
-        <div class="compare-swiper-vertical" ref="swiper"></div>
+      <div class="map-compare__swiper" v-if="isUseSwiper" ref="swiper">
+        <div class="compare-swiper-vertical"></div>
       </div>
     </div>
 
@@ -42,18 +42,17 @@ import { DraggableContianer } from "@hungpv4564/vue-library-draggable";
 import { getUUIDv4 } from "@/utils";
 import Map from "../Map/Map.vue";
 import syncMove from "@mapbox/mapbox-gl-sync-move";
-import { mapLang, removeMapLang } from "@/store/store-lang";
 import { removeMap, setMap } from "@/store/store-map";
 import { MapCompareSwiper } from "@components/MapCompare/helper";
+import { LangMixin } from "@/mixins/lang.mixins";
+import eventBus, { EVENTBUS_TYPE } from "@/utils/event-bus";
 export default {
-  props: {
-    trans: { type: Function },
-    locale: { type: [String, Object], default: "en" }
-  },
+  props: {},
   components: {
     Map,
     DraggableContianer
   },
+  mixins: [LangMixin],
   data() {
     return {
       id: getUUIDv4(),
@@ -61,7 +60,7 @@ export default {
       isMobile: false,
       loaded: false,
       count_map: 1,
-      setting: { compare: true, split: true, sync: true }
+      setting: { compare: false, split: true, sync: true }
     };
   },
   provide() {
@@ -100,7 +99,7 @@ export default {
       enumerable: true,
       get: () => this.setting
     });
-    Object.defineProperty($map, "isCompare", {
+    Object.defineProperty($map, "multi", {
       enumerable: true,
       get: () => this.setting.compare
     });
@@ -112,8 +111,8 @@ export default {
     };
   },
   computed: {
-    transText() {
-      return mapLang(this.id);
+    isUseSwiper() {
+      return this.setting.compare && this.setting.split;
     },
     draggableTo() {
       return `map-draggable-${this.id}`;
@@ -185,15 +184,15 @@ export default {
     onMapDestroy(map, index) {
       delete this.maps[index];
     },
-    transLocal(key) {
-      return getProp(this.transText, key, key);
-    },
     onDragInitDone(drag) {
       this.dragId = drag.id;
     },
     onResize() {
       let width = this.$el.clientWidth;
       this.isMobile = width && width <= 600;
+      if (this.resizeSplit) {
+        this.resizeSplit();
+      }
     },
     getMap(callback) {
       if (this.loaded) {
@@ -224,14 +223,19 @@ export default {
       if (this.setting.sync) {
         this.clearSync = syncMove(maps);
       }
-      if (this.setting.split) {
+      if (this.isUseSwiper) {
         let swiper = new MapCompareSwiper(
           this.$refs.swiper,
           this.$refs.maps[0].$el,
           this.$refs.maps[1].$el
         );
-        this.clearSplit = swiper.clear();
+        this.clearSplit = swiper.clear;
+        this.resizeSplit = swiper.resize;
       }
+      eventBus.emit(EVENTBUS_TYPE.MAP.COMPARE, {
+        map_id: this.id,
+        is_compare: this.setting.compare
+      });
     },
     destroy() {
       if (this.clearSplit) {
@@ -242,21 +246,9 @@ export default {
       }
       this.maps = {};
       removeMap(this.id);
-      removeMapLang(this.id);
     }
   }
 };
-function getProp(object, path, defaultVal) {
-  const _path = Array.isArray(path)
-    ? path
-    : path.split(".").filter((i) => i.length);
-
-  if (!_path.length) {
-    return object === undefined ? defaultVal : object;
-  }
-  if (object == null) return defaultVal;
-  return getProp(object[_path.shift()], _path, defaultVal);
-}
 </script>
 
 <style lang="scss">

@@ -20,9 +20,16 @@
       "square-kilometer": "Kilômét vuông"
     }
   },
-  "basemap": { "title": "Bản đồ nền", "setting": "Cài đặt" },
-  "print": { "title": "In ấn" },
-  "home": { "title": "Góc nhìn mặc định" },
+  "basemap": {
+    "title": "Bản đồ nền",
+    "setting": "Cài đặt"
+  },
+  "print": {
+    "title": "In ấn"
+  },
+  "home": {
+    "title": "Góc nhìn mặc định"
+  },
   "action": {
     "fullscreen-control-enter": "Mở toàn màn hình",
     "fullscreen-control-exit": "Thoát toàn màn hình",
@@ -31,5 +38,10 @@
     "navigation-control-zoom-in": "Phóng to",
     "navigation-control-zoom-out": "Thu nhỏ",
     "navigation-control-reset-bearing": "Đặt lại phương vị"
+  },
+  "compare": {
+    "setting": {
+      "title": "Cài đặt"
+    }
   }
 }

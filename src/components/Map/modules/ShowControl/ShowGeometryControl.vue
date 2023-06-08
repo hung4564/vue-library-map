@@ -6,7 +6,8 @@
 
 <script>
 import ModuleMixin from "@/components/Map/mixins/ModuleMixin";
-import { createLayer, removeLayer, toggleShow } from "@/store/store-datasource";
+import { createLayer, removeLayer } from "@/store/store-datasource";
+import { toggleShow } from "@/helper/datastore";
 import bbox from "@turf/bbox";
 import { fitBounds } from "@/helper";
 import { LayerBuild } from "@/model";
@@ -31,7 +32,7 @@ export default {
       handler(value) {
         if (this.layer_view) {
           this.layer_view.show = value;
-          toggleShow(this.c_mapId, this.layer_view);
+          toggleShow(this.layer_view);
         }
       },
       immediate: true
@@ -83,7 +84,8 @@ export default {
       this.sourceId = `draw-controll-source-${this._uid}`;
       this.metadata = { loading: false };
       let layer = new LayerBuild();
-      layer.disableDelete().disableOpactiy();
+      layer.disableDelete();
+      layer.disableOpacity();
       layer.setSource({
         id: this.sourceId,
         data: {

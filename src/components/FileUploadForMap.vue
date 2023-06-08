@@ -25,6 +25,7 @@ import { createLayer } from "@/store/store-datasource";
 import { LayerBuild } from "@/model";
 import bbox from "@turf/bbox";
 import { getUUIDv4 } from "@/utils";
+import { getRandomColor } from "@/helper";
 export default {
   props: {
     accept: {
@@ -59,13 +60,14 @@ export default {
         input.type = "file";
         input.value = "";
       }
+      let file = files[0];
       const reader = new Reader();
-      reader.read(files[0]).then((res) => {
+      reader.read(file).then((res) => {
         let layerId = `draw-controll-layer-${getUUIDv4()}`;
         let sourceId = `draw-controll-source-${getUUIDv4()}`;
-        let color = "#004e98";
+        let color = getRandomColor();
         let layer = new LayerBuild();
-        // layer.disableOpactiy();
+        layer.disableOpacity();
         layer.setSource({
           id: sourceId,
           data: {
@@ -95,9 +97,10 @@ export default {
             }
           }
         ]);
+        layer.setColor(color);
         layer.setMetadata({ bounds: bbox(res) });
         layer.setInfo({
-          name: "Geojson show",
+          name: file.name,
           menus: []
         });
         createLayer(this.c_mapId, layer.build());

@@ -20,9 +20,16 @@
       "square-kilometer": "Square Kilometer"
     }
   },
-  "basemap": { "title": "Map basemap", "setting": "Setting" },
-  "print": { "title": "Print" },
-  "home": { "title": "Default view" },
+  "basemap": {
+    "title": "Map basemap",
+    "setting": "Setting"
+  },
+  "print": {
+    "title": "Print"
+  },
+  "home": {
+    "title": "Default view"
+  },
   "action": {
     "fullscreen-control-enter": "Enter fullscreen",
     "fullscreen-control-exit": "Exit fullscreen",
@@ -31,5 +38,10 @@
     "navigation-control-zoom-in": "Zoom in",
     "navigation-control-zoom-out": "Zoom out",
     "navigation-control-reset-bearing": "Reset bearing to north"
+  },
+  "compare": {
+    "setting": {
+      "title": "Setting"
+    }
   }
 }

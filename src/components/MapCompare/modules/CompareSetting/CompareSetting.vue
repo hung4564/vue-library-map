@@ -3,7 +3,7 @@
     <template #btn>
       <MapControlButton
         @click="toggleShow"
-        :tooltip="$map.trans('map.setting.title')"
+        :tooltip="$map.trans('map.compare.setting.title')"
       >
         <SvgIcon :size="18" type="mdi" :path="path.icon" />
       </MapControlButton>
@@ -13,7 +13,7 @@
       <DraggablePopup
         v-bind="props"
         :show.sync="popup.show"
-        :title="$map.trans('map.setting.title')"
+        :title="$map.trans('map.compare.setting.title')"
       >
         <div class="setting-container">
           <div>
@@ -26,6 +26,7 @@
           <div>
             <FieldCheckbox
               label="Sync"
+              :disabled="!setting.compare"
               v-model="setting.sync"
               @input="onChangeSetting"
             />
@@ -33,6 +34,7 @@
           <div>
             <FieldCheckbox
               label="Split"
+              :disabled="!setting.compare"
               v-model="setting.split"
               @input="onChangeSetting"
             />

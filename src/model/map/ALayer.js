@@ -6,20 +6,6 @@ export class ALayer {
   constructor(info) {
     this.info = Object.assign({ metadata: {} }, info);
     this._id = this.info.id || `${getUUIDv4()}`;
-    this.views = [];
-  }
-  addView(...layer_view) {
-    this.views.push(...layer_view);
-  }
-  withView(cb) {
-    for (let i = 0; i < this.views.length; i++) cb.bind(this)(this.views[i]);
-  }
-  runViewWithNameFunction(name_func, ...params) {
-    this.withView((view) => {
-      if (view[name_func]) {
-        view[name_func](this, ...params);
-      }
-    });
   }
   get id() {
     return this._id;
@@ -58,6 +44,5 @@ export class ALayer {
     }
 
     fitBounds(map, bounds);
-    this.runViewWithNameFunction("flyTo", map, bounds);
   }
 }

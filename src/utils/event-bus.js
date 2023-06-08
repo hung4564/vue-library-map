@@ -13,6 +13,10 @@ export default eventBus;
 export const EVENTBUS_TYPE = {
   MAP: {
     SET_LAYER: "map:set-layer",
-    REMOVE_LAYER: "map:remove-layer"
+    UPDATE_LAYERS: "map:update-layers",
+    REMOVE_LAYER: "map:remove-layer",
+    INIT: "map:init",
+    DESTROY: "map:destroy",
+    COMPARE: "map:compare"
   }
 };

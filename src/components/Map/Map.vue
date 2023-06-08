@@ -45,9 +45,7 @@ import { DraggableContianer } from "@hungpv4564/vue-library-draggable";
 import { getGlyphs, getSprite } from "@constant";
 import { getUUIDv4 } from "@utils";
 import { setMap, removeMap, setSideBarCount } from "@/store/store-map";
-import { setMapLang, removeMapLang, mapLang } from "@/store/store-lang";
-import enLang from "@/lang/en/map";
-import viLang from "@/lang/vi/map";
+import { LangMixin } from "@/mixins/lang.mixins";
 export default {
   components: { DraggableContianer },
   props: {
@@ -62,11 +60,10 @@ export default {
         zoomControl: false
       })
     },
-    trans: { type: Function },
-    locale: { type: [String, Object], default: "en" },
     dragIdCustom: { type: String },
     prefix: String
   },
+  mixins: [LangMixin],
 
   data() {
     return {
@@ -79,9 +76,6 @@ export default {
     };
   },
   computed: {
-    transText() {
-      return mapLang(this.id);
-    },
     draggableTo() {
       return `map-draggable-${this.id}`;
     },
@@ -144,7 +138,6 @@ export default {
 
   mounted() {
     this.isSupport = mapboxgl.supported();
-    this.setLocale(this.locale);
     if (this.isSupport) {
       this.$nextTick(() => {
         this.onResize();
@@ -157,11 +150,6 @@ export default {
   destroyed() {
     this.destroy();
   },
-  watch: {
-    locale() {
-      this.setLocale(this.locale);
-    }
-  },
 
   methods: {
     onChangeSidebar({ left_count, right_count }) {
@@ -173,19 +161,8 @@ export default {
       let width = this.$el.clientWidth;
       this.isMobile = width && width <= 600;
     },
-    async setLocale(locale) {
-      if (typeof locale == "object") {
-        setMapLang(this.id, locale);
-      } else if (["en", "vi"].includes(locale)) {
-        let res = locale == "en" ? enLang : viLang;
-        setMapLang(this.id, { map: res });
-      }
-    },
     onDragInitDone(drag) {
       this.dragId = drag.id;
-    },
-    transLocal(key) {
-      return getProp(this.transText, key, key);
     },
     init() {
       const initOptions = Object.assign({}, DEFAULTOPTION, this.initOptions);
@@ -230,22 +207,10 @@ export default {
       this.map.remove();
       this.map = null;
       removeMap(this.id);
-      removeMapLang(this.id);
       this.$emit("map-destroy", this.map);
     }
   }
 };
-function getProp(object, path, defaultVal) {
-  const _path = Array.isArray(path)
-    ? path
-    : path.split(".").filter((i) => i.length);
-
-  if (!_path.length) {
-    return object === undefined ? defaultVal : object;
-  }
-  if (object == null) return defaultVal;
-  return getProp(object[_path.shift()], _path, defaultVal);
-}
 </script>
 <style scoped>
 .mapboxgl-ctrl-logo {

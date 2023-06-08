@@ -1,6 +1,8 @@
 export function MapCompareSwiper(el, div_1, div_2) {
   let _bounds = div_2.getBoundingClientRect();
-
+  let resize = () => {
+    _bounds = div_2.getBoundingClientRect();
+  };
   let _onDown = (e) => {
     if (e.touches) {
       document.addEventListener("touchmove", _onMove);
@@ -51,6 +53,7 @@ export function MapCompareSwiper(el, div_1, div_2) {
   var swiperPosition = _bounds.width / 2;
   _setPosition(swiperPosition);
   return {
-    clear
+    clear,
+    resize
   };
 }

@@ -1,5 +1,5 @@
 import { ALayer } from "./ALayer";
-export class SingleLayer extends ALayer {
+export class MapSingleLayer extends ALayer {
   constructor(info) {
     super(info);
     this.layer = info.layer;
@@ -14,7 +14,6 @@ export class SingleLayer extends ALayer {
     if (!map.getLayer(this.id)) {
       map.addLayer(this.layer, beforeId);
     }
-    this.runViewWithNameFunction("addToMap", map, beforeId);
   }
   removeFromMap(map) {
     if (map.getLayer(this.id)) {
@@ -23,11 +22,9 @@ export class SingleLayer extends ALayer {
     if (map.getSource(this.id)) {
       map.removeSource(this.id);
     }
-    this.runViewWithNameFunction("removeFromMap", map);
   }
   moveLayer(map, beforeId) {
     map.moveLayer(this.id, beforeId);
-    this.runViewWithNameFunction("moveLayer", map, beforeId);
   }
   toggleShow(map, show) {
     map.setLayoutProperty(
@@ -35,13 +32,11 @@ export class SingleLayer extends ALayer {
       "visibility",
       show ? "visible" : "none"
     );
-    this.runViewWithNameFunction("toggleShow", map, show);
   }
   setOpacity(map, opacity) {
     let keyOpacity =
       this.type == "symbol" ? `icon-opacity` : `${this.type}-opacity`;
 
     map.setPaintProperty(this.id, keyOpacity, opacity);
-    this.runViewWithNameFunction("setOpacity", map, opacity);
   }
 }

@@ -1,12 +1,12 @@
 <template lang="">
   <div class="form-control form-checkbox">
-    <input type="checkbox" v-model="form" />
+    <input type="checkbox" v-model="form" :disabled="disabled" />
     <label> {{ label }} </label>
   </div>
 </template>
 <script>
 export default {
-  props: { value: {}, label: String },
+  props: { value: {}, label: String, disabled: Boolean },
   computed: {
     form: {
       get() {

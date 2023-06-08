@@ -1,6 +1,4 @@
-import { initLayerStore, removeLayerStore } from "./store-datasource";
-import { initMapBaseMap, removeBaseMap } from "./store-baseMap";
-import { initMapListener, removeMapListener } from "./store-event";
+import eventBus, { EVENTBUS_TYPE } from "@/utils/event-bus";
 
 import Vue from "vue";
 
@@ -15,9 +13,7 @@ if (!Vue.prototype.$_hungpv_map.object) {
 }
 export const setMap = (id, map) => {
   Vue.prototype.$_hungpv_map.object[id] = map;
-  initMapListener(id);
-  initMapBaseMap(id);
-  initLayerStore(id);
+  eventBus.emit(EVENTBUS_TYPE.MAP.INIT, id);
   Vue.set(Vue.prototype.$_hungpv_map.store, id, {
     sidebar_count: { left_count: 0, right_count: 0 }
   });
@@ -43,11 +39,10 @@ export const getSideBarCount = (id) => {
 export const removeMap = (id) => {
   delete Vue.prototype.$_hungpv_map.object[id];
   Vue.delete(Vue.prototype.$_hungpv_map.store, id);
-  removeBaseMap(id);
-  removeMapListener(id);
-  removeLayerStore(id);
+  eventBus.emit(EVENTBUS_TYPE.MAP.DESTROY, id);
 };
 export const getMap = (id, cb = null) => {
+  if (!id) return;
   let map = id;
   if (typeof id != "string") {
     id = map.id;
@@ -55,10 +50,11 @@ export const getMap = (id, cb = null) => {
   if (id && Vue.prototype.$_hungpv_map.object[id]) {
     map = Vue.prototype.$_hungpv_map.object[id];
   }
+  if (!map) return;
   if (cb) {
     if (Array.isArray(map)) {
       map.forEach(cb);
-    } else {
+    } else if (map) {
       cb(map);
     }
   }
@@ -68,3 +64,20 @@ export const getMap = (id, cb = null) => {
 export const getStoreMap = (id) => Vue.prototype.$_hungpv_map.store[id] || {};
 
 export default () => Vue.prototype.$_hungpv_map.store;
+
+export const initForMap = (cb_init, cb_destroy) => {
+  if (cb_init) {
+    eventBus.on(EVENTBUS_TYPE.MAP.INIT, function (id) {
+      cb_init(id);
+    });
+  }
+  for (const key in Vue.prototype.$_hungpv_map.store) {
+    if (Object.hasOwnProperty.call(Vue.prototype.$_hungpv_map.store, key)) {
+      cb_init(key);
+    }
+  }
+  if (cb_destroy)
+    eventBus.on(EVENTBUS_TYPE.MAP.DESTROY, function (id) {
+      cb_destroy(id);
+    });
+};

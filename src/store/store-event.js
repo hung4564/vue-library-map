@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { getMap } from "./store-map";
+import { getMap, initForMap } from "./store-map";
 import { getUUIDv4 } from "@/utils";
 if (!Vue.prototype.$_hungpv_map.event_store) {
   Vue.prototype.$_hungpv_map.event_store = {};
@@ -8,8 +8,10 @@ if (!Vue.prototype.$_hungpv_map.event_bind) {
   Vue.prototype.$_hungpv_map.event_bind = {};
 }
 export function initMapListener(mapId) {
-  Vue.prototype.$_hungpv_map.event_store[mapId] = {};
-  Vue.prototype.$_hungpv_map.event_bind[mapId] = {};
+  if (!Vue.prototype.$_hungpv_map.event_store[mapId])
+    Vue.prototype.$_hungpv_map.event_store[mapId] = {};
+  if (!Vue.prototype.$_hungpv_map.event_bind[mapId])
+    Vue.prototype.$_hungpv_map.event_bind[mapId] = {};
 }
 export const removeMapListener = (mapId) => {
   delete Vue.prototype.$_hungpv_map.event_store[mapId];
@@ -82,3 +84,5 @@ function removeMapEvent(map, event) {
   )
     map.off(event, Vue.prototype.$_hungpv_map.event_bind[mapId][event]);
 }
+
+initForMap(initMapListener, removeMapListener);

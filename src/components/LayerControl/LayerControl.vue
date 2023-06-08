@@ -44,9 +44,9 @@
                     :item="item"
                     :isSelected="isSelected"
                     :toggleSelect="toggleSelect"
-                    :isCompare="isCompare"
                   >
-                    <LayerItem
+                    <component
+                      :is="item.component"
                       :item="item"
                       :isSelected="isSelected"
                       @update:item="onUpdateLayer"
@@ -54,7 +54,6 @@
                       @click:remove="onRemoveLayer"
                       @click:action="onLayerAction"
                       @click="toggleSelect(item)"
-                      :isCompare="isCompare"
                     >
                       <template #extra-btn="{ loading }">
                         <div
@@ -66,7 +65,7 @@
                           <SvgIcon size="14" type="mdi" :path="path.menu" />
                         </div>
                       </template>
-                    </LayerItem>
+                    </component>
                   </slot>
                 </template>
               </draggable-group-list>
@@ -86,7 +85,8 @@
 
 <script>
 import LayerItemContextMenu from "./layer-item-context-menu.vue";
-import LayerItem from "./layer-item.vue";
+import LayerItem from "./item/layer-item.vue";
+import LayerItemCompare from "./item/layer-item-compare.vue";
 import DraggableGroupList from "@/components/DraggableList/draggable-group-list";
 import { DraggableSidebar } from "@hungpv4564/vue-library-draggable";
 import { mdiDelete, mdiDotsVertical, mdiGroup, mdiLayers } from "@mdi/js";
@@ -98,17 +98,17 @@ import {
   createLayer,
   getLayerData,
   removeLayer,
-  updateLayerSimple,
-  toggleShow,
-  setLayersView
+  setLayersView,
+  layersView
 } from "@/store/store-datasource";
-import { layersView } from "@/store/store-datasource";
+import { toggleShow, updateLayerSimple } from "@/helper/datastore";
 export default {
   components: {
     MapControlButton,
     DraggableSidebar,
     DraggableGroupList,
     LayerItem,
+    LayerItemCompare,
     LayerItemContextMenu
   },
   mixins: [ModuleMixin],
@@ -131,9 +131,6 @@ export default {
         group: { create: mdiGroup },
         deleteAll: mdiDelete
       };
-    },
-    isCompare() {
-      return this.$map.isCompare;
     }
   },
   watch: {},
@@ -144,16 +141,23 @@ export default {
       vm.layers = layersView(vm.c_mapId);
       vm.addLayerToList = () => {
         if (!vm.c_mapId) return;
-        vm.layers = layersView(vm.c_mapId);
-        vm.updateTree();
+        vm.updateLayersFromStore();
       };
       EventBus.on(EVENTBUS_TYPE.MAP.SET_LAYER, vm.addLayerToList);
+      EventBus.on(EVENTBUS_TYPE.MAP.UPDATE_LAYERS, (map_id) => {
+        if (map_id === vm.c_mapId) {
+          vm.updateLayersFromStore();
+        }
+      });
       vm.removeLayerFromList = (layer_view) => {
         if (!layer_view) return;
-        vm.layers = layersView(vm.c_mapId);
-        vm.updateTree();
+        vm.updateLayersFromStore();
       };
       EventBus.on(EVENTBUS_TYPE.MAP.REMOVE_LAYER, vm.removeLayerFromList);
+    },
+    updateLayersFromStore() {
+      this.layers = layersView(this.c_mapId);
+      this.updateTree();
     },
     onDestroy() {
       this.onRemoveAllLayer();
@@ -184,12 +188,15 @@ export default {
     },
     updateLayers() {
       let beforeId;
-      this.layers.forEach((layer) => {
-        getLayerData(layer, (map, temp) => {
-          temp.moveLayer(map, beforeId);
-          beforeId = temp.getBeforeId();
+      this.layers
+        .slice()
+        .reverse()
+        .forEach((layer) => {
+          getLayerData(layer, (map, temp) => {
+            temp.moveLayer(map, beforeId);
+            beforeId = temp.getBeforeId();
+          });
         });
-      });
       setLayersView(this.c_mapId, this.layers);
     },
     addLayer(info) {
@@ -197,7 +204,7 @@ export default {
       this.updateTree();
     },
     onUpdateLayer(layer) {
-      updateLayerSimple(this.c_mapId, layer);
+      updateLayerSimple(layer);
     },
     onToBounds(layer) {
       getLayerData(layer, (map, temp) => {
@@ -249,7 +256,7 @@ export default {
       let children = group.children || [];
       children.forEach((child) => {
         child.show = show;
-        toggleShow(this.c_mapId, child, show);
+        toggleShow(child, show);
       });
     }
   }
