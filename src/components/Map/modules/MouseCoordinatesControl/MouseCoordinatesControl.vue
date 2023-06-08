@@ -24,11 +24,6 @@
             <div style="margin-left: 4px">{{ currentZoom }}</div>
           </div>
           <div class="mouse-coordinates-point">
-            <span title="Add Marker" @click="onAddMarker">
-              <SvgIcon :size="14" type="mdi" :path="path.icon" v-if="!icon" />
-              <i class="icon-clickable" :class="icon" v-else />
-            </span>
-
             <div
               style="margin-left: 4px"
               class="selectable"
@@ -65,10 +60,9 @@
 
 <script>
 import { mdiCached, mdiMapMarkerOutline, mdiMagnify } from "@mdi/js";
-import mapboxgl from "mapbox-gl";
 import ModuleMixin from "@/components/Map/mixins/ModuleMixin";
 
-import { deg_to_dms_string, latDMS, lngDMS } from "@utils/CRS";
+import { latDMS, lngDMS } from "@utils/CRS";
 import { debounce } from "@utils";
 
 const defaultOptions = {
@@ -172,66 +166,14 @@ export default {
       this.currentZoom = this.map.getZoom().toFixed(2);
     },
 
-    addMarker(lngLat) {
-      const text = window.document.createElement("div");
-      text.className = "selectable";
-      text.innerText = `${deg_to_dms_string(
-        lngLat.lng.toFixed(8)
-      )}, ${deg_to_dms_string(lngLat.lat.toFixed(8))}`;
-
-      const removeMarkerButton = window.document.createElement("i");
-      removeMarkerButton.className = "mdi mdi-delete";
-      removeMarkerButton.title = "Remove Marker";
-      removeMarkerButton.style.marginLeft = "4px";
-      removeMarkerButton.style.cursor = "pointer";
-      removeMarkerButton.style.fontSize = "14px";
-      removeMarkerButton.style.width = "14px";
-      removeMarkerButton.style.height = "14px";
-      removeMarkerButton.style.lineHeight = "14px";
-      removeMarkerButton.addEventListener("click", () => {
-        this.removeMarker();
-      });
-
-      const container = window.document.createElement("div");
-      container.style.display = "flex";
-      container.style.alignItems = "center";
-
-      container.append(text, removeMarkerButton);
-
-      const popup = new mapboxgl.Popup({
-        closeButton: false
-      }).setDOMContent(container);
-
-      this.marker = new mapboxgl.Marker()
-        .setLngLat(lngLat)
-        .setPopup(popup)
-        .addTo(this.map);
-
-      this.marker.getElement().style.cursor = "pointer";
-
-      this.marker.togglePopup();
-    },
-
     removeMarker() {
       if (!this.marker) return;
 
       this.marker.remove();
     },
 
-    onMapClick(e) {
-      this.addMarker(e.lngLat);
-      this.changeCursor("");
-    },
-
     changeCursor(cursor) {
       this.map.getCanvas().style.cursor = cursor;
-    },
-    onAddMarker() {
-      this.removeMarker();
-
-      this.changeCursor("crosshair");
-
-      this.map.once("click", this.onMapClick.bind(this));
     }
   }
 };

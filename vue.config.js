@@ -22,7 +22,6 @@ module.exports = {
   productionSourceMap: process.env.NODE_ENV !== "production",
   transpileDependencies: true,
   configureWebpack: {
-    devtool: "eval-source-map",
     resolve: {
       alias: {
         "@components": path.join(__dirname, "src/components/"),
