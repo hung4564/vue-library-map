@@ -21,6 +21,9 @@ jobs:
         with:
           node-version: 16
           registry-url: "https://registry.npmjs.org"
+      - name: Change version by release
+        run: echo ${{ github.event.release.tag_name }}
+        run: npm version ${{ github.event.release.tag_name }}
       - name: Install dependencies and build 🔧
         run: npm install && npm run build
       - name: Publish package on NPM 📦
