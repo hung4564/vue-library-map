@@ -15,6 +15,10 @@ function getProdExternals() {
 }
 
 module.exports = {
+  publicPath:
+    process.env.NODE_ENV === "webproduction"
+      ? "/vue-library-map/" // Thay tên repository của các bạn vào đây nhé
+      : "/",
   productionSourceMap: process.env.NODE_ENV !== "production",
   transpileDependencies: true,
   configureWebpack: {

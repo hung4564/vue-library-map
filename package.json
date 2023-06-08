@@ -30,6 +30,8 @@
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
+    "web": "NODE_ENV=webproduction vue-cli-service build",
+    "deploy": "node scripts/gh-pages-deploy.js",
     "build": "npm-run-all --parallel build-app build-mixin build-store build-helper build-reader build-model",
     "build-app": "vue-cli-service build --target lib --name map build/app.js",
     "build-mixin": "vue-cli-service build --target lib --name mixin build/mixin.js",
