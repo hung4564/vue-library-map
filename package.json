@@ -31,16 +31,9 @@
   ],
   "scripts": {
     "serve": "vue-cli-service serve",
-    "web": "NODE_ENV=webproduction vue-cli-service build",
+    "build:lib": "node scripts/build.js",
+    "build:web": "NODE_ENV=webproduction vue-cli-service build",
     "deploy": "node scripts/gh-pages-deploy.js",
-    "build": "npm-run-all --parallel build-app build-mixin build-store build-helper build-reader build-model build-event-bus",
-    "build-app": "vue-cli-service build --target lib --no-clean --name map build/app.js",
-    "build-event-bus": "vue-cli-service build --target lib --no-clean --name event-bus build/event-bus.js",
-    "build-mixin": "vue-cli-service build --target lib --no-clean --name mixin build/mixin.js",
-    "build-model": "vue-cli-service build --target lib --no-clean --name model build/model.js",
-    "build-store": "vue-cli-service build --target lib --no-clean --name store build/store.js",
-    "build-helper": "vue-cli-service build --target lib --no-clean --name helper build/helper.js",
-    "build-reader": "vue-cli-service build --target lib --no-clean --name reader build/reader.js",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
