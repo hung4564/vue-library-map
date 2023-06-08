@@ -1,6 +1,6 @@
 import "@/assets/sass/app.scss";
 
-import App from "./AppCompare.vue";
+import App from "./App.vue";
 import Vue from "vue";
 
 Vue.config.productionTip = false;
