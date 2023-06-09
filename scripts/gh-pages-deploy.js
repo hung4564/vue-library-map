@@ -4,7 +4,7 @@
     const { execa } = await import("execa");
     await execa("git", ["checkout", "--orphan", "gh-pages"]);
     console.log("Building started...");
-    await execa("npm run web", { stdio: "inherit" });
+    await execa("npm run build:web", { stdio: "inherit" });
     await execa("git --work-tree dist add --all");
     await execa('git --work-tree dist commit -m "gh-pages"');
     console.log("Pushing to gh-pages...");
