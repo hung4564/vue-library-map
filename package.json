@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@hungpv97/vue-library-draggable": "^1.0.0",
-    "@hungpv97/vue-map-store": "../vue-map-store/",
+    "@hungpv97/vue-map-store": "^0.0.1",
     "@jamescoyle/vue-icon": "^0.1.2",
     "@linusborg/vue-simple-portal": "^0.1.5",
     "@mapbox/mapbox-gl-sync-move": "^0.3.1",

@@ -1,5 +1,5 @@
 <template>
-  <ModuleContainer v-bind="bindModule">
+  <ModuleContainer>
     <template #btn>
       <MapControlButton
         :disabled="disable"
@@ -130,7 +130,7 @@ export default {
         element: this.p_circleElement,
         pitchAlignment: "map"
       });
-      getMap((map) => {
+      getMap(this.c_mapId, (map) => {
         this.p_userLocationDotMarker.setLngLat(this.center).addTo(map);
         this._accuracyCircleMarker.setLngLat(this.center).addTo(map);
       });

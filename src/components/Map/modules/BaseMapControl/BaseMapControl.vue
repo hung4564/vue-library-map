@@ -1,5 +1,5 @@
 <template>
-  <ModuleContainer v-bind="bindModule" :btnWidth="70">
+  <ModuleContainer :btnWidth="70">
     <template #btn>
       <MapControlButton v-if="current_baseMaps" :tooltip="title">
         <template #content>

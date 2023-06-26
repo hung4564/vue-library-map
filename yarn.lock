@@ -1104,8 +1104,10 @@
     vue-material-design-icons "^5.2.0"
     vue-resize-directive "^1.2.0"
 
-"@hungpv97/vue-map-store@../vue-map-store/":
-  version "0.0.0"
+"@hungpv97/vue-map-store@^0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@hungpv97/vue-map-store/-/vue-map-store-0.0.1.tgz#7a5e3163a3e07ad7d7f071413ec62a50b2fe50c5"
+  integrity sha512-xbm54vdo1GVkPm6EajG2lL5fp3n/aSPeV3Ez/fDwIN5MJ4LkfumJ183+ivFpcpoRQ1UJ0t5Mtp5v/seV325R3w==
   dependencies:
     core-js "^3.8.3"
     lodash.merge "^4.6.2"

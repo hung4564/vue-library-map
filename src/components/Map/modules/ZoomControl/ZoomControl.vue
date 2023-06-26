@@ -1,5 +1,5 @@
 <template>
-  <ModuleContainer v-bind="bindModule">
+  <ModuleContainer>
     <template #btn>
       <MapControlGroupButton>
         <MapControlButton
@@ -41,64 +41,49 @@
   </ModuleContainer>
 </template>
 
-<script>
+<script setup>
 import { mdiPlus, mdiMinus } from "@mdi/js";
-import ModuleMixin from "@/components/Map/mixins/ModuleMixin";
-import MapControlButton from "@/components/Map/control/MapControlButton.vue";
-
+import SvgIcon from "@jamescoyle/vue-icon";
+import ModuleContainer from "@components/Map/ModuleContainer.vue";
+import MapControlButton from "@components/Map/control/MapControlButton.vue";
 import MapControlGroupButton from "@/components/Map/control/MapControlGroupButton.vue";
-export default {
-  components: { MapControlGroupButton, MapControlButton },
-  mixins: [ModuleMixin],
-  props: {
-    showCompass: { type: Boolean, default: true },
-    showZoom: { type: Boolean, default: true }
-  },
-  data: () => ({
-    transform: "rotate(0deg)"
-  }),
-  computed: {
-    path() {
-      return {
-        plus: mdiPlus,
-        minus: mdiMinus
-      };
-    }
-  },
-
-  methods: {
-    onDestroy() {
-      this.callMap((map) => {
-        map.off("rotate", this.syncRotate);
-      });
-    },
-    onInit() {
-      this.syncRotate = this.syncRotate.bind(this);
-      this.callMap((map) => {
-        map.on("rotate", this.syncRotate);
-      });
-    },
-    onZoomIn(e) {
-      this.callMap((map) => {
-        map.zoomIn({}, { originalEvent: e });
-      });
-    },
-    onZoomOut(e) {
-      this.callMap((map) => {
-        map.zoomOut({}, { originalEvent: e });
-      });
-    },
-    onResetBearing() {
-      this.callMap((map) => {
-        map.easeTo({ bearing: 0, pitch: 0 });
-      });
-    },
-    syncRotate() {
-      this.callMap((map) => {
-        const angle = map.getBearing() * -1;
-        this.transform = `rotate(${angle}deg)`;
-      });
-    }
-  }
+import { useMap } from "@components/Map/mixins/useMap";
+import { ref, defineProps } from "vue";
+const path = {
+  plus: mdiPlus,
+  minus: mdiMinus
 };
+const props = defineProps({
+  showCompass: { type: Boolean, default: true },
+  showZoom: { type: Boolean, default: true }
+});
+const transform = ref("rotate(0deg)");
+const { callMap, $map } = useMap(onInit, onDestroy);
+let bindSyncRotate = null;
+function onInit(_map) {
+  bindSyncRotate = syncRotate.bind(null, _map);
+  _map.on("rotate", bindSyncRotate);
+}
+function onDestroy(_map) {
+  _map.off("rotate", bindSyncRotate);
+}
+function onZoomIn(e) {
+  callMap((map) => {
+    map.zoomIn({}, { originalEvent: e });
+  });
+}
+function onZoomOut(e) {
+  callMap((map) => {
+    map.zoomOut({}, { originalEvent: e });
+  });
+}
+function onResetBearing() {
+  callMap((map) => {
+    map.easeTo({ bearing: 0, pitch: 0 });
+  });
+}
+function syncRotate(_map) {
+  const angle = _map.getBearing() * -1;
+  transform.value = `rotate(${angle}deg)`;
+}
 </script>

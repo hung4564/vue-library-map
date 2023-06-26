@@ -4,28 +4,6 @@ import { getMap } from "@/store/store-map";
 
 export default {
   components: { ModuleContainer, SvgIcon },
-  props: {
-    position: {
-      type: String,
-      default: "bottom-right",
-      validator(value) {
-        return (
-          ["top-left", "top-right", "bottom-left", "bottom-right"].indexOf(
-            value
-          ) !== -1
-        );
-      }
-    },
-
-    controlVisible: {
-      type: Boolean,
-      default: true
-    },
-    order: {
-      type: Number,
-      default: 0
-    }
-  },
 
   data() {
     return {
@@ -33,33 +11,10 @@ export default {
     };
   },
 
-  watch: {},
-
   inject: ["getMap", "$map"],
   computed: {
-    isLeft() {
-      return this.position.includes("left");
-    },
-    isRight() {
-      return this.position.includes("right");
-    },
-    isTop() {
-      return this.position.includes("top");
-    },
-    isBottom() {
-      return this.position.includes("bottom");
-    },
     c_mapId() {
       return this.$map.id;
-    },
-    bindModule() {
-      return {
-        controlVisible: this.controlVisible,
-        order: this.order,
-        position: this.position,
-        prefix: this.$map.prefix,
-        dragId: this.$map.dragId
-      };
     }
   },
 
