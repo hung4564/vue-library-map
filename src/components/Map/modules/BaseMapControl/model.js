@@ -1,12 +1,11 @@
-import { MapMultiLayer } from "../MapMultiLayer";
-
 export const BASEMAP_PREFIX = "base_map_control_";
-export class BaseMapLayer extends MapMultiLayer {
-  constructor(info) {
-    super(info);
-    delete this.layer;
+export class BaseMapLayer {
+  constructor() {
     this.layers = [];
     this.source = {};
+  }
+  getBeforeId() {
+    return this.layers[0].id;
   }
   async setBaseMap(baseMap) {
     if (this._baseMap && this._baseMap.id === baseMap.id) {

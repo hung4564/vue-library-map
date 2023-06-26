@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <MapCompare locale="en">
-      <FileUploadForMap position="bottom-right" />
       <CompareSetting />
       <ZoomControl position="bottom-right"></ZoomControl>
       <BaseMapControl
@@ -15,12 +14,10 @@
 <script>
 import { BaseMapControl, ZoomControl } from "@components/Map";
 import { MapCompare, CompareSetting } from "@components/MapCompare";
-import FileUploadForMap from "./components/FileUploadForMap.vue";
 export default {
   name: "App",
   components: {
     MapCompare,
-    FileUploadForMap,
     BaseMapControl,
     CompareSetting,
     ZoomControl

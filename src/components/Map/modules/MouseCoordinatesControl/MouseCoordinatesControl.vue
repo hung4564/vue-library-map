@@ -62,7 +62,7 @@
 import { mdiCached, mdiMapMarkerOutline, mdiMagnify } from "@mdi/js";
 import ModuleMixin from "@/components/Map/mixins/ModuleMixin";
 
-import { latDMS, lngDMS } from "@utils/CRS";
+import { latDMS, lngDMS } from "./helper";
 import { debounce } from "@utils";
 
 const defaultOptions = {

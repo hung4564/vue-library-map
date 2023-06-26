@@ -3,22 +3,32 @@ function getProdExternals() {
   return {
     "@hungpv97/vue-library-draggable": "@hungpv97/vue-library-draggable",
     "@jamescoyle/vue-icon": "@jamescoyle/vue-icon",
+    "@linusborg/vue-simple-portal": "@linusborg/vue-simple-portal",
+    "@mapbox/mapbox-gl-sync-move": "@mapbox/mapbox-gl-sync-move",
+    "geojson-validation": "geojson-validation",
+    "file-saver": "file-saver",
+    "core-js": "core-js",
     "@turf/bbox": "@turf/bbox",
     axios: "axios",
+    proj4: "proj4",
     "mapbox-gl": "mapbox-gl",
     "@mdi/js": "@mdi/js",
     vue: "vue",
     lodash: "lodash",
     papaparse: "papaparse",
-    mitt: "mitt"
+    mitt: "mitt",
+    "v-click-outside": "v-click-outside"
   };
 }
 
 module.exports = {
+  pluginOptions: {
+    webpackBundleAnalyzer: {
+      openAnalyzer: false
+    }
+  },
   publicPath:
-    process.env.NODE_ENV === "webproduction"
-      ? "/vue-library-map/" // Thay tên repository của các bạn vào đây nhé
-      : "/",
+    process.env.NODE_ENV === "webproduction" ? "/vue-library-map/" : "/",
   productionSourceMap: process.env.NODE_ENV !== "production",
   transpileDependencies: true,
   configureWebpack: {

@@ -1,7 +1,7 @@
-import { mapLang, removeMapLang, setMapLang } from "@/store/store-lang";
-
 import enLang from "@/lang/en/map";
+import { storeLang } from "@hungpv97/vue-map-store";
 import viLang from "@/lang/vi/map";
+const { mapLang, removeMapLang, setMapLang } = storeLang;
 
 export const LangMixin = {
   props: {

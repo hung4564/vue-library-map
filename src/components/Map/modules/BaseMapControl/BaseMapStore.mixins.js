@@ -1,3 +1,4 @@
+import { EVENTBUS_TYPE, eventBus } from "@hungpv97/vue-map-store";
 import {
   baseMaps,
   clearBaseMapForMap,
@@ -6,7 +7,6 @@ import {
   setBaseMaps,
   setDefaultValueForMap
 } from "@/store/store-baseMap";
-
 export default {
   props: {
     mapId: String,
@@ -21,20 +21,32 @@ export default {
       default: null
     }
   },
+  data: () => ({ current_baseMaps: {} }),
   computed: {
     c_mapId() {
       return this.i_mapId || (this.$map && this.$map.id);
     },
     c_baseMaps() {
       return baseMaps(this.c_mapId);
-    },
-    current_baseMaps: {
-      get() {
-        return getCurrentBaseMaps(this.c_mapId);
-      }
     }
   },
+  mounted() {
+    const vm = this;
+    this.bindEvent = function (e) {
+      vm.setCurrentBaseMap(e);
+    };
+    this.current_baseMaps = getCurrentBaseMaps(this.c_mapId);
+    eventBus.on(EVENTBUS_TYPE.MAP.SET_BASEMAP, this.bindEvent);
+  },
+  beforeDestroy() {
+    eventBus.off(EVENTBUS_TYPE.MAP.SET_BASEMAP, this.bindEvent);
+  },
   methods: {
+    setCurrentBaseMap({ mapId, baseMap }) {
+      if (this.c_mapId === mapId) {
+        this.current_baseMaps = baseMap;
+      }
+    },
     onDestroy() {
       this.clear();
     },

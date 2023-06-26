@@ -1,18 +1,3 @@
-import proj4 from "proj4";
-
-export const CRS = {};
-
-Object.keys(CRS).forEach((name) => {
-  proj4.defs(name, CRS[name]);
-});
-export function projectCoordinatesToWGS84(coordinates, projContent) {
-  return proj4(
-    projContent,
-    "+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs",
-    coordinates
-  );
-}
-
 export function deg_to_dms(deg) {
   var d = Math.floor(deg);
   var minfloat = (deg - d) * 60;

@@ -45,7 +45,7 @@ import syncMove from "@mapbox/mapbox-gl-sync-move";
 import { removeMap, setMap } from "@/store/store-map";
 import { MapCompareSwiper } from "@components/MapCompare/helper";
 import { LangMixin } from "@/mixins/lang.mixins";
-import eventBus, { EVENTBUS_TYPE } from "@/utils/event-bus";
+import { EVENTBUS_TYPE, eventBus } from "@hungpv97/vue-map-store";
 export default {
   props: {},
   components: {
@@ -60,7 +60,7 @@ export default {
       isMobile: false,
       loaded: false,
       count_map: 1,
-      setting: { compare: false, split: true, sync: false }
+      setting: { compare: false, split: true, sync: true }
     };
   },
   provide() {

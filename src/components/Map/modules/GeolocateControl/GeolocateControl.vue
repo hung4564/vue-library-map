@@ -18,7 +18,7 @@
 import ModuleMixin from "@components/Map/mixins/ModuleMixin";
 
 import { mdiCrosshairsOff, mdiCrosshairsGps } from "@mdi/js";
-import { getLocation } from "@utils";
+import { getLocation } from "./helper";
 import { Marker } from "mapbox-gl";
 //import MapControlGroupButton from "@components/Map/control/MapControlGroupButton.vue";
 import MapControlButton from "@components/Map/control/MapControlButton.vue";

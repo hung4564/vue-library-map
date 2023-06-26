@@ -1,31 +1,52 @@
-import { createLayer, getLayerData } from "./store-datasource";
-
-import { BaseMapLayer } from "@/model/map/custom/BaseMapLayer";
-import { LayerBuild } from "@/model";
-import Vue from "vue";
+import { EVENTBUS_TYPE, eventBus, store } from "@hungpv97/vue-map-store";
 import { getMap, initForMap } from "./store-map";
 
-export const BASEMAP_PREFIX = "base_map_control";
+import { BaseMapLayer } from "@/components/Map/modules/BaseMapControl/model";
 
-if (!Vue.prototype.$_hungpv_map.base_map_store) {
-  Vue.prototype.$_hungpv_map.base_map_store = new Vue.observable({});
+store.initStore("base_map_store", () => ({}));
+initForCompare();
+function initForCompare() {
+  eventBus.on(EVENTBUS_TYPE.MAP.COMPARE, function ({ map_id, is_compare }) {
+    if (!is_compare) {
+      return;
+    }
+    let maps = getMap(map_id);
+    if (Array.isArray(maps)) {
+      let storeBaseMap = getStoreMap(map_id);
+      let baseMap =
+        storeBaseMap.current_baseMaps || baseMaps[getIndexDefault(map_id)];
+
+      for (let index = 0; index < maps.length; index++) {
+        const element = maps[index];
+        setBaseMapForMap(element.id, baseMap);
+      }
+    }
+  });
 }
-
 export function initMapBaseMap(mapId) {
-  if (!Vue.prototype.$_hungpv_map.base_map_store[mapId])
-    Vue.set(Vue.prototype.$_hungpv_map.base_map_store, mapId, {
-      baseMaps: [],
-      current_baseMaps: null,
-      loading: false,
-      defaultBaseMap: "",
-      layer: null
-    });
+  if (store.getStore().base_map_store[mapId]) {
+    return;
+  }
+  let maps = getMap(mapId);
+  store.getStore().base_map_store[mapId] =
+    Array.isArray(maps) && maps.length > 0
+      ? {
+          baseMaps: [],
+          is_compare: true
+        }
+      : {
+          baseMaps: [],
+          current_baseMaps: null,
+          loading: false,
+          defaultBaseMap: "",
+          layer: null
+        };
 }
 export const removeBaseMap = (mapId) => {
-  Vue.delete(Vue.prototype.$_hungpv_map.base_map_store, mapId);
+  delete store.getStore().base_map_store[mapId];
 };
 
-const getStoreMap = (id) => Vue.prototype.$_hungpv_map.base_map_store[id] || {};
+const getStoreMap = (id) => store.getStore().base_map_store[id] || {};
 export const setBaseMaps = (mapId, baseMaps = []) => {
   getStoreMap(mapId).baseMaps = baseMaps;
   setBaseMapForMap(mapId, baseMaps[getIndexDefault(mapId)]);
@@ -50,28 +71,17 @@ export const setBaseMapForMap = async (mapId, item) => {
   };
   metadata.loading = true;
   if (!store.layer) {
-    let layer = new LayerBuild();
-    layer.disableDelete();
-    layer
-      .setInfo({
-        name: "BaseMap",
-        menus: []
-      })
-      .setMetadata(metadata)
-      .setCreateViewInMap((info) => new BaseMapLayer(info));
-    store.layer = createLayer(mapId, layer.build(), {
-      hidden: true,
-      disableAddToMap: true
-    });
+    store.layer = new BaseMapLayer();
   }
   metadata.loading = true;
-  getLayerData(store.layer, async (map, layer) => {
-    layer.removeFromMap(map);
+
+  eventBus.emit(EVENTBUS_TYPE.MAP.SET_BASEMAP, { mapId, baseMap: item });
+  await getMap(mapId, async (map) => {
+    await store.layer.removeFromMap(map);
   });
-  let layer_data = getLayerData(store.layer);
-  await layer_data.setBaseMap(item);
-  getLayerData(store.layer, async (map, layer) => {
-    layer.addToMap(map, getLowestLayerId(map));
+  await store.layer.setBaseMap(item);
+  await getMap(mapId, async (map) => {
+    store.layer.addToMap(map, getLowestLayerId(map));
   });
   store.loading = false;
   metadata.loading = false;
@@ -89,8 +99,7 @@ export function clearBaseMapForMap(mapId) {
     return;
   }
   getMap(mapId, (map) => {
-    let layer = getLayerData(store.layer);
-    layer.removeFromMap(map);
+    store.layer.removeFromMap(map);
   });
 }
 function getLowestLayerId(map) {

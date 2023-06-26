@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <Map locale="en">
-      <FileUploadForMap position="bottom-right" />
       <PrintControl />
       <GeolocateControl />
       <HomeControl />
@@ -26,7 +25,6 @@ import {
   Map,
   PrintControl
 } from "@components/Map";
-import FileUploadForMap from "./components/FileUploadForMap.vue";
 export default {
   name: "App",
   components: {
@@ -37,8 +35,7 @@ export default {
     GeolocateControl,
     BaseMapControl,
     Map,
-    PrintControl,
-    FileUploadForMap
+    PrintControl
   }
 };
 </script>
