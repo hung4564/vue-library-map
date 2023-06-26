@@ -24,7 +24,10 @@ function getProdExternals() {
 module.exports = {
   pluginOptions: {
     webpackBundleAnalyzer: {
-      openAnalyzer: false
+      openAnalyzer: false,
+      analyzerMode: process.env.NODE_ENV.includes("production")
+        ? "static"
+        : "server"
     }
   },
   publicPath:
