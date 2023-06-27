@@ -1,23 +1,27 @@
 <template>
   <div class="module__container">
     <portal
-      v-if="controlVisible && $slots['btn']"
+      v-if="controlVisible && hasSlotBtn"
       :order="order"
       :selector="btnTo"
     >
       <slot name="btn" />
     </portal>
     <slot />
-    <portal :selector="draggableTo" v-if="c_containerId">
+    <portal :selector="draggableTo" v-if="c_containerId && hasSlotDraggable">
       <slot v-bind="bindDrag" name="draggable" />
     </portal>
   </div>
 </template>
-
+<script>
+export default {
+  name: "ModuleContainer"
+};
+</script>
 <script setup>
 import { Portal } from "@linusborg/vue-simple-portal";
-import { computed, inject, defineProps } from "vue";
-
+import { computed, inject, defineProps, useSlots } from "vue";
+const slots = useSlots();
 const props = defineProps({
   mapId: { type: String, default: "" },
   dragId: { type: String, default: "" },
@@ -42,6 +46,8 @@ const props = defineProps({
     default: 0
   }
 });
+const hasSlotBtn = computed(() => !!slots["btn"]);
+const hasSlotDraggable = computed(() => !!slots["draggable"]);
 let $map = inject("$map");
 const c_containerId = computed(() => {
   return props.dragId || $map.dragId;

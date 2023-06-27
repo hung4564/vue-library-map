@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <MapCompare locale="en">
-      <CompareSetting />
+      <CompareSettingControl />
       <ZoomControl position="bottom-right"></ZoomControl>
       <BaseMapControl
         position="bottom-right"
@@ -13,13 +13,13 @@
 
 <script>
 import { BaseMapControl, ZoomControl } from "@components/Map";
-import { MapCompare, CompareSetting } from "@components/MapCompare";
+import { MapCompare, CompareSettingControl } from "@components/MapCompare";
 export default {
   name: "App",
   components: {
     MapCompare,
     BaseMapControl,
-    CompareSetting,
+    CompareSettingControl,
     ZoomControl
   }
 };

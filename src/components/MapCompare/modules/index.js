@@ -1,2 +1,2 @@
-import CompareSetting from "./CompareSetting/CompareSetting.vue";
-export { CompareSetting };
+import CompareSettingControl from "./CompareSettingControl/CompareSettingControl.vue";
+export { CompareSettingControl };

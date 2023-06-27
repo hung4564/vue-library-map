@@ -101,9 +101,8 @@ export default {
           });
           this.$emit("update:location", this.location);
         })
-        .catch((e) => {
+        .catch(() => {
           this.disable = true;
-          console.error(e);
         });
     },
     onAddUi() {
