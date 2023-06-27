@@ -12,6 +12,7 @@ import {
 
 import MapButton from "@components/MapButton.vue";
 import MapCard from "@components/MapCard.vue";
+import ModuleContainer from "@/components/Map/ModuleContainer";
 import ModuleMixin from "@/components/Map/mixins/ModuleMixin";
 import useMap from "@/components/Map/mixins/useMap";
 
@@ -26,5 +27,6 @@ export {
   MouseCoordinatesControl,
   ZoomControl,
   ModuleMixin,
+  ModuleContainer,
   useMap
 };
