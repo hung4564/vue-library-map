@@ -24,7 +24,7 @@ function onInit(_map) {
 }
 </script>
 <template>
-  <ModuleContainer>
+  <ModuleContainer v-bind="$attrs">
     <template #btn>
       <MapControlButton
         @click="onGoHome"

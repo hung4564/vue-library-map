@@ -1,5 +1,5 @@
 <template>
-  <ModuleContainer>
+  <ModuleContainer v-bind="$attrs">
     <template #btn>
       <MapControlGroupButton>
         <MapControlButton
@@ -53,7 +53,7 @@ const path = {
   plus: mdiPlus,
   minus: mdiMinus
 };
-const props = defineProps({
+defineProps({
   showCompass: { type: Boolean, default: true },
   showZoom: { type: Boolean, default: true }
 });

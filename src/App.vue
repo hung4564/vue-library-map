@@ -7,7 +7,7 @@
       <ZoomControl />
 
       <FullScreenControl />
-      <BaseMapControl position="bottom-right"></BaseMapControl>
+      <BaseMapControl position="bottom-left"></BaseMapControl>
       <MouseCoordinatesControl />
     </Map>
   </div>

@@ -1,5 +1,5 @@
 <template>
-  <ModuleContainer>
+  <ModuleContainer v-bind="$attrs">
     <template #btn>
       <MapControlButton
         v-if="!print.show"

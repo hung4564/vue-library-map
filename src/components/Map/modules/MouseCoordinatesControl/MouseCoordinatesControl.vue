@@ -1,5 +1,5 @@
 <template>
-  <ModuleContainer>
+  <ModuleContainer v-bind="$attrs">
     <template #btn>
       <div
         class="button-container mouse-coordinates-container"

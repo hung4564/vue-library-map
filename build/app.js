@@ -12,6 +12,8 @@ import {
 
 import MapButton from "@components/MapButton.vue";
 import MapCard from "@components/MapCard.vue";
+import ModuleMixin from "@/components/Map/mixins/ModuleMixin";
+import useMap from "@/components/Map/mixins/useMap";
 
 export {
   MapButton,
@@ -22,5 +24,7 @@ export {
   HomeControl,
   Map,
   MouseCoordinatesControl,
-  ZoomControl
+  ZoomControl,
+  ModuleMixin,
+  useMap
 };

@@ -2,6 +2,7 @@ const path = require("path");
 function getProdExternals() {
   return {
     "@hungpv97/vue-library-draggable": "@hungpv97/vue-library-draggable",
+    "@hungpv97/vue-map-store": "@hungpv97/vue-map-store",
     "@jamescoyle/vue-icon": "@jamescoyle/vue-icon",
     "@linusborg/vue-simple-portal": "@linusborg/vue-simple-portal",
     "@mapbox/mapbox-gl-sync-move": "@mapbox/mapbox-gl-sync-move",

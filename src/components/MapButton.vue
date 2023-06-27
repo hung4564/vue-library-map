@@ -52,7 +52,6 @@ export default {
   background-color: #ffffff;
   font-size: 0.625rem;
   align-items: center;
-  border-radius: 4px;
   display: inline-flex;
   flex: 0 0 auto;
   font-weight: 500;
