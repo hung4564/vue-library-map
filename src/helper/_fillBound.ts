@@ -1,9 +1,10 @@
+import { MapSimple } from "@/interface/map";
 import bbox from "@turf/bbox";
 import { getSideBarCount } from "@/store/store-map";
 
-export const fitBounds = (map, value, { zoom = 15 } = {}) => {
+export const fitBounds = (map: MapSimple, value: any, { zoom = 15 } = {}) => {
   if (!value || !map) return;
-  let padding = {
+  const padding = {
     top: 50,
     bottom: 50,
     left: 50,
@@ -19,7 +20,7 @@ export const fitBounds = (map, value, { zoom = 15 } = {}) => {
     });
     return;
   }
-  let count = getSideBarCount(map.id) || { left_count: 0, right_count: 0 };
+  const count = getSideBarCount(map.id) || { left_count: 0, right_count: 0 };
   padding.left = count.left_count > 0 ? 450 : padding.left;
   padding.right = count.right_count > 0 ? 450 : padding.right;
 
@@ -37,7 +38,7 @@ export const fitBounds = (map, value, { zoom = 15 } = {}) => {
     duration: 0
   });
 };
-function getBBox(feature) {
+function getBBox(feature: any) {
   if (!feature.type) return;
   let bboxFil = undefined;
   if (["Feature", "FeatureCollection"].includes(feature.type)) {

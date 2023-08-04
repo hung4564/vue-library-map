@@ -1,36 +1,23 @@
 {
-  "main": "./dist/map.common.js",
   "name": "@hungpv97/vue-library-map",
-  "exports": {
-    ".": "./dist/map.common.js",
-    "./*": "./dist/*",
-    "./main.css": "./dist/map.css"
-  },
+  "typings": "types/index.d.ts",
+  "version": "0.0.0",
+  "private": false,
   "author": {
     "name": "hung.pv"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/hung4564/vue-library-map"
-  },
-  "private": false,
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org/"
-  },
-  "bugs": "https://github.com/hung4564/vue-library-map/issues",
-  "license": "MIT",
-  "version": "0.0.0",
-  "files": [
-    "dist/*"
-  ],
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build:lib": "node scripts/build.js",
-    "build:web": "NODE_ENV=webproduction vue-cli-service build",
+    "lint": "vue-cli-service lint",
     "deploy": "node scripts/gh-pages-deploy.js",
-    "lint": "vue-cli-service lint"
+    "build:lib": "node scripts/build.js",
+    "build:web": "NODE_ENV=webproduction vue-cli-service build"
   },
+  "main": "./dist/map.common.js",
+  "files": [
+    "dist/*",
+    "types/*"
+  ],
   "dependencies": {
     "@hungpv97/vue-library-draggable": "^1.0.2",
     "@hungpv97/vue-map-store": "^0.0.2",
@@ -50,9 +37,13 @@
   "devDependencies": {
     "@babel/core": "7.21.0",
     "@babel/eslint-parser": "7.19.1",
+    "@typescript-eslint/eslint-plugin": "^5.4.0",
+    "@typescript-eslint/parser": "^5.4.0",
     "@vue/cli-plugin-babel": "5.0.8",
     "@vue/cli-plugin-eslint": "5.0.8",
+    "@vue/cli-plugin-typescript": "^5.0.8",
     "@vue/cli-service": "5.0.8",
+    "@vue/eslint-config-typescript": "^9.1.0",
     "eslint": "7.32.0",
     "eslint-config-prettier": "8.7.0",
     "eslint-plugin-prettier": "4.2.1",
@@ -61,8 +52,25 @@
     "minify-css-string": "^1.0.0",
     "npm-run-all": "4.1.5",
     "prettier": "2.8.4",
+    "typescript": "~4.5.5",
     "vue-cli-plugin-webpack-bundle-analyzer": "^4.0.0",
     "vue-template-compiler": "2.7.14",
     "webpack-bundle-analyzer": "^4.9.0"
+  },
+  "bugs": "https://github.com/hung4564/vue-library-map/issues",
+  "exports": {
+    ".": "./dist/map.common.js",
+    "./*": "./dist/*",
+    "./main.css": "./dist/map.css",
+    "./helper": "./dist/helper.common.js"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hung4564/vue-library-map"
   }
 }

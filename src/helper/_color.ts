@@ -1,4 +1,6 @@
-const colorChart = [
+import { Color } from "@/interface/map";
+
+const colorChart: Color[] = [
   "#006494",
   "#1B98E0",
   "#4361EE",
@@ -43,7 +45,7 @@ const colorChart = [
   "#3949AB",
   "#7B1FA2"
 ];
-export function getRandomColor() {
+export function getRandomColor(): Color {
   const random = Math.floor(Math.random() * colorChart.length);
   return colorChart[random];
 }

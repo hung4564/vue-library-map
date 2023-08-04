@@ -1,16 +1,20 @@
 module.exports = {
   root: true,
+
   env: {
     node: true
   },
+
   extends: [
     "plugin:vue/essential",
     "eslint:recommended",
     "plugin:prettier/recommended"
   ],
+
   parserOptions: {
-    parser: "@babel/eslint-parser"
+    parser: '@typescript-eslint/parser'
   },
+
   rules: {
     "no-unused-vars": "warn",
     "no-console": process.env.NODE_ENV === "production" ? "warn" : "off",
@@ -21,5 +25,12 @@ module.exports = {
         ignores: ["Map", "Layer", "Portal"]
       }
     ]
-  }
+  },
+
+  'extends': [
+    'plugin:vue/essential',
+    'eslint:recommended',
+    'plugin:prettier/recommended',
+    '@vue/typescript'
+  ]
 };

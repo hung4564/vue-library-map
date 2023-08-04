@@ -8,6 +8,12 @@
       { stdio: "inherit" }
     );
     console.log("build map done");
+    await execa(
+      "vue-cli-service",
+      ["build", "--target", "lib", "--name", "helper", "build/helper.js"],
+      { stdio: "inherit" }
+    );
+    console.log("build helper done");
   } catch (e) {
     console.log(e.message);
     process.exit(1);
