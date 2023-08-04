@@ -163,7 +163,7 @@ export default {
       let currentPoint = { longitude: 0, latitude: 0 };
       if (isDMS) {
         currentPoint.longitude = lngDMS(+longitude);
-        currentPoint.latitude = lngDMS(+latitude);
+        currentPoint.latitude = latDMS(+latitude);
       } else {
         currentPoint.longitude = longitude.toFixed(6);
         currentPoint.latitude = latitude.toFixed(6);
