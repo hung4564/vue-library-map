@@ -1089,10 +1089,10 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@hungpv97/vue-library-draggable@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@hungpv97/vue-library-draggable/-/vue-library-draggable-1.0.0.tgz#8a188d26d7cfc8e853190deca20c0e45ba9a20d6"
-  integrity sha512-c5WX99KQEDIV/Vtki5WKQFcboY1Awqcxb37f8yh0T3BmKPCyg5WwJHJAnonlieRoE/NTq5KIurgwZCXb5NwGkA==
+"@hungpv97/vue-library-draggable@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@hungpv97/vue-library-draggable/-/vue-library-draggable-1.0.2.tgz#3e7eef0299c632cce891bd6bab9be36abe52c5ee"
+  integrity sha512-bwkYxSbRVeA6WnrtMcXQvLDE1cAYyLrTZidumY/k5yqJxsi9RP0bTnJtDWPsX2T2nsAo1T4V9X3xjcbIAdnFag==
   dependencies:
     "@vue/runtime-dom" "3.2.37"
     core-js "^3.8.3"
@@ -1104,14 +1104,15 @@
     vue-material-design-icons "^5.2.0"
     vue-resize-directive "^1.2.0"
 
-"@hungpv97/vue-map-store@^0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@hungpv97/vue-map-store/-/vue-map-store-0.0.1.tgz#7a5e3163a3e07ad7d7f071413ec62a50b2fe50c5"
-  integrity sha512-xbm54vdo1GVkPm6EajG2lL5fp3n/aSPeV3Ez/fDwIN5MJ4LkfumJ183+ivFpcpoRQ1UJ0t5Mtp5v/seV325R3w==
+"@hungpv97/vue-map-store@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@hungpv97/vue-map-store/-/vue-map-store-0.0.2.tgz#45bf25e72277e3b33a7fc2f416ffb5d01653f2f2"
+  integrity sha512-Hyfd1EKqNgXSRhdozOsVZcGbK30E2zT1/60+poe74x2o0U3TgYhnxJxdewA2PP/Su5UaQJzubhGMGrMGfvSEwA==
   dependencies:
     core-js "^3.8.3"
     lodash.merge "^4.6.2"
     mitt "^3.0.0"
+    typescript "^5.1.6"
     vue "^2.6.14"
 
 "@jamescoyle/vue-icon@^0.1.2":
@@ -5038,11 +5039,6 @@ p-try@^2.0.0:
   resolved "https://registry.yarnpkg.com/p-try/-/p-try-2.2.0.tgz#cb2868540e313d61de58fafbe35ce9004d5540e6"
   integrity sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==
 
-papaparse@^5.4.1:
-  version "5.4.1"
-  resolved "https://registry.yarnpkg.com/papaparse/-/papaparse-5.4.1.tgz#f45c0f871853578bd3a30f92d96fdcfb6ebea127"
-  integrity sha512-HipMsgJkZu8br23pW15uvo6sib6wne/4woLZPlFf3rpDyMe9ywEXUsuD7+6K9PRkJlVT51j/sCOYDKGGS3ZJrw==
-
 param-case@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/param-case/-/param-case-3.0.4.tgz#7d17fe4aa12bde34d4a77d91acfb6219caad01c5"
@@ -6473,6 +6469,11 @@ typed-array-length@^1.0.4:
     for-each "^0.3.3"
     is-typed-array "^1.1.9"
 
+typescript@^5.1.6:
+  version "5.1.6"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.1.6.tgz#02f8ac202b6dad2c0dd5e0913745b47a37998274"
+  integrity sha512-zaWCozRZ6DLEWAWFrVDz1H6FVXzUSfTy5FUMWsQlU8Ym5JP9eO4xkTIROFCQvhQf61z6O/G6ugw3SgAnvvm+HA==
+
 unbox-primitive@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/unbox-primitive/-/unbox-primitive-1.0.2.tgz#29032021057d5e6cdbd08c5129c226dff8ed6f9e"
@@ -6550,11 +6551,6 @@ uuid@^8.3.2:
   version "8.3.2"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
-
-v-click-outside@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/v-click-outside/-/v-click-outside-3.2.0.tgz#850ac3f52d66d84b9f7e8002a1bcadcafec5534e"
-  integrity sha512-QD0bDy38SHJXQBjgnllmkI/rbdiwmq9RC+/+pvrFjYJKTn8dtp7Penf9q1lLBta280fYG2q53mgLhQ+3l3z74w==
 
 v8-compile-cache@^2.0.3:
   version "2.3.0"

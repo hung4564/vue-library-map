@@ -2,7 +2,7 @@
   <div id="app">
     <Map locale="en">
       <PrintControl />
-      <GeolocateControl />
+      <GeoLocateControl />
       <HomeControl />
       <ZoomControl />
 
@@ -20,7 +20,7 @@ import {
   MouseCoordinatesControl,
   ZoomControl,
   HomeControl,
-  GeolocateControl,
+  GeoLocateControl,
   BaseMapControl,
   Map,
   PrintControl
@@ -32,7 +32,7 @@ export default {
     MouseCoordinatesControl,
     ZoomControl,
     HomeControl,
-    GeolocateControl,
+    GeoLocateControl,
     BaseMapControl,
     Map,
     PrintControl

@@ -3,7 +3,7 @@ import "@/assets/sass/app.scss";
 import {
   BaseMapControl,
   FullScreenControl,
-  GeolocateControl,
+  GeoLocateControl,
   HomeControl,
   Map,
   MouseCoordinatesControl,
@@ -24,7 +24,7 @@ export {
   MapCard,
   BaseMapControl,
   FullScreenControl,
-  GeolocateControl,
+  GeoLocateControl,
   HomeControl,
   Map,
   MouseCoordinatesControl,

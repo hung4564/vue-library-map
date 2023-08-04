@@ -21,13 +21,13 @@
         <div class="left-bottom-container" :id="leftBottomTo" />
         <div class="right-top-container" :id="rightTopTo" />
         <div class="left-top-container" :id="leftTopTo" />
-        <draggable-contianer
+        <draggable-container
           class="drag-container"
           @init-done="onDragInitDone"
           @show-count:side-bar="onChangeSidebar"
         >
           <div :id="draggableTo" />
-        </draggable-contianer>
+        </draggable-container>
       </template>
       <slot v-if="loaded" />
     </div>
@@ -40,14 +40,15 @@ const DEFAULTOPTION = {
   zoom: 5.297175623863693,
   maxZoom: 22
 };
+import { latDMS, lngDMS } from "./helper/coordinate";
 import mapboxgl from "mapbox-gl";
-import { DraggableContianer } from "@hungpv97/vue-library-draggable";
+import { DraggableContainer } from "@hungpv97/vue-library-draggable";
 import { getGlyphs, getSprite } from "@constant";
 import { getUUIDv4 } from "@utils";
 import { setMap, removeMap, setSideBarCount } from "@/store/store-map";
 import { LangMixin } from "@/mixins/lang.mixins";
 export default {
-  components: { DraggableContianer },
+  components: { DraggableContainer },
   props: {
     mapboxAccessToken: {
       type: String,
@@ -122,10 +123,16 @@ export default {
       get: () => this.prefix || this.id
     });
 
+    Object.defineProperty($map, "formatCoordinate", {
+      enumerable: true,
+      get: () => this.formatCoordinate
+    });
+
     return {
       getMap: this.getMap,
       dragId: this.dragId,
-      $map
+      $map,
+      formatCoordinate: this.formatCoordinate
     };
   },
   beforeDestroy() {
@@ -152,6 +159,17 @@ export default {
   },
 
   methods: {
+    formatCoordinate({ longitude, latitude } = {}, isDMS = false) {
+      let currentPoint = { longitude: 0, latitude: 0 };
+      if (isDMS) {
+        currentPoint.longitude = lngDMS(+longitude);
+        currentPoint.latitude = lngDMS(+latitude);
+      } else {
+        currentPoint.longitude = longitude.toFixed(6);
+        currentPoint.latitude = latitude.toFixed(6);
+      }
+      return currentPoint;
+    },
     onChangeSidebar({ left_count, right_count }) {
       this.sidebar_count.left_count = left_count;
       this.sidebar_count.right_count = right_count;

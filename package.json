@@ -32,8 +32,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@hungpv97/vue-library-draggable": "^1.0.0",
-    "@hungpv97/vue-map-store": "^0.0.1",
+    "@hungpv97/vue-library-draggable": "^1.0.2",
+    "@hungpv97/vue-map-store": "^0.0.2",
     "@jamescoyle/vue-icon": "^0.1.2",
     "@linusborg/vue-simple-portal": "^0.1.5",
     "@mapbox/mapbox-gl-sync-move": "^0.3.1",
@@ -42,13 +42,9 @@
     "core-js": "3.29.0",
     "file-saver": "2.0.5",
     "geojson-validation": "^1.0.2",
-    "lodash.merge": "^4.6.2",
     "mapbox-gl": "1.13.0",
-    "mitt": "^3.0.0",
-    "papaparse": "^5.4.1",
     "sass": "1.59.2",
     "sass-loader": "13.2.0",
-    "v-click-outside": "^3.2.0",
     "vue": "2.7.14"
   },
   "devDependencies": {

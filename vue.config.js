@@ -15,10 +15,7 @@ function getProdExternals() {
     "mapbox-gl": "mapbox-gl",
     "@mdi/js": "@mdi/js",
     vue: "vue",
-    lodash: "lodash",
-    papaparse: "papaparse",
-    mitt: "mitt",
-    "v-click-outside": "v-click-outside"
+    lodash: "lodash"
   };
 }
 

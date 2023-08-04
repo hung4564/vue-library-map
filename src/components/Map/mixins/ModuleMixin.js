@@ -11,7 +11,7 @@ export default {
     };
   },
 
-  inject: ["getMap", "$map"],
+  inject: ["getMap", "$map", "formatCoordinate"],
   computed: {
     c_mapId() {
       return this.$map.id;

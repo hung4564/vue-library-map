@@ -20,7 +20,7 @@ yarn add @hungpv97/vue-library-map
     <Map locale="vi">
       <BaseMapControl position="bottom-left" />
       <PrintControl />
-      <GeolocateControl />
+      <GeoLocateControl />
       <HomeControl />
       <ZoomControl />
 
@@ -37,7 +37,7 @@ import {
   MouseCoordinatesControl,
   ZoomControl,
   HomeControl,
-  GeolocateControl,
+  GeoLocateControl,
   BaseMapControl,
   Map,
   PrintControl
@@ -51,7 +51,7 @@ export default {
     MouseCoordinatesControl,
     ZoomControl,
     HomeControl,
-    GeolocateControl,
+    GeoLocateControl,
     BaseMapControl,
     Map,
     PrintControl

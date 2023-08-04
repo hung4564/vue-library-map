@@ -28,7 +28,7 @@
               style="margin-left: 4px"
               class="selectable"
               v-html="currentPoint"
-              :style="{ 'min-width': isDMS ? '210px' : '100px' }"
+              :style="{ 'min-width': isDMS ? '220px' : '100px' }"
             >
             </div>
             <i
@@ -62,7 +62,6 @@
 import { mdiCached, mdiMapMarkerOutline, mdiMagnify } from "@mdi/js";
 import ModuleMixin from "@/components/Map/mixins/ModuleMixin";
 
-import { latDMS, lngDMS } from "./helper";
 import { debounce } from "@utils";
 
 const defaultOptions = {
@@ -106,16 +105,8 @@ export default {
       this.changePixelValue();
     },
     changePixelValue() {
-      if (this.isDMS)
-        this.currentPoint =
-          lngDMS(+this.lngLat.longitude.toFixed(4)) +
-          ", &nbsp;" +
-          latDMS(+this.lngLat.latitude.toFixed(4));
-      else
-        this.currentPoint =
-          this.lngLat.longitude.toFixed(4) +
-          ",&nbsp;&nbsp;" +
-          this.lngLat.latitude.toFixed(4);
+      let point = this.formatCoordinate(this.lngLat, this.isDMS);
+      this.currentPoint = point.longitude + ", &nbsp;" + point.latitude;
     },
 
     onInit() {
@@ -255,7 +246,7 @@ function getRoundNum(num) {
 .zoom-coordinates {
   background-color: hsla(0, 0%, 100%, 0.7529411764705882);
   border-radius: 4px;
-  min-width: 160px;
+  min-width: 75px;
   font-size: 14px;
   color: #333;
   padding: 4px;
@@ -269,6 +260,9 @@ function getRoundNum(num) {
 }
 .icon-clickable {
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding-left: 8px;
 }
 
 .icon-clickable:hover,
@@ -278,5 +272,8 @@ function getRoundNum(num) {
 
 .icon-clickable:active {
   filter: brightness(0.8);
+}
+.mouse-coordinates-point > div {
+  text-align: center;
 }
 </style>
