@@ -10,7 +10,15 @@
     console.log("build map done");
     await execa(
       "vue-cli-service",
-      ["build", "--target", "lib", "--name", "helper", "build/helper.js"],
+      [
+        "build",
+        "--no-clean",
+        "--target",
+        "lib",
+        "--name",
+        "helper",
+        "build/helper.js"
+      ],
       { stdio: "inherit" }
     );
     console.log("build helper done");

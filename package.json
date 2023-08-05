@@ -16,11 +16,12 @@
   "main": "./dist/map.common.js",
   "files": [
     "dist/*",
-    "types/*"
+    "types/*",
+    "src/model/*"
   ],
   "dependencies": {
     "@hungpv97/vue-library-draggable": "^1.0.2",
-    "@hungpv97/vue-map-store": "^0.0.2",
+    "@hungpv97/vue-map-store": "^0.0.3",
     "@jamescoyle/vue-icon": "^0.1.2",
     "@linusborg/vue-simple-portal": "^0.1.5",
     "@mapbox/mapbox-gl-sync-move": "^0.3.1",

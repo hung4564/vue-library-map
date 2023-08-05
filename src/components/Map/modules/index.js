@@ -1,3 +1,4 @@
+import ActionControl from "./ActionControl/ActionControl.vue";
 import BaseMapControl from "./BaseMapControl/BaseMapControl.vue";
 import FullScreenControl from "./FullScreenControl/FullScreenControl.vue";
 import GeoLocateControl from "./GeoLocateControl/GeoLocateControl.vue";
@@ -12,5 +13,6 @@ export {
   HomeControl,
   GeoLocateControl,
   BaseMapControl,
-  PrintControl
+  PrintControl,
+  ActionControl
 };
