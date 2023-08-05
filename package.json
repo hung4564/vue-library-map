@@ -17,7 +17,9 @@
   "files": [
     "dist/*",
     "types/*",
-    "src/model/*"
+    "src/model/*",
+    "src/interface/*",
+    "src/utils/*"
   ],
   "dependencies": {
     "@hungpv97/vue-library-draggable": "^1.0.2",
@@ -61,9 +63,13 @@
   "bugs": "https://github.com/hung4564/vue-library-map/issues",
   "exports": {
     ".": "./dist/map.common.js",
-    "./*": "./dist/*",
+    "./src/*": "./src/*",
+    "./src": "./src",
+    "./model": "./src/model",
+    "./model/*": "./src/model/*",
     "./main.css": "./dist/map.css",
-    "./helper": "./dist/helper.common.js"
+    "./helper": "./dist/helper.common.js",
+    "./*": "./dist/*"
   },
   "license": "MIT",
   "publishConfig": {
