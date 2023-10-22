@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { BaseMapControl, ZoomControl } from "@components/Map";
+import { BaseMapControl, ZoomControl } from "@/components/Map";
 import { MapCompare, CompareSettingControl } from "@components/MapCompare";
 export default {
   name: "App",

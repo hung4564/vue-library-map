@@ -16,7 +16,8 @@ function getProdExternals() {
     vue: "vue",
     lodash: "lodash",
     "lodash.merge": "lodash.merge",
-    mitt: "mitt"
+    mitt: "mitt",
+    "@turf/turf": "@turf/turf"
   };
 }
 
@@ -59,6 +60,7 @@ module.exports = {
     resolve: {
       alias: {
         "@components": path.join(__dirname, "src/components/"),
+        "@map": path.join(__dirname, "src/components/Map"),
         "@constant": path.join(__dirname, "src/constant/"),
         "@utils": path.join(__dirname, "src/utils/"),
         "@app.config": path.join(__dirname, "src/app.config.json")

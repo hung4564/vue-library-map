@@ -8,6 +8,7 @@ declare type MapRangerHandle = {
   destroy: () => void;
 };
 export declare class EventBboxRanger extends Event<
+  "click",
   EventBboxRangerOption,
   EventBboxRangerHandle
 > {

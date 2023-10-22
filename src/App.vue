@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Map locale="en" @map-loaded="onMapLoad">
+      <MeasurementControl position="top-right" />
       <PrintControl />
       <GeoLocateControl />
       <HomeControl />
@@ -26,9 +27,10 @@ import {
   BaseMapControl,
   Map,
   PrintControl,
-  ActionControl
-} from "@components/Map";
-import { setEventMap } from "./components/Map/hooks/useEvent";
+  ActionControl,
+  MeasurementControl
+} from "@map";
+import { setEventMap } from "@map/hooks/useEvent";
 import { EventClick } from "./model/event";
 export default {
   name: "App",
@@ -41,7 +43,8 @@ export default {
     BaseMapControl,
     Map,
     PrintControl,
-    ActionControl
+    ActionControl,
+    MeasurementControl
   },
   methods: {
     onMapLoad(map) {

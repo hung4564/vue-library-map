@@ -10,6 +10,7 @@ type MapRangerHandle = {
   destroy: () => void;
 };
 export class EventBboxRanger extends Event<
+  "click",
   EventBboxRangerOption,
   EventBboxRangerHandle
 > {
@@ -25,14 +26,19 @@ export class EventBboxRanger extends Event<
     if (!this.handler) {
       return this;
     }
-    map.getCanvas().classList.add(this.options.classPointer);
+    if (this.options.classPointer)
+      map.getCanvas().classList.add(this.options.classPointer);
     map.dragPan.disable();
     map.boxZoom.disable();
-    this.map_ranger = startBoxRangerMap(map.getCanvasContainer(), this.handler);
+    this.map_ranger = startBoxRangerMap(
+      map.getCanvasContainer() as HTMLCanvasElement,
+      this.handler
+    );
     return this;
   }
   removeFromMap(map: MapSimple) {
-    map.getCanvas().classList.remove(this.options.classPointer);
+    if (this.options.classPointer)
+      map.getCanvas().classList.remove(this.options.classPointer);
     if (this.map_ranger) {
       this.map_ranger.destroy();
       this.map_ranger = undefined;

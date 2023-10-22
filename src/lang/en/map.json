@@ -1,5 +1,13 @@
 {
   "measurement": {
+    "action": {
+      "clear": "Clear",
+      "close": "Close",
+      "setting": "Setting",
+      "download": "Download",
+      "add-point": "Add point",
+      "fly-to": "Fill bound"
+    },
     "title": "Measurement",
     "result": "Measurement Result",
     "field": {
@@ -18,6 +26,20 @@
       "square-meter": "Square Meter",
       "hecta": "Hecta",
       "square-kilometer": "Square Kilometer"
+    },
+    "setting": {
+      "title": "Setting",
+      "field": {
+        "data": "Data"
+      },
+      "point": "Point",
+      "distance": "Distance",
+      "area": "Area",
+      "azimuth": "Azimuthị"
+    },
+    "no-data": {
+      "text": "Status",
+      "value": "Waiting..."
     }
   },
   "basemap": {

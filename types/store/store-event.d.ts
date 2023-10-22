@@ -4,7 +4,15 @@ export declare function removeListenerMap(mapId: string, event: IEvent): void;
 export declare function getListenerMap(
   mapId: string,
   event: string
-): IEvent<any, Function>[];
+): IEvent<
+  "click",
+  any,
+  (
+    ev: import("mapbox-gl").MapMouseEvent & {
+      features?: import("mapbox-gl").MapboxGeoJSONFeature[] | undefined;
+    } & import("mapbox-gl").EventData
+  ) => void
+>[];
 export declare function setCurrentEvent(
   mapId: string,
   event_map_type: string,
@@ -13,4 +21,12 @@ export declare function setCurrentEvent(
 export declare function getCurrentEvent(
   mapId: string,
   event_map_type: string
-): IEvent<any, Function>;
+): IEvent<
+  "click",
+  any,
+  (
+    ev: import("mapbox-gl").MapMouseEvent & {
+      features?: import("mapbox-gl").MapboxGeoJSONFeature[] | undefined;
+    } & import("mapbox-gl").EventData
+  ) => void
+>;

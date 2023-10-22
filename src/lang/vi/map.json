@@ -1,5 +1,13 @@
 {
   "measurement": {
+    "action": {
+      "clear": "Xoá",
+      "close": "Đóng",
+      "setting": "Cài đặt",
+      "download": "Tải xuống",
+      "add-point": "Thêm điểm",
+      "fly-to": "Bay tới"
+    },
     "title": "Công cụ đo đạc",
     "result": "Kết quả đo lường",
     "field": {
@@ -18,6 +26,20 @@
       "square-meter": "Mét vuông",
       "hecta": "Hecta",
       "square-kilometer": "Kilômét vuông"
+    },
+    "setting": {
+      "title": "Cài đặt",
+      "field": {
+        "data": "Dữ liệu"
+      },
+      "point": "Điểm",
+      "distance": "Chiều dài",
+      "area": "Diện tích",
+      "azimuth": "Góc phương vị"
+    },
+    "no-data": {
+      "text": "Trạng thái",
+      "value": "Đợi..."
     }
   },
   "basemap": {

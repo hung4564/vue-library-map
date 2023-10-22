@@ -1,6 +1,6 @@
 import { MapSimple } from "@/interface/map";
 
-function loadImage(map: MapSimple, link: string) {
+function loadImage(map: MapSimple, link: string): Promise<ArrayBufferView> {
   return new Promise(function (resolve, reject) {
     map.loadImage(link, function (error: any, image: any) {
       if (error) reject(error);
@@ -32,8 +32,8 @@ export async function createMapboxImage(
 
   return id;
 }
-function createHTMLImageElement(link: string) {
-  return new Promise(function (resolve, reject) {
+function createHTMLImageElement(link: string): Promise<HTMLImageElement> {
+  return new Promise<HTMLImageElement>(function (resolve, reject) {
     const img = document.createElement("img");
     img.src = link;
     img.width = 24;

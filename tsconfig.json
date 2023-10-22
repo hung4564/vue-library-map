@@ -20,6 +20,7 @@
       "@components/*": ["src/components/*"],
       "@constant/*": ["src/constant/*"],
       "@utils/*": ["src/utils/*"],
+      "@map/*": ["src/components/Map/*"],
       "@app.config": ["src/app.config.json"]
     },
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"],

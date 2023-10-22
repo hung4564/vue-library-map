@@ -1,12 +1,17 @@
+import { EventData, MapLayerEventType } from "mapbox-gl";
+
 import { Base } from "../Base";
 import { IEvent } from "@/interface/event";
 import { MapSimple } from "@/interface/map";
+
 export class Event<
+    T extends keyof MapLayerEventType = "click",
     IOption extends {} = any,
-    ICallBack extends Function = Function
+    // eslint-disable-next-line no-unused-vars
+    ICallBack extends Function = (ev: MapLayerEventType[T] & EventData) => void
   >
   extends Base
-  implements IEvent
+  implements IEvent<T, IOption, ICallBack>
 {
   public event_map_type: string;
   public type_select: string;
@@ -23,11 +28,11 @@ export class Event<
     return this;
   }
   addToMap(map: MapSimple) {
-    map.on(this.event_map_type, this.handler);
+    if (this.handler) map.on(this.event_map_type, this.handler as any);
     return this;
   }
   removeFromMap(map: MapSimple) {
-    map.off(this.event_map_type, this.handler);
+    if (this.handler) map.off(this.event_map_type, this.handler as any);
     return this;
   }
 }

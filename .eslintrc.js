@@ -8,11 +8,13 @@ module.exports = {
   extends: [
     "plugin:vue/essential",
     "eslint:recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "@vue/typescript"
   ],
 
+  ignorePatterns: ["dist", ".eslintrc.cjs"],
   parserOptions: {
-    parser: '@typescript-eslint/parser'
+    parser: "@typescript-eslint/parser"
   },
 
   rules: {
@@ -25,12 +27,5 @@ module.exports = {
         ignores: ["Map", "Layer", "Portal"]
       }
     ]
-  },
-
-  'extends': [
-    'plugin:vue/essential',
-    'eslint:recommended',
-    'plugin:prettier/recommended',
-    '@vue/typescript'
-  ]
+  }
 };

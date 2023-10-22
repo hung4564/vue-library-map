@@ -1,6 +1,6 @@
-export interface MapSimple {
+import { Map as Mapbox } from "mapbox-gl";
+export interface MapSimple extends Mapbox {
   id: string;
-  [key: string]: any;
 }
 declare type RGB = `rgb(${number}, ${number}, ${number})`;
 declare type RGBA = `rgba(${number}, ${number}, ${number}, ${number})`;
@@ -10,4 +10,5 @@ export declare type Coordinates = {
   x: number;
   y: number;
 };
+export declare type CoordinatesNumber = [number, number];
 export {};

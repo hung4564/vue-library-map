@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+import { EventData, MapLayerEventType } from "mapbox-gl";
 import { Coordinates, MapSimple } from "./map";
 
 export interface EventClickOption {
@@ -6,8 +8,9 @@ export interface EventClickOption {
 export interface EventBboxRangerOption extends EventClickOption {}
 export type EventBboxRangerHandle = (_bbox?: [Coordinates, Coordinates]) => any;
 export interface IEvent<
+  T extends keyof MapLayerEventType = "click",
   IOption extends {} = any,
-  ICallBack extends Function = Function
+  ICallBack extends Function = (ev: MapLayerEventType[T] & EventData) => void
 > {
   _id: string;
   get id(): string;
