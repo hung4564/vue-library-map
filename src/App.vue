@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <Map locale="en" @map-loaded="onMapLoad">
+    <Map locale="en" @map-loaded="onMapLoaded">
       <MeasurementControl position="top-right" />
+      <LayerControl position="top-left" />
       <PrintControl />
       <GeoLocateControl />
       <HomeControl />
@@ -10,6 +11,7 @@
       <FullScreenControl />
       <BaseMapControl position="bottom-left"></BaseMapControl>
       <MouseCoordinatesControl />
+      <IdentifyControl position="top-right" />
       <ActionControl />
     </Map>
   </div>
@@ -28,10 +30,16 @@ import {
   Map,
   PrintControl,
   ActionControl,
-  MeasurementControl
+  MeasurementControl,
+  LayerControl,
+  IdentifyControl
 } from "@map";
-import { setEventMap } from "@map/hooks/useEvent";
 import { EventClick } from "./model/event";
+import { addLayer } from "./store/store-datasource";
+import {
+  createGeoJsonLayer,
+  createRasterUrlLayer
+} from "./model/datasource/sample";
 export default {
   name: "App",
   components: {
@@ -44,23 +52,57 @@ export default {
     Map,
     PrintControl,
     ActionControl,
-    MeasurementControl
+    MeasurementControl,
+    LayerControl,
+    IdentifyControl
   },
   methods: {
-    onMapLoad(map) {
-      const {
-        add: addEventClick,
-        remove: removeEventClick,
-        isActive: isEventClickActive
-      } = setEventMap(
-        map,
-        new EventClick().setHandler((e) => {
-          console.log("🚀 ~ newEventClick ~ e", e);
+    async onMapLoaded(map) {
+      addLayer(
+        map.id,
+        createRasterUrlLayer({
+          name: "raster 1",
+          tiles: [
+            "https://naturalearthtiles.roblabs.com/tiles/natural_earth_cross_blended_hypso_shaded_relief.raster/{z}/{x}/{y}.png"
+          ],
+          bounds: [
+            104.96327341667353, 18.461221184685627, 106.65936430823979,
+            19.549518287564368
+          ]
         })
       );
-      this.$nextTick(() => {
-        addEventClick();
-      });
+      addLayer(
+        map.id,
+        createGeoJsonLayer({
+          name: "geojson 1",
+          type: "area",
+          color: "#34495e",
+          geojson: {
+            type: "FeatureCollection",
+            features: [
+              {
+                type: "Feature",
+                properties: {
+                  id: "1",
+                  name: "feature 2"
+                },
+                geometry: {
+                  coordinates: [
+                    [
+                      [104.96327341667353, 19.549518287564368],
+                      [104.96327341667353, 18.461221184685627],
+                      [106.65936430823979, 18.461221184685627],
+                      [106.65936430823979, 19.549518287564368],
+                      [104.96327341667353, 19.549518287564368]
+                    ]
+                  ],
+                  type: "Polygon"
+                }
+              }
+            ]
+          }
+        })
+      );
     }
   }
 };

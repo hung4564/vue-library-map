@@ -1,0 +1,27 @@
+{
+  "title": "Layer Control",
+  "create-btn": "Create Layer",
+  "create": {
+    "title": "New Layer"
+  },
+  "field": {
+    "name": "Name",
+    "type": "Type",
+    "url": "Url",
+    "minzoom": "Min zoom",
+    "maxzoom": "Max zoom",
+    "file": "File",
+    "geojson": "Geojson",
+    "tiles": "Tiles",
+    "bound": {
+      "title": "Bound",
+      "minx": "Min Longitude",
+      "miny": "Min Latitude",
+      "maxx": "Max Longitude",
+      "maxy": "Max Latitude"
+    }
+  },
+  "info": {
+    "title": "Info"
+  }
+}

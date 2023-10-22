@@ -1,3 +1,4 @@
+import type { BBox } from "geojson";
 import { Map as Mapbox } from "mapbox-gl";
 
 export interface MapSimple extends Mapbox {
@@ -14,3 +15,17 @@ export type Coordinates = {
   y: number;
 };
 export type CoordinatesNumber = [number, number];
+
+export interface IRasterOption {
+  bounds?: BBox;
+  maxzoom?: number;
+  minzoom?: number;
+  scheme?: SourceScheme;
+  tiles?: string[];
+  tileSize?: number;
+  url?: string;
+}
+export interface IRasterSource extends IRasterOption {
+  type: "raster";
+}
+export type SourceScheme = "xyz" | "tms";

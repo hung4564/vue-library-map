@@ -51,7 +51,7 @@ import { DraggablePopup } from "@hungpv97/vue-library-draggable";
 import { mdiCog } from "@mdi/js";
 import ModuleMixin from "@/components/Map/mixins/ModuleMixin";
 import MapControlButton from "@/components/Map/control/MapControlButton.vue";
-import FieldCheckbox from "@/components/Field/field-checkbox.vue";
+import FieldCheckbox from "@/components/input/input-checkbox.vue";
 export default {
   components: { MapControlButton, DraggablePopup, FieldCheckbox },
   mixins: [ModuleMixin],

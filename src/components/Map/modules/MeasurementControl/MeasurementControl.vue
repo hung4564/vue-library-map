@@ -103,7 +103,7 @@ import MeasurementSettingPopup from "./MeasurementSettingPopup.vue";
 import { FormView } from "./helper/_viewForm";
 import { lineString, point, polygon } from "@turf/helpers";
 import { EventClick } from "@/model/event";
-import { setEventMap } from "@map/hooks/useEvent";
+import { setEventMap } from "@/hooks/useEvent";
 let handler = new MeasurementHandle();
 const DEFAULT_COLOR_HIGHLIGHT = "#004E98";
 export default {

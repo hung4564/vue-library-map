@@ -1,0 +1,46 @@
+.layer-item__button {
+  display: inline-block;
+  padding: 0 4px;
+  cursor: pointer;
+  background: transparent;
+  outline: none;
+  box-shadow: none;
+  border: none;
+  min-width: 25px;
+}
+.layer-item__title-action .layer-item__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.layer-item__button[disabled="disabled"] {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.25;
+}
+
+.map-row {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.map-co,
+.map-col-6,
+.map-col-12 {
+  box-sizing: border-box;
+  width: 100%;
+}
+.map-col {
+  flex-basis: 0;
+  flex-grow: 1;
+  max-width: 100%;
+}
+.map-col-12 {
+  flex: 0 0 100%;
+  max-width: 100%;
+}
+.map-col-6 {
+  flex: 0 0 calc(50% - 6px);
+  max-width: 50%;
+}

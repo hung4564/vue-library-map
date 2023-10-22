@@ -16,6 +16,8 @@ function getProdExternals() {
     vue: "vue",
     lodash: "lodash",
     "lodash.merge": "lodash.merge",
+    "v-click-outside": "v-click-outside",
+    vuedraggable: "vuedraggable",
     mitt: "mitt",
     "@turf/turf": "@turf/turf"
   };
