@@ -1,4 +1,4 @@
-import { EVENTBUS_TYPE, eventBus } from "@hungpv97/vue-map-store";
+import { EVENTBUS_TYPE, eventBus } from "@/utils/event-bus";
 import {
   baseMaps,
   clearBaseMapForMap,

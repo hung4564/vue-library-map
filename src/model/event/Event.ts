@@ -1,5 +1,5 @@
 import { Base } from "../Base";
-import { IEvent } from "@hungpv97/vue-map-store/types/interface/event";
+import { IEvent } from "@/interface/event";
 import { MapSimple } from "@/interface/map";
 export class Event<
     IOption extends {} = any,

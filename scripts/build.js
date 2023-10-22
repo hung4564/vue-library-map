@@ -22,6 +22,20 @@
       { stdio: "inherit" }
     );
     console.log("build helper done");
+    await execa(
+      "vue-cli-service",
+      [
+        "build",
+        "--no-clean",
+        "--target",
+        "lib",
+        "--name",
+        "model",
+        "build/model.js"
+      ],
+      { stdio: "inherit" }
+    );
+    console.log("build model done");
   } catch (e) {
     console.log(e.message);
     process.exit(1);

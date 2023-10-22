@@ -1,10 +1,13 @@
-import { EVENTBUS_TYPE, eventBus, storeEvent } from "@hungpv97/vue-map-store";
+import { EVENTBUS_TYPE, eventBus } from "@/utils/event-bus";
+import {
+  addListenerMap,
+  getCurrentEvent,
+  removeListenerMap
+} from "@/store/store-event";
 import { inject, onBeforeUnmount, onMounted, ref } from "vue";
 
-import { Event } from "@hungpv97/vue-map-store/types/model/event";
+import { Event } from "@/model";
 import { MapSimple } from "@/interface/map";
-
-const { addListenerMap, getCurrentEvent, removeListenerMap } = storeEvent;
 
 export function useEventMap(event: Event, immediate = false) {
   const $map: MapSimple | undefined = inject("$map");

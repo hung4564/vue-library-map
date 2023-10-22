@@ -1116,17 +1116,6 @@
     vue-material-design-icons "^5.2.0"
     vue-resize-directive "^1.2.0"
 
-"@hungpv97/vue-map-store@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@hungpv97/vue-map-store/-/vue-map-store-0.0.3.tgz#9b87ffedd83d75360e37f98fb600afac37d720cb"
-  integrity sha512-LeoNKSuMYqA1nm9YH5LGo1Sz30sjS5jP7TNrtAdVpMrqXxxIUJrpGh998+a9rdjFZN5ESxrhhGrU/l5wnz4fLA==
-  dependencies:
-    core-js "^3.8.3"
-    lodash.merge "^4.6.2"
-    mitt "^3.0.0"
-    typescript "^5.1.6"
-    vue "^2.6.14"
-
 "@jamescoyle/vue-icon@^0.1.2":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@jamescoyle/vue-icon/-/vue-icon-0.1.2.tgz#b9e254187de6716b81bf9e0e8400ec012231bd05"
@@ -1438,6 +1427,18 @@
   version "7.0.12"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.12.tgz#d70faba7039d5fca54c83c7dbab41051d2b6f6cb"
   integrity sha512-Hr5Jfhc9eYOQNPYO5WLDq/n4jqijdHNlDXjuAQkkt+mWdQR+XJToOHrsD4cPaMXpn6KO7y2+wM8AZEs8VpBLVA==
+
+"@types/lodash.merge@^4.6.8":
+  version "4.6.8"
+  resolved "https://registry.yarnpkg.com/@types/lodash.merge/-/lodash.merge-4.6.8.tgz#5a9cfd316ed6806f29cb37ff76398e255d157ee2"
+  integrity sha512-He1g+VBmRclP+6hT6P6zKlzpFoeOLMgPpMGChgINuxbdPumZCIJsITbqSq2cWXzJu2ltmwVN5TfQ6kj0X06rFQ==
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash@*":
+  version "4.14.200"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.200.tgz#435b6035c7eba9cdf1e039af8212c9e9281e7149"
+  integrity sha512-YI/M/4HRImtNf3pJgbF+W6FrXovqj+T+/HpENLTooK9PnkacBsDpeP3IpHab40CClUfhNmdM2WTNP2sa2dni5Q==
 
 "@types/mime@*":
   version "3.0.1"
@@ -4894,10 +4895,10 @@ minipass@^3.1.1:
   dependencies:
     yallist "^4.0.0"
 
-mitt@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/mitt/-/mitt-3.0.0.tgz#69ef9bd5c80ff6f57473e8d89326d01c414be0bd"
-  integrity sha512-7dX2/10ITVyqh4aOSVI9gdape+t9l2/8QxHrFmUXu4EEUpdlxl6RudZUPZoc+zuY2hk1j7XxVroIVIan/pD/SQ==
+mitt@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/mitt/-/mitt-3.0.1.tgz#ea36cf0cc30403601ae074c8f77b7092cdab36d1"
+  integrity sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==
 
 mkdirp@^0.5.6:
   version "0.5.6"
@@ -6696,11 +6697,6 @@ typed-array-length@^1.0.4:
     call-bind "^1.0.2"
     for-each "^0.3.3"
     is-typed-array "^1.1.9"
-
-typescript@^5.1.6:
-  version "5.1.6"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.1.6.tgz#02f8ac202b6dad2c0dd5e0913745b47a37998274"
-  integrity sha512-zaWCozRZ6DLEWAWFrVDz1H6FVXzUSfTy5FUMWsQlU8Ym5JP9eO4xkTIROFCQvhQf61z6O/G6ugw3SgAnvvm+HA==
 
 typescript@~4.5.5:
   version "4.5.5"
