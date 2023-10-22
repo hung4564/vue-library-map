@@ -6,13 +6,16 @@ import {
   FullScreenControl,
   GeoLocateControl,
   HomeControl,
+  IdentifyControl,
+  LayerControl,
   Map,
+  MeasurementControl,
   MouseCoordinatesControl,
   PrintControl,
   ZoomControl
 } from "@components/Map";
 import { CompareSettingControl, MapCompare } from "@/components/MapCompare";
-import { setEventMap, useEventMap } from "@/components/Map/hooks/useEvent";
+import { setEventMap, useEventMap } from "@/hooks/useEvent";
 
 import MapButton from "@components/MapButton.vue";
 import MapCard from "@components/MapCard.vue";
@@ -33,6 +36,9 @@ export {
   ZoomControl,
   PrintControl,
   ActionControl,
+  MeasurementControl,
+  LayerControl,
+  IdentifyControl,
   //control
   MapButton,
   MapCard,
