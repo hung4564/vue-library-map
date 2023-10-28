@@ -76,7 +76,7 @@
         />
       </button>
     </div>
-    <div v-if="legendShow">
+    <div v-if="legendShow && legendConfig">
       <component
         :is="legendConfig.component"
         :value="item"
