@@ -1,4 +1,4 @@
-import { ListOption, ListSingleView, Menu } from "@/interface/datasource/list";
+import { ListOption, ListSingleView } from "@/interface/datasource/list";
 
 import { Layer } from "../../Layer";
 import { getUUIDv4 } from "@/utils/uuid";
@@ -32,10 +32,6 @@ export function createDefaultViewInList(
     },
     get extra_buttons() {
       return option.extra_buttons || [];
-    },
-    addMenus(menus: Menu[]) {
-      option.menus?.push(...menus);
-      return temp;
     },
     selected: false,
     get metadata() {

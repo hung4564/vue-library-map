@@ -41,10 +41,21 @@
           <SvgIcon size="14" type="mdi" :path="path.delete" />
         </button>
         <slot name="extra-btn" :loading="loading" />
+        <button
+          class="layer-item__button"
+          v-if="item.config.disabled_opacity && isHasLegend"
+          @click.stop="onToggleLegend"
+        >
+          <SvgIcon
+            size="14"
+            type="mdi"
+            :path="legendShow ? path.legendClose : path.legendOpen"
+          />
+        </button>
       </div>
     </div>
     <div class="layer-item__action" v-if="!item.config.disabled_opacity">
-      <div class="layer-item__opacity">
+      <div class="layer-item__opacity" v-if="!item.config.disabled_opacity">
         <LayerItemSlider
           v-model.number="opacity"
           max="1"
@@ -53,11 +64,30 @@
         />
       </div>
       <div class="v-spacer"></div>
+      <button
+        class="layer-item__button"
+        @click.stop="onToggleLegend"
+        v-if="isHasLegend"
+      >
+        <SvgIcon
+          size="14"
+          type="mdi"
+          :path="legendShow ? path.legendClose : path.legendOpen"
+        />
+      </button>
+    </div>
+    <div v-if="legendShow">
+      <component
+        :is="legendConfig.component"
+        :value="item"
+        v-for="(item, i) of legendConfig.items"
+        :key="i"
+      ></component>
     </div>
   </div>
 </template>
 <script setup>
-import { computed, defineProps, defineEmits } from "vue";
+import { computed, defineProps, defineEmits, ref } from "vue";
 import SvgIcon from "@jamescoyle/vue-icon";
 import LayerItemSlider from "./layer-item-slider.vue";
 import LayerItemIcon from "./layer-item-icon.vue";
@@ -68,6 +98,8 @@ import {
   mdiEyeOff,
   mdiLayers,
   mdiLoading,
+  mdiMenuDown,
+  mdiMenuLeft,
   mdiPencilOutline
 } from "@mdi/js";
 const props = defineProps({
@@ -94,6 +126,14 @@ const emit = defineEmits([
   "click:bounds",
   "click:edit"
 ]);
+const isHasLegend = computed(
+  () =>
+    props.item &&
+    props.item.parent &&
+    props.item.parent.canBuildForView("legend")
+);
+const legendShow = ref(false);
+const legendConfig = ref();
 const path = {
   loading: mdiLoading,
   layer: mdiLayers,
@@ -101,7 +141,9 @@ const path = {
   show: mdiEye,
   hide: mdiEyeOff,
   delete: mdiDelete,
-  edit: mdiPencilOutline
+  edit: mdiPencilOutline,
+  legendOpen: mdiMenuLeft,
+  legendClose: mdiMenuDown
 };
 const loading = computed(() => {
   return props.item.metadata && props.item.metadata.loading;
@@ -130,6 +172,13 @@ const onRemove = () => {
 
 const onToBounds = () => {
   emit("click:bounds", props.item.metadata.bounds);
+};
+const onToggleLegend = () => {
+  legendShow.value = !legendShow.value;
+  if (legendShow.value) {
+    if (!legendConfig.value) props.item.parent.runBuild("legend");
+    legendConfig.value = props.item.parent.getView("legend").config;
+  }
 };
 </script>
 
@@ -163,7 +212,7 @@ const onToBounds = () => {
 }
 .layer-item__opacity {
   flex: 1 1 auto;
-  max-width: 75%;
+  max-width: 50%;
 }
 .layer-item__icon {
   flex-grow: 0;

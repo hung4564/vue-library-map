@@ -1,4 +1,5 @@
 import { IView, LayerBuildFunction } from "@/interface/datasource/view";
+
 import { Layer } from "../Layer";
 
 export abstract class ABuild<
@@ -8,7 +9,7 @@ export abstract class ABuild<
   key: string;
   option: T;
   build?: LayerBuildFunction<IBuildReturn>;
-  constructor(key: string, option?: T, default_option?: T) {
+  constructor(key: string, option?: T, default_option?: Partial<T>) {
     this.key = key;
     this.option = Object.assign({}, default_option, option);
   }

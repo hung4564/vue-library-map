@@ -20,6 +20,8 @@ import type {
 import { Layer } from "./Layer";
 import { LayerActionBuild } from "./build/action";
 import LayerInfo from "@map/modules/LayerControl/Detail/LayerInfo.vue";
+import { LayerLegendBuild } from "./build/legend";
+import LayerSingleColorLegend from "@map/modules/LayerControl/Legend/single-color.vue";
 import { getChartRandomColor } from "@/utils/color";
 
 export function createRasterUrlLayer({
@@ -172,6 +174,10 @@ export function createGeoJsonLayer({
           }
         ]
       }
+    }),
+    new LayerLegendBuild().setComponent(LayerSingleColorLegend).addItem({
+      value: name,
+      color: color
     })
   ];
   builds.forEach((build) => build.setForLayer(layer));

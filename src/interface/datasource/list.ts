@@ -49,7 +49,6 @@ export interface ListView extends IView {
   index?: number;
   group?: Group;
   multi: boolean;
-  addMenus(menus: Menu[]): ListView;
   show: any;
 }
 export interface ListSingleView extends ListView {
