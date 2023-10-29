@@ -2655,6 +2655,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/vue-color@^2.4.7":
+  version "2.4.7"
+  resolved "https://registry.yarnpkg.com/@types/vue-color/-/vue-color-2.4.7.tgz#da5d990640ac9efd88ee871bd950ee665523ef9c"
+  integrity sha512-ubx0UyU2jO/MUdZWltZP7PNurc4sc8MHlfZdDUBloC6QrbAXtU48CP3dPX1Pqt3aajT2bZT+xSESPplaEwvd7A==
+  dependencies:
+    vue "^2.0.0"
+
 "@types/webpack-env@^1.15.2":
   version "1.18.1"
   resolved "https://registry.yarnpkg.com/@types/webpack-env/-/webpack-env-1.18.1.tgz#49699bb508961e14a3bfb68c78cd87b296889d1d"
@@ -3011,6 +3018,15 @@
   version "2.7.14"
   resolved "https://registry.yarnpkg.com/@vue/compiler-sfc/-/compiler-sfc-2.7.14.tgz#3446fd2fbb670d709277fc3ffa88efc5e10284fd"
   integrity sha512-aNmNHyLPsw+sVvlQFQ2/8sjNuLtK54TC6cuKnVzAY93ks4ZBrvwQSnkkIh7bsbNhum5hJBS00wSDipQ937f5DA==
+  dependencies:
+    "@babel/parser" "^7.18.4"
+    postcss "^8.4.14"
+    source-map "^0.6.1"
+
+"@vue/compiler-sfc@2.7.15":
+  version "2.7.15"
+  resolved "https://registry.yarnpkg.com/@vue/compiler-sfc/-/compiler-sfc-2.7.15.tgz#62135fb2f69559fc723fd9c56b8e8b0ac7864a0b"
+  integrity sha512-FCvIEevPmgCgqFBH7wD+3B97y7u7oj/Wr69zADBf403Tui377bThTjBvekaZvlRr4IwUAu3M6hYZeULZFJbdYg==
   dependencies:
     "@babel/parser" "^7.18.4"
     postcss "^8.4.14"
@@ -3674,6 +3690,11 @@ ci-info@^1.5.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/ci-info/-/ci-info-1.6.0.tgz#2ca20dbb9ceb32d4524a683303313f0304b1e497"
   integrity sha512-vsGdkwSCDpWmP80ncATX7iea5DWQemg1UgCW5J8tqjU3lYw4FBYuj89J0CTVomA7BEfvSZd84GmHko+MxFQU2A==
+
+clamp@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/clamp/-/clamp-1.0.1.tgz#66a0e64011816e37196828fdc8c8c147312c8634"
+  integrity sha512-kgMuFyE78OC6Dyu3Dy7vcx4uy97EIbVxJB/B0eJ3bUNAkwdNcxYzgKltnyADiYwsR7SEqkkUPsEUT//OVS6XMA==
 
 clean-css@^5.2.2:
   version "5.3.2"
@@ -5901,6 +5922,11 @@ lodash.merge@^4.6.2:
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
 
+lodash.throttle@^4.0.0:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/lodash.throttle/-/lodash.throttle-4.1.1.tgz#c23e91b710242ac70c37f1e1cda9274cc39bf2f4"
+  integrity sha512-wIkUCfVKpVsWo3JSZlc+8MB5it+2AN5W8J7YVMST30UrvcQNZ1Okbj+rbVniijTWE6FGYy4XJq/rHkas8qJMLQ==
+
 lodash.truncate@^4.4.2:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/lodash.truncate/-/lodash.truncate-4.4.2.tgz#5a350da0b1113b837ecfffd5812cbe58d6eae193"
@@ -5997,6 +6023,11 @@ mapbox-gl@1.13.0:
     supercluster "^7.1.0"
     tinyqueue "^2.0.3"
     vt-pbf "^3.1.1"
+
+material-colors@^1.0.0:
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/material-colors/-/material-colors-1.2.6.tgz#6d1958871126992ceecc72f4bcc4d8f010865f46"
+  integrity sha512-6qE4B9deFBIa9YSpOc9O0Sgc43zTeVYbgDT5veRKSlB2+ZuHNoVVxA1L/ckMUayV9Ay9y7Z/SZCLcGteW9i7bg==
 
 mdn-data@2.0.14:
   version "2.0.14"
@@ -7912,6 +7943,11 @@ thunky@^1.0.2:
   resolved "https://registry.yarnpkg.com/thunky/-/thunky-1.1.0.tgz#5abaf714a9405db0504732bbccd2cedd9ef9537d"
   integrity sha512-eHY7nBftgThBqOyHGVN+l8gF0BucP09fMo0oO/Lb0w1OF80dJv+lDVpXG60WMQvkcxAkNybKsrEIE3ZtKGmPrA==
 
+tinycolor2@^1.1.2:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/tinycolor2/-/tinycolor2-1.6.0.tgz#f98007460169b0263b97072c5ae92484ce02d09e"
+  integrity sha512-XPaBkWQJdsf3pLKJV9p4qN/S+fm2Oj8AIPo1BTUhg5oxkvm9+SVEGFdhyOz7tTdUTfvxMiAs4sp6/eZO2Ew+pw==
+
 tinyqueue@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/tinyqueue/-/tinyqueue-2.0.3.tgz#64d8492ebf39e7801d7bd34062e29b45b2035f08"
@@ -8151,6 +8187,16 @@ vue-cli-plugin-webpack-bundle-analyzer@^4.0.0:
   dependencies:
     webpack-bundle-analyzer "^4.2.0"
 
+vue-color@^2.8.1:
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/vue-color/-/vue-color-2.8.1.tgz#a090f3dcf8ed6f07afdb865cac84b19a73302e70"
+  integrity sha512-BoLCEHisXi2QgwlhZBg9UepvzZZmi4176vbr+31Shen5WWZwSLVgdScEPcB+yrAtuHAz42309C0A4+WiL9lNBw==
+  dependencies:
+    clamp "^1.0.1"
+    lodash.throttle "^4.0.0"
+    material-colors "^1.0.0"
+    tinycolor2 "^1.1.2"
+
 vue-drag-resize@^1.5.0-rc3, vue-drag-resize@^1.5.4:
   version "1.5.4"
   resolved "https://registry.yarnpkg.com/vue-drag-resize/-/vue-drag-resize-1.5.4.tgz#f583f40f356e5792aa89109b3d13ba4407c25198"
@@ -8226,6 +8272,14 @@ vue@2.7.14, vue@^2.6.14:
   integrity sha512-b2qkFyOM0kwqWFuQmgd4o+uHGU7T+2z3T+WQp8UBjADfEv2n4FEMffzBmCKNP0IGzOEEfYjvtcC62xaSKeQDrQ==
   dependencies:
     "@vue/compiler-sfc" "2.7.14"
+    csstype "^3.1.0"
+
+vue@^2.0.0:
+  version "2.7.15"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.7.15.tgz#94cd34e6e9f22cd2d35a02143f96a5beac1c1f54"
+  integrity sha512-a29fsXd2G0KMRqIFTpRgpSbWaNBK3lpCTOLuGLEDnlHWdjB8fwl6zyYZ8xCrqkJdatwZb4mGHiEfJjnw0Q6AwQ==
+  dependencies:
+    "@vue/compiler-sfc" "2.7.15"
     csstype "^3.1.0"
 
 vuedraggable@^2.24.3:

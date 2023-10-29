@@ -2,9 +2,11 @@ import type { BBox, GeoJSON } from "geojson";
 
 import { ABuild } from "@/model/datasource/build/_default";
 import type { Color } from "./datasource/list";
+import { LayerAction } from "./datasource/action";
 
 export type OptionDefault = {
   builds?: ABuild[];
+  actions?: LayerAction[];
 };
 export type OptionRasterJson = {
   name: string;

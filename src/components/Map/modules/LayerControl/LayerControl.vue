@@ -5,18 +5,29 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { ref, defineProps, onMounted, reactive, onBeforeUnmount } from "vue";
+import { defineProps, onBeforeUnmount, onMounted, reactive, ref } from "vue";
 
-import { EVENTBUS_TYPE, eventBus } from "@/utils/event-bus";
-import { DraggableSidebar } from "@hungpv97/vue-library-draggable";
+import type { BBox } from "geojson";
 
-import MapControlButton from "@components/Map/control/MapControlButton.vue";
-import ModuleContainer from "@/components/Map/ModuleContainer.vue";
-
+import DraggableGroupList from "@/components/DraggableList/draggable-group-list.vue";
 import { useMap } from "@/components/Map/mixins/useMap";
+import ModuleContainer from "@/components/Map/ModuleContainer.vue";
+import { getLayerFromView } from "@/helper/_layer";
+import { useShow } from "@/hooks/useShow";
+import type { LayerAction } from "@/interface/datasource/action";
+import type { AGroup, ListView, Menu } from "@/interface/datasource/list";
+import type { IView } from "@/interface/datasource/view";
+import type { MapSimple } from "@/interface/map";
+import enLang from "@/lang/en/layer-control.json";
+import type { Layer, TLayer } from "@/model";
+import type { AView } from "@/model/datasource/view/view";
+import { getAllViewForKey, removeLayer } from "@/store/store-datasource";
 import { updateMapLang } from "@/store/store-lang";
+import { getUUIDv4 } from "@/utils";
+import { eventBus, EVENTBUS_TYPE } from "@/utils/event-bus";
+import MapControlButton from "@components/Map/control/MapControlButton.vue";
+import { DraggableSidebar } from "@hungpv97/vue-library-draggable";
 import SvgIcon from "@jamescoyle/vue-icon";
-
 import {
   mdiDelete,
   mdiDotsVertical,
@@ -25,25 +36,10 @@ import {
   mdiPlus
 } from "@mdi/js";
 
-import { useShow } from "@/hooks/useShow";
-import { getLayerFromView } from "@/helper/_layer";
-
-import DraggableGroupList from "@/components/DraggableList/draggable-group-list.vue";
-import { getAllViewForKey, removeLayer } from "@/store/store-datasource";
-import LayerItemContextMenu from "./layer-item-context-menu.vue";
 import LayerCreateControl from "./CreateControl/layer-create-control.vue";
 import LayerItem from "./item/layer-item.vue";
-
-import enLang from "@/lang/en/layer-control.json";
-import { getUUIDv4 } from "@/utils";
-
-import type { AView } from "@/model/datasource/view/view";
-import type { ListView, Menu, AGroup } from "@/interface/datasource/list";
-import type { IView } from "@/interface/datasource/view";
-import type { TLayer } from "@/model";
-import type { BBox } from "geojson";
-import type { LayerAction } from "@/interface/datasource/action";
-import type { MapSimple } from "@/interface/map";
+import LayerItemContextMenu from "./layer-item-context-menu.vue";
+import StyleControl from "./StyleControl/style-control.vue";
 
 const VIEW_KEY_TYPE = "list";
 defineProps({
@@ -206,7 +202,18 @@ const [showCreate, toggleShowCreate] = useShow();
 function openAddLayer() {
   toggleShowCreate();
 }
-
+const styleControlRef = ref<
+  | {
+      open(layer: Layer): void;
+      close(): void;
+    }
+  | undefined
+>();
+const layer_action: { [key: string]: Function } = {
+  "edit-style": (layer: Layer) => {
+    styleControlRef.value?.open(layer);
+  }
+};
 const components_show = ref<
   {
     component: any;
@@ -224,6 +231,10 @@ function onLayerAction({ menu, item }: { item: ListView; menu: Menu }) {
   const menu_layer = layer.getAction().get(menu.id);
   if (menu_layer.component) {
     onAddComponent(menu_layer, item, menu_layer.option);
+  } else if (menu_layer.type && layer_action[menu_layer.type]) {
+    layer_action[menu_layer.type](layer, menu_layer);
+  } else {
+    layer.getAction().call(menu.id);
   }
 }
 function onAddComponent(menu: LayerAction, item: ListView, option: any) {
@@ -233,7 +244,7 @@ function onAddComponent(menu: LayerAction, item: ListView, option: any) {
     attr: { item, option }
   });
 }
-function onRemoveComponent(item: LayerAction) {
+function onRemoveComponent(item: { component: any; id: string; attr: any }) {
   let index = components_show.value.findIndex((x) => x.id == item.id);
   if (index < 0) {
     return;
@@ -351,6 +362,7 @@ function onRemoveComponent(item: LayerAction) {
     />
     <LayerCreateControl :show.sync="showCreate" />
     <slot />
+    <StyleControl ref="styleControlRef" />
   </ModuleContainer>
 </template>
 

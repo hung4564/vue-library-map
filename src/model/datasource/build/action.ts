@@ -20,6 +20,10 @@ export class LayerActionBuild extends ABuild<
     this.option.actions.push(action);
     return this;
   }
+  addActions(actions: LayerAction[] = []) {
+    this.option.actions.push(...actions);
+    return this;
+  }
   setForLayer(layer: Layer) {
     if (this.build) layer.setAction(this.build(layer, this.option));
     return this;
@@ -30,13 +34,17 @@ export function createActionView(
   config: LayerActionOption
 ): LayerActionView {
   let parent = layer;
-  const menu_cache = config.actions.reduce<{ [key: string]: LayerAction }>(
-    (acc, cur) => {
-      acc[cur.id] = cur;
-      return acc;
-    },
-    {}
-  );
+  let menu_cache: { [key: string]: LayerAction } = {};
+  const resetCacheMenu = () => {
+    menu_cache = config.actions.reduce<{ [key: string]: LayerAction }>(
+      (acc, cur) => {
+        acc[cur.id] = cur;
+        return acc;
+      },
+      {}
+    );
+  };
+  resetCacheMenu();
   const temp = {
     setParent(_parent: Layer) {
       parent = _parent;
@@ -63,6 +71,16 @@ export function createActionView(
     },
     get(id: string): LayerAction {
       return menu_cache[id];
+    },
+    addActions(actions: LayerAction[] = []) {
+      config.actions.push(...actions);
+      resetCacheMenu();
+      return this;
+    },
+    addAction(action: LayerAction) {
+      if (action) config.actions.push(action);
+      resetCacheMenu();
+      return this;
     }
   };
 

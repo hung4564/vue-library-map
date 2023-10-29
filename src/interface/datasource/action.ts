@@ -1,6 +1,5 @@
-import { ListView, Menu } from "./list";
-
 import { IView } from "./view";
+import { Menu } from "./list";
 
 export type LayerActionOption = {
   actions: LayerAction[];
@@ -11,15 +10,17 @@ export interface LayerActionView extends Action {
   name?: string;
   config: LayerActionOption;
 }
-export type LayerAction<T = any> = {
+export type LayerAction = {
   id: string;
-  component: any;
-  menu?: Menu;
-  convert?: (view: ListView) => T;
+  component?: any;
+  menu: Menu;
+  type?: string;
   option?: any;
 };
 export interface IAction extends IView {
   call: (id: string) => any;
   menus?: Menu[];
   get(id: string): LayerAction;
+  addActions(actions: LayerAction[]): LayerActionView;
+  addAction(action: LayerAction): LayerActionView;
 }

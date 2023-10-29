@@ -41,9 +41,11 @@
     "sass-loader": "13.2.0",
     "v-click-outside": "^3.2.0",
     "vue": "2.7.14",
+    "vue-color": "^2.8.1",
     "vuedraggable": "^2.24.3"
   },
   "devDependencies": {
+    "@types/vue-color": "^2.8.1",
     "@babel/core": "7.21.0",
     "@babel/eslint-parser": "7.19.1",
     "@types/mapbox-gl": "1.13.0",

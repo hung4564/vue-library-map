@@ -1,11 +1,11 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable  @typescript-eslint/no-unused-vars */
 
 import { IView, IViewSetting } from "../types";
 
 export class View implements IView {
   start() {}
   view(
-    setting: IViewSetting = {
+    _setting: IViewSetting = {
       coordinates: [],
       features: [],
       value: 0,

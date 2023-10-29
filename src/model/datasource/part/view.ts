@@ -25,7 +25,7 @@ export class LayerViewContainer extends LayerPartContainer {
   }
 }
 
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function withViews(views: any[], cb = (view: any) => {}, bind: any) {
   for (const key in views) {
     if (Object.hasOwnProperty.call(views, key)) {

@@ -1,6 +1,6 @@
 import AParser from "./AParser";
 export default class GeoJSONParser extends AParser {
-  // eslint-disable-next-line no-unused-vars
+  // eslint-disable-next-line  @typescript-eslint/no-unused-vars
   parse(data: string, options: GeoJSONParserOption = {}, file: File) {
     const { crs } = options;
     const geojson = JSON.parse(data);

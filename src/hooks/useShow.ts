@@ -7,7 +7,7 @@ export function useShow(
   const show = ref(init);
   function toggleShow(value?: boolean) {
     if (value != null) {
-      show.value == value;
+      show.value = value;
       return;
     }
     show.value = !show.value;
