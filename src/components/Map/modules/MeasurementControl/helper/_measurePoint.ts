@@ -4,6 +4,12 @@ import { Measure } from "./_measurement";
 import { point } from "@turf/turf";
 
 export class MeasurePoint extends Measure {
+  get name() {
+    return "Measure Point";
+  }
+  get type() {
+    return "point";
+  }
   get setting() {
     return { maxLength: 1 };
   }

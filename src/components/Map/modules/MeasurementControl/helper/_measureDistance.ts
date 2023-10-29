@@ -4,6 +4,12 @@ import { length, lineString, point } from "@turf/turf";
 import { IViewSetting } from "../types";
 
 export class MeasureDistance extends Measure {
+  get name() {
+    return "Measure Distance";
+  }
+  get type() {
+    return "line";
+  }
   getResult() {
     const features: any[] = [];
     const value: any = 0;
@@ -24,6 +30,7 @@ export class MeasureDistance extends Measure {
     const line = lineString(this.coordinates);
     result.features = [line];
     result.value = length(line);
+    result.format = formatDistanceText(result.value);
     result.features_label = this.coordinates.map((x, i, array) => {
       return {
         type: "Feature",
@@ -46,7 +53,7 @@ export class MeasureDistance extends Measure {
   }
 }
 function formatDistanceText(value = 0) {
-  if (value < 10) {
+  if (value < 1) {
     return `${formatNumber((value * 1000).toFixed(2))} m`;
   }
   return `${formatNumber(value.toFixed(2))} km`;

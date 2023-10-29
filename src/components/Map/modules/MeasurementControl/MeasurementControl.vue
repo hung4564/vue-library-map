@@ -34,6 +34,13 @@
 
       <MapControlGroupButton v-else row>
         <MapControlButton
+          :tooltip="$map.trans('map.measurement.action.add')"
+          @click="addToLayerControl()"
+          :disabled="!coordinates || coordinates.length < 1"
+        >
+          <SvgIcon :size="18" type="mdi" :path="path.add" />
+        </MapControlButton>
+        <MapControlButton
           :tooltip="$map.trans('map.measurement.action.setting')"
           @click="toggleSetting()"
           :active="setting.show"
@@ -88,7 +95,8 @@ import {
   mdiDeleteOutline,
   mdiClose,
   mdiCogOutline,
-  mdiCrosshairsGps
+  mdiCrosshairsGps,
+  mdiPlus
 } from "@mdi/js";
 import {
   MeasurementHandle,
@@ -104,6 +112,10 @@ import { FormView } from "./helper/_viewForm";
 import { lineString, point, polygon } from "@turf/helpers";
 import { EventClick } from "@/model/event";
 import { setEventMap } from "@/hooks/useEvent";
+import { addLayer } from "@/store/store-datasource";
+import { createGeoJsonLayer } from "@/model/datasource/sample";
+import LayerSingleTextLegend from "@map/modules/LayerControl/Legend/single-value.vue";
+import { LayerLegendBuild } from "@/model/datasource/build/legend";
 let handler = new MeasurementHandle();
 const DEFAULT_COLOR_HIGHLIGHT = "#004E98";
 export default {
@@ -127,6 +139,7 @@ export default {
   computed: {
     path() {
       return {
+        add: mdiPlus,
         fillBound: mdiCrosshairsGps,
         distance: mdiRuler,
         area: mdiRulerSquareCompass,
@@ -357,17 +370,45 @@ export default {
     onFlyTo() {
       fitBounds(this.map, this.convertGeometry(this.coordinates));
     },
-    convertGeometry(coordinates) {
+    convertGeometry(coordinates, properties = {}) {
       if (coordinates.length == 0) {
         return;
       }
       if (coordinates.length == 1) {
-        return point(coordinates[0]);
+        return point(coordinates[0], properties);
       }
       if (coordinates.length == 2) {
-        return lineString(coordinates);
+        return lineString(coordinates, properties);
       }
-      return polygon([[...coordinates, coordinates[0]]]);
+      return polygon([[...coordinates, coordinates[0]]], properties);
+    },
+    addToLayerControl() {
+      if (!handler || !handler.action) {
+        return;
+      }
+      let result = handler.action.getResult();
+      let color = "#34495e";
+      addLayer(
+        this.map.id,
+        createGeoJsonLayer({
+          name: handler.action.name,
+          type: handler.action.type,
+          color,
+          geojson: {
+            type: "FeatureCollection",
+            features: result.features
+          },
+          builds: [
+            new LayerLegendBuild().setComponent(LayerSingleTextLegend).setItems(
+              result.fields.map((x) => ({
+                value: x.value,
+                text: x.trans ? this.$map.trans(x.trans) : x.text
+              }))
+            )
+          ]
+        })
+      );
+      this.clear();
     }
   }
 };

@@ -6,7 +6,8 @@
       "setting": "Setting",
       "download": "Download",
       "add-point": "Add point",
-      "fly-to": "Fill bound"
+      "fly-to": "Fill bound",
+      "add": "Add"
     },
     "title": "Measurement",
     "result": "Measurement Result",

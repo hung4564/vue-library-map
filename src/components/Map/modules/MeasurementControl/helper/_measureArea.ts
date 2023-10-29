@@ -4,6 +4,12 @@ import { area, centroid, lineString, point, polygon } from "@turf/turf";
 import { IViewSetting } from "../types";
 
 export class MeasureArea extends Measure {
+  get name() {
+    return "Measure Area";
+  }
+  get type() {
+    return "area";
+  }
   getResult() {
     const features: any[] = [];
     const value = 0;
@@ -27,6 +33,7 @@ export class MeasureArea extends Measure {
     const geometry = polygon([[...this.coordinates, this.coordinates[0]]]);
     result.features = [geometry];
     result.value = area(geometry);
+    result.format = formatAreaText(result.value);
     result.features_label = [
       centroid(geometry, {
         properties: {
@@ -46,7 +53,7 @@ export class MeasureArea extends Measure {
   }
 }
 function formatAreaText(value = 0) {
-  if (value < 10_000_000) {
+  if (value < 1_000_000) {
     return `${formatNumber(value.toFixed(2))} m²`;
   }
   return `${formatNumber((value / 1_000_000).toFixed(2))} km²`;

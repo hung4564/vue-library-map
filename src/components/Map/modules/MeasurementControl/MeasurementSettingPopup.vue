@@ -27,7 +27,7 @@
               <div>
                 <button
                   @click="onFlyTo"
-                  :disabled="!model || model.lenght < 1"
+                  :disabled="!model || model.length < 1"
                   class="setting-button"
                   :title="$map.trans('map.measurement.action.fly-to')"
                 >
@@ -38,7 +38,11 @@
                     :title="$map.trans('map.measurement.action.download')"
                   />
                 </button>
-                <button @click="onDownload" class="setting-button">
+                <button
+                  @click="onDownload"
+                  class="setting-button"
+                  :disabled="!model || model.length < 1"
+                >
                   <SvgIcon
                     :size="16"
                     type="mdi"
@@ -199,6 +203,9 @@ export default {
       FileSaver.saveAs(blob, "geojson.json");
     },
     convertGeometry(coordinates) {
+      if (!coordinates || !coordinates.length) {
+        return;
+      }
       if (coordinates.length == 1) {
         return point(coordinates[0]);
       }
@@ -285,5 +292,11 @@ export default {
   line-height: 2rem;
   text-align: center;
   flex-grow: 1;
+}
+button:disabled,
+button[disabled] {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 </style>

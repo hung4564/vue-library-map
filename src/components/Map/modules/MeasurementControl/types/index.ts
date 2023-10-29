@@ -4,6 +4,7 @@ export type IViewSetting = {
   coordinates?: CoordinatesNumber[];
   features?: any;
   value?: any;
+  format?: any;
   features_label?: any;
   fields?: IViewSettingField[];
 };

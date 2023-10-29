@@ -34,12 +34,9 @@ import {
   LayerControl,
   IdentifyControl
 } from "@map";
-import { EventClick } from "./model/event";
 import { addLayer } from "./store/store-datasource";
-import {
-  createGeoJsonLayer,
-  createRasterUrlLayer
-} from "./model/datasource/sample";
+import { createGeoJsonLayer } from "./model/datasource/sample";
+import { LayerMapBuild, LayerSimpleMapboxBuild } from "./model";
 export default {
   name: "App",
   components: {
@@ -60,23 +57,9 @@ export default {
     async onMapLoaded(map) {
       addLayer(
         map.id,
-        createRasterUrlLayer({
-          name: "raster 1",
-          tiles: [
-            "https://naturalearthtiles.roblabs.com/tiles/natural_earth_cross_blended_hypso_shaded_relief.raster/{z}/{x}/{y}.png"
-          ],
-          bounds: [
-            104.96327341667353, 18.461221184685627, 106.65936430823979,
-            19.549518287564368
-          ]
-        })
-      );
-      addLayer(
-        map.id,
         createGeoJsonLayer({
           name: "geojson 1",
-          type: "area",
-          color: "#34495e",
+          color: "red",
           geojson: {
             type: "FeatureCollection",
             features: [
@@ -100,7 +83,15 @@ export default {
                 }
               }
             ]
-          }
+          },
+          builds: [
+            new LayerMapBuild().setLayer(
+              new LayerSimpleMapboxBuild()
+                .setStyleType("line")
+                .setColor("red")
+                .build()
+            )
+          ]
         })
       );
     }

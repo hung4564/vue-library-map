@@ -1,8 +1,16 @@
-import { Color } from "@/interface/datasource/list";
+import {
+  CircleLayer,
+  FillLayer,
+  Layer,
+  LineLayer,
+  RasterLayer
+} from "mapbox-gl";
 import { MapMultiLayer, MapSingleLayer } from "../view/map";
 
 import { ABuild } from "./_default";
+import { Color } from "@/interface/datasource/list";
 import { getChartRandomColor } from "@/utils/color";
+
 export class LayerMapBuild extends ABuild {
   constructor(option = {}) {
     super("map", option);
@@ -24,7 +32,17 @@ export class LayerMapBuild extends ABuild {
     return this;
   }
 }
-export class LayerSimpleMapboxBuild {
+export interface ILayerMapboxBuild {
+  build(): Omit<Layer, "id"> | undefined;
+}
+export class LayerRasterMapboxBuild implements ILayerMapboxBuild {
+  build(): Omit<RasterLayer, "id"> | undefined {
+    return {
+      type: "raster"
+    };
+  }
+}
+export class LayerSimpleMapboxBuild implements ILayerMapboxBuild {
   public color?: Color;
   public type: string = "point";
   setColor(color: Color) {
@@ -35,12 +53,15 @@ export class LayerSimpleMapboxBuild {
     this.type = type;
     return this;
   }
-  build() {
+  build(): Omit<Layer, "id"> | undefined {
     return getDefaultLayer(this.type, this.color);
   }
 }
 
-export const getDefaultLayer = (type: string, color?: Color) => {
+export const getDefaultLayer = (
+  type: string,
+  color?: Color
+): Omit<LineLayer | FillLayer | CircleLayer, "id"> | undefined => {
   switch (type) {
     case "point":
       return {

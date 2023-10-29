@@ -8,6 +8,7 @@ import {
   LayerIdentifyBuild,
   LayerListBuild,
   LayerMapBuild,
+  LayerRasterMapboxBuild,
   LayerSimpleMapboxBuild,
   LayerSourceBuild
 } from "./build";
@@ -17,28 +18,26 @@ import type {
   OptionRasterTile
 } from "@/interface/sample";
 
+import { ABuild } from "./build/_default";
 import { Layer } from "./Layer";
 import { LayerActionBuild } from "./build/action";
 import LayerInfo from "@map/modules/LayerControl/Detail/LayerInfo.vue";
-import { LayerLegendBuild } from "./build/legend";
-import LayerSingleColorLegend from "@map/modules/LayerControl/Legend/single-color.vue";
 import { getChartRandomColor } from "@/utils/color";
 
 export function createRasterUrlLayer({
   name,
   tiles,
-  bounds
+  bounds,
+  builds
 }: OptionRasterTile) {
   const layer = new Layer();
   layer.setInfo({ name, metadata: {} });
-  const builds = [
+  let temp_builds: ABuild[] = [
     new LayerListBuild(),
     new LayerSourceBuild(
       new RasterSourceBuild().setTiles(tiles).setBounds(bounds)
     ),
-    new LayerMapBuild().setLayer({
-      type: "raster"
-    }),
+    new LayerMapBuild().setLayer(new LayerRasterMapboxBuild().build()),
     new LayerActionBuild().addAction({
       id: "info",
       component: LayerInfo,
@@ -73,18 +72,19 @@ export function createRasterUrlLayer({
       }
     })
   ];
-  builds.forEach((build) => build.setForLayer(layer));
+  if (builds) {
+    temp_builds = [...temp_builds, ...builds];
+  }
+  temp_builds.forEach((build) => build.setForLayer(layer));
   return layer;
 }
-export function createRasterJsonLayer({ name, url }: OptionRasterJson) {
+export function createRasterJsonLayer({ name, url, builds }: OptionRasterJson) {
   const layer = new Layer();
   layer.setInfo({ name, metadata: {} });
-  const builds = [
+  let temp_builds: ABuild[] = [
     new LayerListBuild(),
     new LayerSourceBuild(new RasterSourceBuild().setUrl(url)),
-    new LayerMapBuild().setLayer({
-      type: "raster"
-    }),
+    new LayerMapBuild().setLayer(new LayerRasterMapboxBuild().build()),
     new LayerActionBuild().addAction({
       id: "info",
       component: LayerInfo,
@@ -120,7 +120,10 @@ export function createRasterJsonLayer({ name, url }: OptionRasterJson) {
       }
     })
   ];
-  builds.forEach((build) => build.setForLayer(layer));
+  if (builds) {
+    temp_builds = [...temp_builds, ...builds];
+  }
+  temp_builds.forEach((build) => build.setForLayer(layer));
   return layer;
 }
 
@@ -128,12 +131,13 @@ export function createGeoJsonLayer({
   name,
   geojson,
   type,
-  color
+  color,
+  builds
 }: OptionGeojson) {
   const layer = new Layer();
   layer.setInfo({ name, metadata: {} });
   color = color || getChartRandomColor();
-  const builds = [
+  let temp_builds: ABuild[] = [
     new LayerListBuild().setColor(color),
     new LayerSourceBuild(new GeoJsonSourceBuild().setData(geojson)),
     new LayerMapBuild().setLayer(
@@ -174,12 +178,11 @@ export function createGeoJsonLayer({
           }
         ]
       }
-    }),
-    new LayerLegendBuild().setComponent(LayerSingleColorLegend).addItem({
-      value: name,
-      color: color
     })
   ];
-  builds.forEach((build) => build.setForLayer(layer));
+  if (builds) {
+    temp_builds = temp_builds.concat(builds);
+  }
+  temp_builds.forEach((build) => build.setForLayer(layer));
   return layer;
 }

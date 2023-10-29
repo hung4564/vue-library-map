@@ -5,6 +5,12 @@ import { IViewSetting } from "../types";
 import { Measure } from "./_measurement";
 
 export class MeasureAzimuth extends Measure {
+  get name() {
+    return "Measure Azimuth";
+  }
+  get type() {
+    return "line";
+  }
   get setting() {
     return { maxLength: 2 };
   }
