@@ -1,0 +1,11 @@
+{
+  "setting": {
+    "color": "Color",
+    "width": "Width",
+    "opacity": "Opacity",
+    "blur": "Blur",
+    "stroke-color": "Stroke color",
+    "stroke-width": "Stroke width",
+    "stroke-opacity": "Stroke opacity"
+  }
+}

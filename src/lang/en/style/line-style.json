@@ -1,0 +1,18 @@
+{
+  "setting": {
+    "color": "Color",
+    "pattern": "Pattern",
+    "opacity": "Opacity",
+    "width": "Width",
+    "cap": "Cap",
+    "join": "Join",
+    "round-limit": "Round limit",
+    "miter-limit": "Miter limit",
+    "dash-array": "Dash array",
+    "grap-width": "Grap width",
+    "blur": "Blur",
+    "offset": "Offset",
+    "translate": "Translate",
+    "translate-anchor": "Translate anchor"
+  }
+}

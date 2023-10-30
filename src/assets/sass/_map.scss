@@ -196,3 +196,25 @@
     }
   }
 }
+.map-button {
+  display: inline-block;
+  padding: 4px;
+  cursor: pointer;
+  background: transparent;
+  outline: none;
+  box-shadow: none;
+  border: none;
+  min-width: 25px;
+}
+.full-width {
+  width: 100%;
+}
+.full-height {
+  height: 100%;
+}
+.text-left {
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}

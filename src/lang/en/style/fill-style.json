@@ -1,0 +1,9 @@
+{
+  "setting": {
+    "color": "Color",
+    "pattern": "Pattern",
+    "opacity": "Opacity",
+    "antialias": "Antialias",
+    "translate": "Translate"
+  }
+}

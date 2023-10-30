@@ -1,8 +1,8 @@
+import { AMapLayer } from "./ALayer";
 import { IMapMultiLayerOption } from "@/interface/datasource/map";
-import { ALayer } from "./ALayer";
 import { MapSimple } from "@/interface/map";
 
-export class MapMultiLayer extends ALayer {
+export class MapMultiLayer extends AMapLayer {
   protected layers: any[];
   protected source: any;
   constructor(info: IMapMultiLayerOption) {
@@ -90,4 +90,11 @@ export class MapMultiLayer extends ALayer {
       }
     });
   }
+  getValue() {
+    return this.layers;
+  }
+  getComponentUpdate() {
+    return;
+  }
+  updateValue(map: MapSimple, value: any) {}
 }
