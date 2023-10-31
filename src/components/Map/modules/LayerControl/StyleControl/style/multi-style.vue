@@ -26,7 +26,6 @@ const onSelectTab = (index: number) => {
   });
 };
 const onUpdateStyleLayer = (layer: Layer, index: number) => {
-  console.log("🚀 ~ onUpdateStyleLayer ~ layer", layer, index);
   emit("update-style", { type: "update-one-layer", layer, index });
 };
 const tab = ref<number | undefined>(0);
