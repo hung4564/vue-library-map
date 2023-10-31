@@ -45,10 +45,10 @@
     "vuedraggable": "^2.24.3"
   },
   "devDependencies": {
-    "@types/vue-color": "^2.8.1",
     "@babel/core": "7.21.0",
     "@babel/eslint-parser": "7.19.1",
     "@types/mapbox-gl": "1.13.0",
+    "@types/vue-color": "^2.4.7",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "@vue/cli-plugin-babel": "5.0.8",

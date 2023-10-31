@@ -85,12 +85,16 @@ export default {
             ]
           },
           builds: [
-            new LayerMapBuild().setLayer(
+            new LayerMapBuild().setLayers([
               new LayerSimpleMapboxBuild()
                 .setStyleType("line")
                 .setColor("red")
+                .build(),
+              new LayerSimpleMapboxBuild()
+                .setStyleType("point")
+                .setColor("red")
                 .build()
-            )
+            ])
           ]
         })
       );

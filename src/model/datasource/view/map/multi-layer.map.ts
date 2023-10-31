@@ -1,7 +1,9 @@
+import { updateLayer } from "@/components/Map/helper/layer";
 import { AMapLayer } from "./ALayer";
 import { IMapMultiLayerOption } from "@/interface/datasource/map";
 import { MapSimple } from "@/interface/map";
-
+import { copyByJson } from "@/utils";
+import MultiStyle from "@map/modules/LayerControl/StyleControl/style/multi-style.vue";
 export class MapMultiLayer extends AMapLayer {
   protected layers: any[];
   protected source: any;
@@ -91,10 +93,21 @@ export class MapMultiLayer extends AMapLayer {
     });
   }
   getValue() {
-    return this.layers;
+    return copyByJson(this.layers);
   }
   getComponentUpdate() {
-    return;
+    return MultiStyle;
   }
-  updateValue(map: MapSimple, value: any) {}
+  updateValue(map: MapSimple, value: any) {
+    const { type, layer, index } = value;
+    switch (type) {
+      case "update-one-layer":
+        updateLayer(map, this.layers[index], layer);
+        this.layers[index] = Object.assign({}, this.layers[index], layer);
+        break;
+
+      default:
+        break;
+    }
+  }
 }

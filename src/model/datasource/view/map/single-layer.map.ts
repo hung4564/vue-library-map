@@ -1,6 +1,8 @@
+import { updateLayer } from "@/components/Map/helper/layer";
 import { AMapLayer } from "./ALayer";
 import { IMapSingleLayerOption } from "@/interface/datasource/map";
 import { MapSimple } from "@/interface/map";
+import { copyByJson } from "@/utils";
 import SingleStyle from "@map/modules/LayerControl/StyleControl/style/single-style.vue";
 export class MapSingleLayer extends AMapLayer {
   protected layer: any;
@@ -75,17 +77,12 @@ export class MapSingleLayer extends AMapLayer {
     map.setPaintProperty(this.layer.id, keyOpacity, opacity);
   }
   getValue() {
-    return this.layer;
+    return copyByJson(this.layer);
   }
   getComponentUpdate() {
     return SingleStyle;
   }
   updateValue(map: MapSimple, value: any) {
-    for (const key in value.paint) {
-      map.setPaintProperty(this.layer.id, key, value.paint[key]);
-    }
-    for (const key in value.layout) {
-      map.setLayoutProperty(this.layer.id, key, value.layout[key]);
-    }
+    updateLayer(map, this.layer, value);
   }
 }

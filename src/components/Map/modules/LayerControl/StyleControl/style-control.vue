@@ -74,7 +74,7 @@ defineExpose({ open, close });
           <component
             :is="layer_map_component"
             v-model="layer"
-            @input="onUpdateStyle"
+            @update-style="onUpdateStyle"
             :trans="$map.trans"
           />
         </div>

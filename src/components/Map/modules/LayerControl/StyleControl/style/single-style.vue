@@ -13,7 +13,7 @@ const props = defineProps({
     required: true
   }
 });
-const emit = defineEmits(["input"]);
+const emit = defineEmits(["input", "update-style"]);
 const layer = computed<Layer>({
   get() {
     return props.value as Layer;
@@ -44,7 +44,7 @@ const emitInput = (value: any, tab: Tab, layer: any) => {
     value = tab.format(value);
   }
   layer[tab.part || "paint"][tab.key] = value;
-  emit("input", layer);
+  emit("update-style", layer);
 };
 onMounted(() => {
   if (tabs_format) onSelectTab(tabs_format.value[0]);
