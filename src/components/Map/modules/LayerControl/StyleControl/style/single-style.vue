@@ -89,6 +89,7 @@ onMounted(() => {
 .style-edit-container {
   display: flex;
   height: 100%;
+  width: 100%;
   .label-container {
     & > div {
       overflow: auto;

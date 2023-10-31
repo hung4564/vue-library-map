@@ -5,28 +5,25 @@ import {
   LineLayer,
   RasterLayer
 } from "mapbox-gl";
-import { MapMultiLayer, MapSingleLayer } from "../view/map";
 
 import { ABuild } from "./_default";
 import { Color } from "@/interface/datasource/list";
 import { Layer } from "../Layer";
+import { MapMultiLayer } from "../view/map";
 import { getChartRandomColor } from "@/utils/color";
 
 export class LayerMapBuild extends ABuild {
   editable: boolean = false;
   constructor(option = {}) {
     super("map", option);
+    this.setBuild((_: any, option: any) => new MapMultiLayer(option));
   }
   setLayers(layers: Omit<LayerMapbox, "id">[]) {
-    if (!this.build)
-      this.setBuild((_: any, option: any) => new MapMultiLayer(option));
     this.option.layers = layers;
     return this;
   }
   setLayer(layer: Omit<LayerMapbox, "id">) {
-    if (!this.build)
-      this.setBuild((_: any, option: any) => new MapSingleLayer(option));
-    this.option.layer = Object.assign({ layout: {}, paint: {} }, layer);
+    this.option.layers = [Object.assign({ layout: {}, paint: {} }, layer)];
     return this;
   }
   setSource(source: any) {

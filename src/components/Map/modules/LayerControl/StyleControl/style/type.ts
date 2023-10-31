@@ -10,15 +10,15 @@ import {
 export const TABS: { [key: string]: Tab[] } = {
   circle: [
     {
+      trans: "circle-style.setting.color",
+      key: "circle-color",
+      type: "color"
+    },
+    {
       trans: "circle-style.setting.width",
       key: "circle-radius",
       type: "unit",
       unit: "px"
-    },
-    {
-      trans: "circle-style.setting.color",
-      key: "circle-color",
-      type: "color"
     },
     {
       trans: "circle-style.setting.opacity",
