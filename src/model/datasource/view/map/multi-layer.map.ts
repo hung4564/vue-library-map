@@ -99,13 +99,31 @@ export class MapMultiLayer extends AMapLayer {
     return MultiStyle;
   }
   updateValue(map: MapSimple, value: any) {
-    const { type, layer, index } = value;
+    const { type, index } = value;
+    let { layer } = value;
     switch (type) {
       case "update-one-layer":
         updateLayer(map, this.layers[index], layer);
         this.layers[index] = copyByJson(
           Object.assign({}, this.layers[index], layer)
         );
+        break;
+      case "add-one-layer":
+        layer = Object.assign(
+          {},
+          {
+            id: `${this._id}-${this.layers.length}`,
+            source: this.source.id
+          },
+          layer
+        );
+        map.addLayer(layer);
+        this.layers.push(layer);
+        break;
+      case "remove-one-layer":
+        if (map.getLayer(layer.id)) map.removeLayer(layer.id);
+        this.layers.splice(index, 1);
+
         break;
 
       default:

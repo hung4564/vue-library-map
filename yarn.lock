@@ -3918,6 +3918,11 @@ core-js@3.29.0:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.29.0.tgz#0273e142b67761058bcde5615c503c7406b572d6"
   integrity sha512-VG23vuEisJNkGl6XQmFJd3rEG/so/CNatqeE+7uZAwTSwFeB/qaO0be8xZYUNWprJ/GIwL8aMt9cj1kvbpTZhg==
 
+core-js@^2.6.5:
+  version "2.6.12"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
+  integrity sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==
+
 core-js@^3.8.3:
   version "3.31.0"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.31.0.tgz#4471dd33e366c79d8c0977ed2d940821719db344"
@@ -4327,6 +4332,14 @@ dotenv@^10.0.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-10.0.0.tgz#3d4227b8fb95f81096cdd2b66653fb2c7085ba81"
   integrity sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==
 
+draggabilly@^2.2.0:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/draggabilly/-/draggabilly-2.4.1.tgz#df02b9e2c3a837d42591af807a0d250b3816887f"
+  integrity sha512-HHHLPEPZqRXIDQDFRFdK7RONZausNlJ4WkA73ST7Z6O2HPWttxFHVwHo8nccuDLzXWwiVKRVuc6fTkW+CQA++A==
+  dependencies:
+    get-size "^2.0.2"
+    unidragger "^2.4.0"
+
 duplexer@^0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/duplexer/-/duplexer-0.1.2.tgz#3abe43aef3835f8ae077d136ddce0f276b0400e6"
@@ -4676,6 +4689,11 @@ etag@~1.8.1:
   version "1.8.1"
   resolved "https://registry.yarnpkg.com/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
   integrity sha512-aIL5Fx7mawVa300al2BnEE4iNvo1qETxLrPI/o05L7z6go7fCw1J6EQmbK4FmJ2AS7kgVF/KEZWufBfdClMcPg==
+
+ev-emitter@^1.0.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/ev-emitter/-/ev-emitter-1.1.1.tgz#8f18b0ce5c76a5d18017f71c0a795c65b9138f2a"
+  integrity sha512-ipiDYhdQSCZ4hSbX4rMW+XzNKMD1prg/sTvoVmSLkuQ1MVlwjJQQA+sW8tMYR3BLUr9KjodFV4pvzunvRhd33Q==
 
 event-pubsub@4.3.0:
   version "4.3.0"
@@ -5057,6 +5075,11 @@ get-intrinsic@^1.2.1:
     has-proto "^1.0.1"
     has-symbols "^1.0.3"
     hasown "^2.0.0"
+
+get-size@^2.0.2:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/get-size/-/get-size-2.0.3.tgz#54a1d0256b20ea7ac646516756202769941ad2ef"
+  integrity sha512-lXNzT/h/dTjTxRbm9BXb+SGxxzkm97h/PCIKtlN/CBCxxmkkIVV21udumMS93MuVTDX583gqc94v3RjuHmI+2Q==
 
 get-stream@^3.0.0:
   version "3.0.0"
@@ -8103,6 +8126,20 @@ unicode-property-aliases-ecmascript@^2.0.0:
   resolved "https://registry.yarnpkg.com/unicode-property-aliases-ecmascript/-/unicode-property-aliases-ecmascript-2.1.0.tgz#43d41e3be698bd493ef911077c9b131f827e8ccd"
   integrity sha512-6t3foTQI9qne+OZoVQB/8x8rk2k1eVy1gRXhV3oFQ5T6R1dqQ1xtin3XqSlx3+ATBkliTaR/hHyJBm+LVPNM8w==
 
+unidragger@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/unidragger/-/unidragger-2.4.0.tgz#4cd7e564317af0ef42632d5984a82d4ae6314d8d"
+  integrity sha512-MueZK2oXuGE6OAlGKIrSXK2zCq+8yb1QUZgqyTDCSJzvwYL0g2Llrad+TtoQTYxtFnNyxxSw0IMnKNIgEMia1w==
+  dependencies:
+    unipointer "^2.4.0"
+
+unipointer@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/unipointer/-/unipointer-2.4.0.tgz#ac7316aff6170ff87a4b008e55e842fb4bf13181"
+  integrity sha512-VjzDLPjGK7aYpQKH7bnDZS8X4axF5AFU/LQi+NQe1oyEHfaz6lWKhaQ7n4o7vJ1iJ4i2T0quCIfrQM139p05Sw==
+  dependencies:
+    ev-emitter "^1.0.1"
+
 universalify@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/universalify/-/universalify-2.0.0.tgz#75a4984efedc4b08975c5aeb73f530d02df25717"
@@ -8253,6 +8290,20 @@ vue-style-loader@^4.1.0, vue-style-loader@^4.1.3:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
+vue-tabs-chrome@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/vue-tabs-chrome/-/vue-tabs-chrome-0.10.0.tgz#1d41f919b5d9d280e6663750f8d2c4a6a61c7fe3"
+  integrity sha512-U6/5XiiSd4uIME0nH7hCelbdoYqRih7p/efm5t/t49DPGcxJQ5DIfIdWS7NfO537QTigsTWDu/Bo310d6Q5LXA==
+  dependencies:
+    core-js "^2.6.5"
+    draggabilly "^2.2.0"
+    vue "^2.6.10"
+
+vue-tabs-component@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/vue-tabs-component/-/vue-tabs-component-1.5.0.tgz#9b2f02adbc9bb58395729d68c4906a795a20d728"
+  integrity sha512-ld4p+hv49Fimw+zv/7GQqMhbjAHjpbWF3UiJtmMaSnvLKbsB1ysfs9dQH0SZ8NvdYpqqKay/VLIqR9yXgse1Sg==
+
 vue-template-compiler@2.7.14:
   version "2.7.14"
   resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.7.14.tgz#4545b7dfb88090744c1577ae5ac3f964e61634b1"
@@ -8274,7 +8325,7 @@ vue@2.7.14, vue@^2.6.14:
     "@vue/compiler-sfc" "2.7.14"
     csstype "^3.1.0"
 
-vue@^2.0.0:
+vue@^2.0.0, vue@^2.6.10:
   version "2.7.15"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.7.15.tgz#94cd34e6e9f22cd2d35a02143f96a5beac1c1f54"
   integrity sha512-a29fsXd2G0KMRqIFTpRgpSbWaNBK3lpCTOLuGLEDnlHWdjB8fwl6zyYZ8xCrqkJdatwZb4mGHiEfJjnw0Q6AwQ==

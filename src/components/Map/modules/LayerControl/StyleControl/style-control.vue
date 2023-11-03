@@ -51,6 +51,7 @@ const onUpdateStyle = (value: any) => {
       return;
     }
     layer_map.value.updateValue(map, value);
+    layer.value = layer_map.value.getValue();
   });
 };
 defineExpose({ open, close });

@@ -20,3 +20,8 @@
   top: 0;
   transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
 }
+.clickable[disabled="disabled"] {
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.25;
+}

@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { computed, defineProps, defineEmits, ref, nextTick } from "vue";
+import { computed, defineProps, defineEmits, ref, nextTick, watch } from "vue";
 import { Layer } from "mapbox-gl";
+import { inputSelect } from "@components/input";
 import SingleStyle from "./single-style.vue";
+import { LayerSimpleMapboxBuild } from "@/model";
+import { mdiDelete, mdiPlus } from "@mdi/js";
+import SvgIcon from "@jamescoyle/vue-icon";
 const props = defineProps({
   value: {
     required: true
@@ -10,7 +14,7 @@ const props = defineProps({
     required: true
   }
 });
-const emit = defineEmits(["input", "update-style"]);
+const emit = defineEmits(["input", "update-style", "close"]);
 const layers = computed<Layer[]>({
   get() {
     return props.value as Layer[];
@@ -19,34 +23,86 @@ const layers = computed<Layer[]>({
     emit("input", value);
   }
 });
-const onSelectTab = (index: number) => {
+watch(layers, () => {
+  if (!tab.value && layers.value.length > 0) {
+    tab.value = layers.value[layers.value.length - 1].id;
+  }
+});
+const onSelectTab = (layer_id: string) => {
   tab.value = undefined;
   nextTick(() => {
-    tab.value = index;
+    tab.value = layer_id;
   });
 };
-const onUpdateStyleLayer = (layer: Layer, index: number) => {
-  emit("update-style", { type: "update-one-layer", layer, index });
+const onUpdateStyleLayer = (layer: Layer, layer_id: string) => {
+  emit("update-style", {
+    type: "update-one-layer",
+    layer,
+    index: layers.value.findIndex((x) => x.id === layer_id)
+  });
 };
-const tab = ref<number | undefined>(0);
+const onAddStyleLayer = () => {
+  tab.value = undefined;
+  emit("update-style", {
+    type: "add-one-layer",
+    layer: new LayerSimpleMapboxBuild()
+      .setStyleType("line")
+      .setColor("#fff")
+      .build()
+  });
+};
+const onRemoveStyleLayer = (layer_id: string) => {
+  let index = layers.value.findIndex((x) => x.id === layer_id);
+  if (!layers.value[index]) {
+    return;
+  }
+  tab.value = undefined;
+  emit("update-style", {
+    type: "remove-one-layer",
+    index,
+    layer: layers.value[index]
+  });
+  layers.value.splice(index, 1);
+  if (layers.value[0]) onSelectTab(layers.value[0].id);
+};
+const tab = ref<string | undefined>(layers.value[0].id);
+const tabs = computed(() => {
+  return layers.value.map((x, i) => {
+    return { text: `#${i + 1}`, value: x.id };
+  });
+});
+const current_layer = computed(() => {
+  return layers.value.find((x) => x.id === tab.value);
+});
+const path = {
+  delete: mdiDelete,
+  create: mdiPlus
+};
 </script>
 <template lang="">
   <div class="multi-style-edit-container">
     <div class="tab-container">
+      <div class="tab-item">
+        <input-select
+          :value="tab"
+          @input="onSelectTab"
+          :items="tabs"
+        ></input-select>
+      </div>
       <div
-        v-for="(layer, i) in layers"
-        :key="i"
-        class="tab-item"
-        :name="`#${i + 1}`"
-        @click="onSelectTab(i)"
-        :class="{ 'tab-item-active': tab === i }"
+        class="tab-item tab-add clickable"
+        @click="onRemoveStyleLayer(tab)"
+        :disabled="!tab"
       >
-        #{{ i + 1 }}
+        <SvgIcon size="14" type="mdi" :path="path.delete" :disabled="!tab" />
+      </div>
+      <div class="tab-item tab-add clickable" @click="onAddStyleLayer()">
+        <SvgIcon size="14" type="mdi" :path="path.create" />
       </div>
     </div>
-    <div class="style-container" v-if="tab >= 0">
+    <div class="style-container" v-if="tab">
       <SingleStyle
-        :value="layers[tab]"
+        :value="current_layer"
         :trans="trans"
         @update-style="onUpdateStyleLayer($event, tab)"
       />
@@ -59,29 +115,27 @@ const tab = ref<number | undefined>(0);
   flex-direction: column;
   height: 100%;
 }
-.tab-container {
-  display: flex;
-  flex-grow: 0;
-  border-bottom-width: thin;
-  border-bottom-color: #fff;
-  border-bottom-style: solid;
-  .tab-item {
-    min-width: 100px;
-    height: 30px;
-    padding: 4px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-  }
-  .tab-item-active {
-    color: var(--v-primary-base, #38d4ff);
-  }
-}
 .style-container {
   flex-grow: 1;
   overflow: auto;
   display: flex;
   height: 100%;
+}
+.tab-container {
+  display: flex;
+  border-bottom-width: thin;
+  border-bottom-color: #fff;
+  border-bottom-style: solid;
+  .tab-item {
+    flex-grow: 1;
+    padding: 8px 16px;
+  }
+  .tab-add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    max-width: 20px;
+  }
 }
 </style>
