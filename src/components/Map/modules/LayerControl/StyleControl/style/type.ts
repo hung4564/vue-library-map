@@ -161,7 +161,7 @@ export const CONFIG_TABS: { [key: string]: any } = {
       },
       label: {
         format: (value: number) => {
-          return `${+value.toFixed(2) * 100} %`;
+          return `${(+value * 100).toFixed(0)} %`;
         }
       }
     },

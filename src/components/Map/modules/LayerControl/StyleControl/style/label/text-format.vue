@@ -1,5 +1,5 @@
 <template>
-  <div>{{ format(value || default_value || "0") }} </div>
+  <div>{{ format(c_value || "0") }} </div>
 </template>
 
 <script>
@@ -12,7 +12,14 @@ export default {
     }
   },
   data: () => ({}),
-  computed: {},
+  computed: {
+    c_value() {
+      if (this.value != null) {
+        return this.value;
+      }
+      return this.default_value;
+    }
+  },
   methods: {}
 };
 </script>
