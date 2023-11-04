@@ -4,7 +4,7 @@ import { Layer } from "mapbox-gl";
 import { inputSelect } from "@components/input";
 import SingleStyle from "./single-style.vue";
 import { LayerSimpleMapboxBuild } from "@/model";
-import { mdiDelete, mdiPlus } from "@mdi/js";
+import { mdiClose, mdiDelete, mdiPlus } from "@mdi/js";
 import SvgIcon from "@jamescoyle/vue-icon";
 import { useShow } from "@/hooks/useShow";
 import baseButton from "@/components/base/base-button.vue";
@@ -78,11 +78,12 @@ const current_layer = computed(() => {
 });
 const path = {
   delete: mdiDelete,
-  create: mdiPlus
+  create: mdiPlus,
+  close: mdiClose
 };
 const [showAdd, setShowAdd] = useShow(false);
-const onShowAddStyle = () => {
-  setShowAdd(true);
+const onShowAddStyle = (value: boolean) => {
+  setShowAdd(value);
 };
 </script>
 <template lang="">
@@ -104,10 +105,17 @@ const onShowAddStyle = () => {
       </div>
       <div
         class="tab-item tab-add clickable"
-        @click="onShowAddStyle()"
-        :disabled="showAdd"
+        @click="onShowAddStyle(true)"
+        v-if="!showAdd"
       >
         <SvgIcon size="14" type="mdi" :path="path.create" />
+      </div>
+      <div
+        class="tab-item tab-add clickable"
+        @click="onShowAddStyle(false)"
+        v-else
+      >
+        <SvgIcon size="14" type="mdi" :path="path.close" />
       </div>
     </div>
     <div class="style-container" v-if="showAdd">

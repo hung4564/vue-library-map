@@ -157,7 +157,6 @@ export function createGeoJsonLayer(options: OptionGeojson) {
   const builds: ABuild[] = [
     new LayerListBuild().setColor(color),
     new LayerSourceBuild(new GeoJsonSourceBuild().setData(geojson)),
-
     new LayerIdentifyBuild()
   ];
   if (type) {

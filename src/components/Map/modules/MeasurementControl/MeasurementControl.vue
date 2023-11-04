@@ -116,6 +116,7 @@ import { addLayer } from "@/store/store-datasource";
 import { createGeoJsonLayer } from "@/model/datasource/sample";
 import LayerSingleTextLegend from "@map/modules/LayerControl/Legend/single-value.vue";
 import { LayerLegendBuild } from "@/model/datasource/build/legend";
+import { LayerMapBuild, LayerSimpleMapboxBuild } from "@/model";
 let handler = new MeasurementHandle();
 const DEFAULT_COLOR_HIGHLIGHT = "#004E98";
 export default {
@@ -392,7 +393,6 @@ export default {
         this.map.id,
         createGeoJsonLayer({
           name: handler.action.name,
-          type: handler.action.type,
           color,
           geojson: {
             type: "FeatureCollection",
@@ -404,7 +404,25 @@ export default {
                 value: x.value,
                 text: x.trans ? this.$map.trans(x.trans) : x.text
               }))
-            )
+            ),
+            new LayerMapBuild()
+              .setLayers([
+                new LayerSimpleMapboxBuild()
+                  .setStyleType(handler.action.type)
+                  .setColor(color)
+                  .build(),
+                {
+                  layout: { visibility: "visible" },
+                  type: "circle",
+                  paint: {
+                    "circle-color": "#fff",
+                    "circle-radius": 5,
+                    "circle-stroke-color": color,
+                    "circle-stroke-width": 2
+                  }
+                }
+              ])
+              .setEditable()
           ]
         })
       );
