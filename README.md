@@ -87,6 +87,21 @@ npm run build
 
 ```
 
+## Feature
+
+- [] Style edit control
+  - [x] Line simple
+  - [x] Area simple
+  - [x] Point simple
+  - [ ] symbol simple
+  - [ ] raster simple
+  - [] icon label for layer
+  - [] filter simple
+  - [] option simple
+- [] Base map control
+  - [] Base map card
+- [] setting center,zoom
+
 ## License
 
 [MIT license](LICENSE)

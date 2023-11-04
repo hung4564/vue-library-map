@@ -43,7 +43,8 @@ const props = defineProps({
 const emit = defineEmits(["input"]);
 const form = computed({
   get() {
-    return props.value || props.default_value;
+    if (props.value != null) return props.value;
+    return props.default_value;
   },
   set(value) {
     emit("input", value);
