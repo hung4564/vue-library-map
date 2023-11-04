@@ -7,7 +7,7 @@
       <Sketch
         :value="form"
         v-bind="$attrs"
-        @input="({ hex }) => (form = hex)"
+        @input="onSetValue"
         :disabled="disabled"
       />
     </div>
@@ -30,6 +30,12 @@ export default {
       set(value) {
         this.$emit("input", value);
       }
+    }
+  },
+  methods: {
+    onSetValue({ hex }) {
+      this.$emit("input", hex);
+      this.$emit("change", hex);
     }
   }
 };

@@ -79,6 +79,7 @@ onMounted(() => {
           :value="layer[tab.part || 'paint'][tab.key]"
           @input="emitInput($event, tab, layer)"
           :default_value="default_value[tab.part || 'paint'][tab.key]"
+          :trans="trans"
         >
         </TabContent>
       </div>

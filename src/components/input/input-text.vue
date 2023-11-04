@@ -13,6 +13,11 @@ export default {
         this.$emit("input", value);
       }
     }
+  },
+  methods: {
+    onChange(e) {
+      this.$emit("change", e.target.value);
+    }
   }
 };
 </script>
@@ -22,7 +27,7 @@ export default {
       {{ label }}
     </label>
     <div class="input-container">
-      <input v-bind="$attrs" v-model="model" />
+      <input v-bind="$attrs" v-model="model" @change="onChange" />
     </div>
   </div>
 </template>

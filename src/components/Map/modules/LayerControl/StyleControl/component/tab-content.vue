@@ -12,7 +12,8 @@
       v-else
       :is="item.component.content"
       v-bind="attrs"
-      v-model="form"
+      :value="form"
+      @change="form = $event"
     ></component>
     <div v-if="default_value != null" class="full-width">
       <hr class="map-divider" />
@@ -21,7 +22,7 @@
         :disabled="form == null || form == default_value"
         class="map-button text-center full-width"
       >
-        Về giá trị mặc định
+        {{ trans("map.style-control.back-to-default") }}
       </button>
     </div>
   </div>
@@ -36,7 +37,8 @@ const props = defineProps({
     default: () => ({ key: "", type: "unit", unit: "px" })
   },
   default_value: {},
-  disabled: Boolean
+  disabled: Boolean,
+  trans: {}
 });
 const emit = defineEmits(["input"]);
 const form = computed({
