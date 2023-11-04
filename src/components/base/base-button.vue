@@ -1,6 +1,6 @@
 <template>
   <button
-    class="map-control__button"
+    class="map-control__button clickable"
     v-bind="$attrs"
     v-on="$listeners"
     :class="{

@@ -6,6 +6,8 @@ import SingleStyle from "./single-style.vue";
 import { LayerSimpleMapboxBuild } from "@/model";
 import { mdiDelete, mdiPlus } from "@mdi/js";
 import SvgIcon from "@jamescoyle/vue-icon";
+import { useShow } from "@/hooks/useShow";
+import baseButton from "@/components/base/base-button.vue";
 const props = defineProps({
   value: {
     required: true
@@ -41,12 +43,12 @@ const onUpdateStyleLayer = (layer: Layer, layer_id: string) => {
     index: layers.value.findIndex((x) => x.id === layer_id)
   });
 };
-const onAddStyleLayer = () => {
+const onAddStyleLayer = (type: string) => {
   tab.value = undefined;
   emit("update-style", {
     type: "add-one-layer",
     layer: new LayerSimpleMapboxBuild()
-      .setStyleType("line")
+      .setStyleType(type)
       .setColor("#fff")
       .build()
   });
@@ -78,6 +80,10 @@ const path = {
   delete: mdiDelete,
   create: mdiPlus
 };
+const [showAdd, setShowAdd] = useShow(false);
+const onShowAddStyle = () => {
+  setShowAdd(true);
+};
 </script>
 <template lang="">
   <div class="multi-style-edit-container">
@@ -96,11 +102,28 @@ const path = {
       >
         <SvgIcon size="14" type="mdi" :path="path.delete" :disabled="!tab" />
       </div>
-      <div class="tab-item tab-add clickable" @click="onAddStyleLayer()">
+      <div
+        class="tab-item tab-add clickable"
+        @click="onShowAddStyle()"
+        :disabled="showAdd"
+      >
         <SvgIcon size="14" type="mdi" :path="path.create" />
       </div>
     </div>
-    <div class="style-container" v-if="tab">
+    <div class="style-container" v-if="showAdd">
+      <div class="add-style-container">
+        <base-button @click="onAddStyleLayer('area')">
+          {{ trans("map.style-control.add.area") }}
+        </base-button>
+        <base-button @click="onAddStyleLayer('line')">
+          {{ trans("map.style-control.add.line") }}
+        </base-button>
+        <base-button @click="onAddStyleLayer('point')">
+          {{ trans("map.style-control.add.point") }}
+        </base-button>
+      </div>
+    </div>
+    <div class="style-container" v-else-if="tab">
       <SingleStyle
         :value="current_layer"
         :trans="trans"
@@ -120,6 +143,14 @@ const path = {
   overflow: auto;
   display: flex;
   height: 100%;
+}
+.add-style-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  & > .map-control__button {
+    padding: 8px;
+  }
 }
 .tab-container {
   display: flex;

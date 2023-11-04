@@ -1,3 +1,9 @@
 {
-  "title": "Style Control"
+  "title": "Style Control",
+  "add": {
+    "area": "Area",
+    "line": "Line",
+    "point": "Point",
+    "symbol": "Symbol"
+  }
 }
