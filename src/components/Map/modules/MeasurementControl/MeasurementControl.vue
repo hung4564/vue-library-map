@@ -86,7 +86,7 @@
 import MapControlButton from "@map/control/MapControlButton.vue";
 import MapControlGroupButton from "@map/control/MapControlGroupButton.vue";
 import ModuleMixin from "@map/mixins/ModuleMixin";
-import { createMapboxImage, fitBounds } from "@/helper";
+import { fitBounds } from "@/helper";
 import {
   mdiRulerSquareCompass,
   mdiRuler,
@@ -117,6 +117,7 @@ import { createGeoJsonLayer } from "@/model/datasource/sample";
 import LayerSingleTextLegend from "@map/modules/LayerControl/Legend/single-value.vue";
 import { LayerLegendBuild } from "@/model/datasource/build/legend";
 import { LayerMapBuild, LayerSimpleMapboxBuild } from "@/model";
+import { addImage } from "@/store/store-image";
 let handler = new MeasurementHandle();
 const DEFAULT_COLOR_HIGHLIGHT = "#004E98";
 export default {
@@ -154,15 +155,15 @@ export default {
   },
   methods: {
     onInit() {
-      createMapboxImage(
-        this.map,
+      addImage(
+        this.c_mapId,
         "azimuth-arrow",
         require("@/assets/img/arrow.png"),
         { sdf: true }
       );
 
-      createMapboxImage(
-        this.map,
+      addImage(
+        this.c_mapId,
         "measurment-round",
         require("@/assets/img/rounded.png"),
         {
