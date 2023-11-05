@@ -134,6 +134,9 @@ export default {
   mounted() {},
   computed: {
     sizeBaseMap() {
+      if (this.$map.isMobile) {
+        return 120;
+      }
       return 70;
     },
     path() {
@@ -179,6 +182,7 @@ export default {
 .base-map-control-setting {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 .base-map-control-setting-item {
   padding: 8px 4px;
