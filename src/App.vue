@@ -37,7 +37,10 @@ import {
   SettingControl
 } from "@map";
 import { addLayer } from "./store/store-datasource";
-import { createGeoJsonLayer } from "./model/datasource/sample";
+import {
+  createGeoJsonLayer,
+  createRasterUrlLayer
+} from "./model/datasource/sample";
 import { LayerMapBuild, LayerSimpleMapboxBuild } from "./model";
 export default {
   name: "App",
@@ -58,6 +61,19 @@ export default {
   },
   methods: {
     async onMapLoaded(map) {
+      addLayer(
+        map.id,
+        createRasterUrlLayer({
+          name: "raster 1",
+          tiles: [
+            "https://naturalearthtiles.roblabs.com/tiles/natural_earth_cross_blended_hypso_shaded_relief.raster/{z}/{x}/{y}.png"
+          ],
+          bounds: [
+            104.96327341667353, 18.461221184685627, 106.65936430823979,
+            19.549518287564368
+          ]
+        })
+      );
       addLayer(
         map.id,
         createGeoJsonLayer({

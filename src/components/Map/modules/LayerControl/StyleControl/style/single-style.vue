@@ -5,6 +5,7 @@ import { computed, defineProps, defineEmits, ref, onMounted } from "vue";
 import { Layer } from "mapbox-gl";
 import { TABS, DEFAULT_VALUE, CONFIG_TABS } from "./type";
 import { Tab } from "@/interface/style";
+import { merge } from "lodash";
 const props = defineProps({
   value: {
     required: true
@@ -23,9 +24,21 @@ const layer = computed<Layer>({
   }
 });
 const tabs_format = computed<Tab[]>(() =>
-  TABS[layer.value.type].map((x) =>
-    Object.assign(x, CONFIG_TABS.default, CONFIG_TABS[x.type] || {})
-  )
+  TABS[layer.value.type].map((x) => {
+    const res = Object.assign(
+      {},
+      CONFIG_TABS.default,
+      CONFIG_TABS[x.type] || {},
+      x
+    );
+    res.props = merge(
+      {},
+      res.props,
+      (CONFIG_TABS[x.type] || {}).props,
+      x.props
+    );
+    return res;
+  })
 );
 const default_value = computed(() => DEFAULT_VALUE[layer.value.type]);
 const tab = ref<Tab | undefined>(undefined);
@@ -34,8 +47,8 @@ const onSelectTab = (item: Tab) => {
   if ((tab.value as any).menu) {
     (tab.value as any).menu = (tab.value as any).menu.map((x: any) => ({
       ...x,
-      text: x.text || (props.trans as any)(x.text_trans),
-      subtitle: x.subtitle || (props.trans as any)(x.subtitle_trans)
+      text: x.text || (props.trans as any)(x.text_trans || "") || "",
+      subtitle: x.subtitle || (props.trans as any)(x.subtitle_trans || "") || ""
     }));
   }
 };

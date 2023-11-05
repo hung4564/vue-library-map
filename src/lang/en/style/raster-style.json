@@ -1,0 +1,12 @@
+{
+  "setting": {
+    "raster-brightness-max": "Max brightness",
+    "raster-brightness-min": "Min brightness",
+    "raster-contrast": "Contrast",
+    "raster-fade-duration": "Fade duration",
+    "raster-opacity": "Opacity",
+    "raster-hue-rotate": "Hue rotate",
+    "raster-resampling": "Resampling",
+    "raster-saturation": "Saturation"
+  }
+}

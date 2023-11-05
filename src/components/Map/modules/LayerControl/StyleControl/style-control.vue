@@ -13,6 +13,7 @@ import circleStyleLang from "@/lang/en/style/circle-style.json";
 import lineStyleLang from "@/lang/en/style/line-style.json";
 import fillStyleLang from "@/lang/en/style/fill-style.json";
 import symbolStyleLang from "@/lang/en/style/symbol-style.json";
+import rasterStyleLang from "@/lang/en/style/raster-style.json";
 import { AMapLayer } from "@/model/datasource/view/map";
 import { MapSimple } from "@/interface/map";
 const [show, toggleShow] = useShow(false);
@@ -22,7 +23,8 @@ updateMapLang(c_mapId.value, {
   "circle-style": circleStyleLang,
   "line-style": lineStyleLang,
   "fill-style": fillStyleLang,
-  "symbol-style": symbolStyleLang
+  "symbol-style": symbolStyleLang,
+  "raster-style": rasterStyleLang
 });
 const layer = ref();
 const layer_map = ref<AMapLayer | undefined>(undefined);

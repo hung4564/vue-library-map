@@ -59,7 +59,9 @@ export function createRasterUrlLayer(options: OptionRasterTile) {
     new LayerSourceBuild(
       new RasterSourceBuild().setTiles(tiles).setBounds(bounds)
     ),
-    new LayerMapBuild().setLayer(new LayerRasterMapboxBuild().build())
+    new LayerMapBuild()
+      .setLayer(new LayerRasterMapboxBuild().build())
+      .setEditable()
   ];
 
   const actions: LayerAction[] = [
@@ -106,7 +108,9 @@ export function createRasterJsonLayer(options: OptionRasterJson) {
   const builds: ABuild[] = [
     new LayerListBuild(),
     new LayerSourceBuild(new RasterSourceBuild().setUrl(url)),
-    new LayerMapBuild().setLayer(new LayerRasterMapboxBuild().build())
+    new LayerMapBuild()
+      .setLayer(new LayerRasterMapboxBuild().build())
+      .setEditable()
   ];
 
   const actions: LayerAction[] = [

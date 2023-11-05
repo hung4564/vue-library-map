@@ -93,14 +93,18 @@ npm run build
   - [x] Line simple
   - [x] Area simple
   - [x] Point simple
-  - [ ] symbol simple
-  - [ ] raster simple
+  - [] symbol simple
+  - [x] raster simple
   - [] icon label for layer
   - [] filter simple
   - [] option simple
 - [] Base map control
   - [x] Base map card
+  - [] Add base map
+  - [] No base map
   - [] add to layer list control?
+- [] Crs format
+  - [] add Crs
 - [x] setting center,zoom
 
 ## License

@@ -14,6 +14,17 @@
         :style="{ backgroundSize: backgroundSize }"
         :disabled="disabled"
       />
+      <div class="input-slider__value">
+        <input
+          :value="form"
+          @input="({ target }) => (form = parseFloat(target.value))"
+          type="number"
+          :min="min"
+          :max="max"
+          :step="step"
+          :disabled="disabled"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -51,6 +62,28 @@ export default {
 </script>
 
 <style scoped>
+.input-container {
+  display: flex;
+}
+.input-slider__value {
+  flex-grow: 0;
+  max-width: 100px;
+  padding-left: 4px;
+}
+.input-slider__value > input:focus {
+  border: 1px solid #fff;
+}
+.input-slider__value input {
+  width: 100%;
+  padding: 8px;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: inherit;
+  box-sizing: border-box;
+  background-color: transparent;
+  outline: none;
+}
 input[type="range"] {
   display: block;
   width: 100%;

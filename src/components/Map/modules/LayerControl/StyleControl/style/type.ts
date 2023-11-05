@@ -7,7 +7,9 @@ import {
   inputText
 } from "@/components/input";
 
-export const TABS: { [key: string]: Tab[] } = {
+import { Layer } from "mapbox-gl";
+
+export const TABS: Record<string, Tab[]> = {
   circle: [
     {
       trans: "circle-style.setting.color",
@@ -76,10 +78,89 @@ export const TABS: { [key: string]: Tab[] } = {
       key: "fill-opacity",
       type: "opacity"
     }
+  ],
+  raster: [
+    {
+      trans: "raster-style.setting.raster-opacity",
+      key: "raster-opacity",
+      type: "opacity"
+    },
+    {
+      trans: "raster-style.setting.raster-brightness-max",
+      key: "raster-brightness-max",
+      type: "minMax"
+    },
+    {
+      trans: "raster-style.setting.raster-brightness-min",
+      key: "raster-brightness-min",
+      type: "minMax",
+      props: {
+        content: {
+          class: "tab-content-padding",
+          min: -1,
+          max: 1,
+          step: 0.01
+        }
+      }
+    },
+    {
+      trans: "raster-style.setting.raster-contrast",
+      key: "raster-contrast",
+      type: "minMax",
+      props: {
+        content: {
+          class: "tab-content-padding",
+          min: -1,
+          max: 1,
+          step: 0.01
+        }
+      }
+    },
+    {
+      trans: "raster-style.setting.raster-fade-duration",
+      key: "raster-fade-duration",
+      type: "unit",
+      unit: "milliseconds"
+    },
+    {
+      trans: "raster-style.setting.raster-hue-rotate",
+      key: "raster-hue-rotate",
+      type: "unit",
+      unit: "degrees"
+    },
+    {
+      trans: "raster-style.setting.raster-resampling",
+      key: "raster-resampling",
+      type: "chose",
+      menu: [
+        {
+          text: "linear",
+          value: "linear"
+        },
+        {
+          text: "nearest",
+          value: "nearest"
+        }
+      ]
+    },
+    {
+      trans: "raster-style.setting.raster-saturation",
+      key: "raster-saturation",
+      type: "minMax",
+      props: {
+        content: {
+          class: "tab-content-padding",
+          min: -1,
+          max: 1,
+          step: 0.01
+        }
+      }
+    }
   ]
 };
-export const DEFAULT_VALUE: { [key: string]: any } = {
+export const DEFAULT_VALUE: Record<string, Partial<Layer>> = {
   circle: {
+    type: "circle",
     paint: {
       "circle-radius": 5,
       "circle-color": "#000000",
@@ -91,6 +172,7 @@ export const DEFAULT_VALUE: { [key: string]: any } = {
     }
   },
   line: {
+    type: "line",
     paint: {
       "line-color": "#000000",
       "line-opacity": 1,
@@ -98,16 +180,16 @@ export const DEFAULT_VALUE: { [key: string]: any } = {
       "line-gap-width": 0,
       "line-blur": 0,
       "line-offset": 0,
-      "line-translate": [0, 0]
-    },
-    layout: {
+      "line-translate": [0, 0],
       "line-cap": "butt",
       "line-join": "bevel",
       "line-round-limit": 0,
       "line-miter-limit": 0
-    }
+    },
+    layout: {}
   },
   fill: {
+    type: "fill",
     paint: {
       "fill-color": "#000000",
       "fill-opacity": 1,
@@ -115,9 +197,22 @@ export const DEFAULT_VALUE: { [key: string]: any } = {
       "fill-translate": [0, 0],
       "fill-pattern": "none"
     }
+  },
+  raster: {
+    type: "raster",
+    paint: {
+      "raster-brightness-max": 1,
+      "raster-brightness-min": 0,
+      "raster-contrast": 0,
+      "raster-fade-duration": 300,
+      "raster-opacity": 1,
+      "raster-hue-rotate": 0,
+      "raster-resampling": "linear",
+      "raster-saturation": 0
+    }
   }
 };
-export const CONFIG_TABS: { [key: string]: any } = {
+export const CONFIG_TABS: Record<string, Partial<Tab>> = {
   color: {
     component: {
       content: inputColorPicker,
@@ -162,6 +257,26 @@ export const CONFIG_TABS: { [key: string]: any } = {
       label: {
         format: (value: number) => {
           return `${(+value * 100).toFixed(0)} %`;
+        }
+      }
+    },
+    format: (value: any) => +value
+  },
+  minMax: {
+    component: {
+      content: inputSlider,
+      label: textFormat
+    },
+    props: {
+      content: {
+        class: "tab-content-padding",
+        min: 0,
+        max: 1,
+        step: 0.01
+      },
+      label: {
+        format: (value: number) => {
+          return `${(+value).toFixed(2)}`;
         }
       }
     },
