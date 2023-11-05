@@ -52,6 +52,7 @@ const onAddStyleLayer = (type: string) => {
       .setColor("#fff")
       .build()
   });
+  onShowAddStyle(false);
 };
 const onRemoveStyleLayer = (layer_id: string) => {
   let index = layers.value.findIndex((x) => x.id === layer_id);

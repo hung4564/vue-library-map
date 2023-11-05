@@ -1,0 +1,12 @@
+{
+  "title": "Setting",
+  "field": {
+    "zoom": "Zoom",
+    "center": "Center",
+    "sprite": "Sprite url",
+    "glyphs": "Glyphs url"
+  },
+  "btn": {
+    "apply": "Apply"
+  }
+}

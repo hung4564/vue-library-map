@@ -100,7 +100,7 @@ npm run build
   - [] option simple
 - [] Base map control
   - [] Base map card
-- [] setting center,zoom
+- [x] setting center,zoom
 
 ## License
 

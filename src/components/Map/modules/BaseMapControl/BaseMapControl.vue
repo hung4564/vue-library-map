@@ -32,11 +32,13 @@
       <DraggablePopup
         v-if="show"
         v-bind="props"
-        :height="70 * (Math.floor(c_baseMaps.length / 3) + 1) + 48 + 10"
+        :height="
+          sizeBaseMap * (Math.floor(c_baseMaps.length / 3) + 1) + 48 + 10
+        "
         :show.sync="show"
         :is-resizable="false"
         :title="$map.trans('map.basemap.setting')"
-        :width="70 * 3 + 24"
+        :width="sizeBaseMap * 3 + 24"
       >
         <div class="base-map-control-setting">
           <div

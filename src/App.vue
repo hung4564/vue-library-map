@@ -2,6 +2,7 @@
   <div id="app">
     <Map locale="en" @map-loaded="onMapLoaded">
       <MeasurementControl position="top-right" />
+      <SettingControl position="bottom-right" />
       <LayerControl position="top-left" />
       <PrintControl />
       <GeoLocateControl />
@@ -32,7 +33,8 @@ import {
   ActionControl,
   MeasurementControl,
   LayerControl,
-  IdentifyControl
+  IdentifyControl,
+  SettingControl
 } from "@map";
 import { addLayer } from "./store/store-datasource";
 import { createGeoJsonLayer } from "./model/datasource/sample";
@@ -51,7 +53,8 @@ export default {
     ActionControl,
     MeasurementControl,
     LayerControl,
-    IdentifyControl
+    IdentifyControl,
+    SettingControl
   },
   methods: {
     async onMapLoaded(map) {

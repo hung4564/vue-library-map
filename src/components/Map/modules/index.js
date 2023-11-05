@@ -9,7 +9,7 @@ import MeasurementControl from "./MeasurementControl/MeasurementControl.vue";
 import MouseCoordinatesControl from "./MouseCoordinatesControl/MouseCoordinatesControl.vue";
 import PrintControl from "./PrintControl/PrintControl.vue";
 import ZoomControl from "./ZoomControl/ZoomControl.vue";
-
+import SettingControl from "./SettingControl/SettingControl.vue";
 export {
   LayerControl,
   IdentifyControl,
@@ -21,5 +21,6 @@ export {
   GeoLocateControl,
   BaseMapControl,
   PrintControl,
-  ActionControl
+  ActionControl,
+  SettingControl
 };
