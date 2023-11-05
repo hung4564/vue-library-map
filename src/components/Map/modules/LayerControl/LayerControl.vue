@@ -35,7 +35,7 @@ import {
   mdiLayers,
   mdiPlus
 } from "@mdi/js";
-
+import BaseMapCard from "../BaseMapControl/BaseMapCard.vue";
 import LayerCreateControl from "./CreateControl/layer-create-control.vue";
 import LayerItem from "./item/layer-item.vue";
 import LayerItemContextMenu from "./layer-item-context-menu.vue";
@@ -343,6 +343,9 @@ function onRemoveComponent(item: { component: any; id: string; attr: any }) {
               </draggable-group-list>
             </div>
           </div>
+          <div class="base-map-card-container">
+            <BaseMapCard :mapId="c_mapId" />
+          </div>
         </div>
       </DraggableSidebar>
 
@@ -372,11 +375,19 @@ function onRemoveComponent(item: { component: any; id: string; attr: any }) {
 }
 </style>
 <style scoped>
+.layer-control {
+  display: flex;
+  flex-direction: column;
+}
 .layer-control-container {
   display: flex;
   flex-direction: column;
   height: 100%;
   width: 100%;
+  flex-grow: 1;
+}
+.base-map-card-container {
+  flex-grow: 0;
 }
 .layer-control__list {
   flex-grow: 1;

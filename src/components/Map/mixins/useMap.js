@@ -30,6 +30,7 @@ export const useMap = (onInit, onDestroy) => {
     c_mapId,
     bindModule,
     callMap,
-    $map
+    $map,
+    trans: $map.trans
   };
 };

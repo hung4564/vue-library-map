@@ -6,7 +6,7 @@ export default {
     items: { type: Array, default: () => [] },
     itemValue: { type: String, default: "value" },
     itemText: { type: String, default: "text" },
-    returnObject: Object
+    returnObject: Boolean
   },
   computed: {
     model: {

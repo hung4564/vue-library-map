@@ -99,7 +99,8 @@ npm run build
   - [] filter simple
   - [] option simple
 - [] Base map control
-  - [] Base map card
+  - [x] Base map card
+  - [] add to layer list control?
 - [x] setting center,zoom
 
 ## License
