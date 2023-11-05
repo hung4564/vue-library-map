@@ -1,6 +1,7 @@
 import { ChoseTab, Tab } from "@/interface/style";
 import { divColor, textAfter, textFormat } from "./label";
 import {
+  inputCheckbox,
   inputChoose,
   inputColorPicker,
   inputSlider,
@@ -77,6 +78,21 @@ export const TABS: Record<string, Tab[]> = {
       trans: "fill-style.setting.opacity",
       key: "fill-opacity",
       type: "opacity"
+    },
+    {
+      trans: "fill-style.setting.fill-antialias",
+      key: "fill-antialias",
+      type: "boolean"
+    },
+    {
+      trans: "fill-style.setting.fill-outline-color",
+      key: "fill-outline-color",
+      type: "color"
+    },
+    {
+      trans: "fill-style.setting.fill-pattern",
+      key: "fill-pattern",
+      type: "image"
     }
   ],
   raster: [
@@ -141,10 +157,8 @@ export const TABS: Record<string, Tab[]> = {
       type: "minMax",
       props: {
         content: {
-          class: "tab-content-padding",
           min: -1,
-          max: 1,
-          step: 0.01
+          max: 1
         }
       }
     }
@@ -183,9 +197,9 @@ export const DEFAULT_VALUE: Record<string, Partial<Layer>> = {
   fill: {
     type: "fill",
     paint: {
+      "fill-antialias": true,
       "fill-color": "#000000",
       "fill-opacity": 1,
-      "fill-antialias": false,
       "fill-translate": [0, 0],
       "fill-pattern": "none"
     }
@@ -213,6 +227,16 @@ export const CONFIG_TABS: Record<string, Partial<Tab>> = {
     props: {
       content: {
         disableAlpha: true
+      }
+    }
+  },
+  boolean: {
+    component: {
+      content: inputCheckbox
+    },
+    props: {
+      content: {
+        class: "tab-content-padding"
       }
     }
   },

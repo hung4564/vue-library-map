@@ -4,6 +4,9 @@
     "pattern": "Pattern",
     "opacity": "Opacity",
     "antialias": "Antialias",
-    "translate": "Translate"
+    "translate": "Translate",
+    "fill-antialias": "Antialias",
+    "fill-pattern": "Pattern",
+    "fill-outline-color": "Outline color"
   }
 }

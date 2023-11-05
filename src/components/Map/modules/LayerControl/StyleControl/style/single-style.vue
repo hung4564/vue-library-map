@@ -86,6 +86,9 @@ onMounted(() => {
     </div>
     <div class="value-container">
       <div>
+        <div class="value-container__label" v-if="tab">
+          {{ tab.text || trans(tab.trans) }}
+        </div>
         <TabContent
           v-if="tab"
           :item="tab"
@@ -132,6 +135,9 @@ onMounted(() => {
     min-height: 48px;
     display: flex;
     align-items: center;
+  }
+  .value-container__label {
+    padding: 16px 16px 0;
   }
 }
 </style>

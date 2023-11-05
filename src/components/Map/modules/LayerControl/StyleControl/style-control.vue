@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineExpose, ref } from "vue";
+import { computed, defineExpose, ref, nextTick } from "vue";
 
 import { useMap } from "@/components/Map/mixins/useMap";
 import ModuleContainer from "@/components/Map/ModuleContainer.vue";
@@ -33,8 +33,11 @@ const layer_map_component = computed(() => {
 });
 const open = (_layer: Layer) => {
   toggleShow(true);
-  layer_map.value = _layer.getView("map") as AMapLayer;
-  layer.value = layer_map.value.getValue();
+  layer_map.value = undefined;
+  nextTick(() => {
+    layer_map.value = _layer.getView("map") as AMapLayer;
+    layer.value = layer_map.value.getValue();
+  });
 };
 const close = () => {
   toggleShow(false);

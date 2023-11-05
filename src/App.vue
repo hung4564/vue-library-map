@@ -107,7 +107,7 @@ export default {
             new LayerMapBuild().setLayers([
               new LayerSimpleMapboxBuild()
                 .setStyleType("line")
-                .setColor("red")
+                .setColor("blue")
                 .build(),
               new LayerSimpleMapboxBuild()
                 .setStyleType("point")
