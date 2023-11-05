@@ -131,6 +131,7 @@ onMounted(() => {
   }
   .tab-content-padding {
     padding: 16px;
+    padding-top: 4px;
     width: calc(100% - 32px);
     min-height: 48px;
     display: flex;
@@ -138,6 +139,7 @@ onMounted(() => {
   }
   .value-container__label {
     padding: 16px 16px 0;
+    font-weight: bolder;
   }
 }
 </style>

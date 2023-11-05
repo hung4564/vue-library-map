@@ -48,6 +48,36 @@ export const TABS: Record<string, Tab[]> = {
       trans: "circle-style.setting.stroke-opacity",
       key: "circle-stroke-opacity",
       type: "opacity"
+    },
+    {
+      trans: "circle-style.setting.circle-pitch-alignment",
+      key: "circle-pitch-alignment",
+      type: "chose",
+      menu: [
+        {
+          text: "map",
+          value: "map"
+        },
+        {
+          text: "viewport",
+          value: "viewport"
+        }
+      ]
+    },
+    {
+      trans: "circle-style.setting.circle-pitch-scale",
+      key: "circle-pitch-scale",
+      type: "chose",
+      menu: [
+        {
+          text: "map",
+          value: "map"
+        },
+        {
+          text: "viewport",
+          value: "viewport"
+        }
+      ]
     }
   ],
   line: [
@@ -174,7 +204,9 @@ export const DEFAULT_VALUE: Record<string, Partial<Layer>> = {
       "circle-opacity": 1,
       "circle-stroke-color": "#000000",
       "circle-stroke-width": 0,
-      "circle-stroke-opacity": 1
+      "circle-stroke-opacity": 1,
+      "circle-pitch-alignment": "viewport",
+      "circle-pitch-scale": "map"
     }
   },
   line: {

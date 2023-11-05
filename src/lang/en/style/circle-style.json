@@ -5,6 +5,8 @@
     "opacity": "Opacity",
     "blur": "Blur",
     "stroke-color": "Stroke color",
+    "circle-pitch-alignment": "Pitch alignment",
+    "circle-pitch-scale": "Pitch scale",
     "stroke-width": "Stroke width",
     "stroke-opacity": "Stroke opacity"
   }
