@@ -93,15 +93,7 @@ export const TABS: Record<string, Tab[]> = {
     {
       trans: "raster-style.setting.raster-brightness-min",
       key: "raster-brightness-min",
-      type: "minMax",
-      props: {
-        content: {
-          class: "tab-content-padding",
-          min: -1,
-          max: 1,
-          step: 0.01
-        }
-      }
+      type: "minMax"
     },
     {
       trans: "raster-style.setting.raster-contrast",
