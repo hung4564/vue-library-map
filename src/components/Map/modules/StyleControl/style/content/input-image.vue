@@ -6,7 +6,6 @@ import MapImage from "@components/MapImage.vue";
 import { inputText } from "@/components/input";
 const props = defineProps({
   value: {
-    type: String,
     required: true
   },
   mapId: {
@@ -15,11 +14,14 @@ const props = defineProps({
   }
 });
 const emit = defineEmits(["input", "change"]);
-const form = computed<string | undefined>({
+const form = computed({
   get() {
     return props.value;
   },
   set(value) {
+    if (!value) {
+      value = undefined;
+    }
     emit("input", value);
     emit("change", value);
   }

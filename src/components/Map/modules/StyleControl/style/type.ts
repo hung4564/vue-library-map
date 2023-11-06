@@ -233,8 +233,7 @@ export const DEFAULT_VALUE: Record<string, Partial<Layer>> = {
       "fill-antialias": true,
       "fill-color": "#000000",
       "fill-opacity": 1,
-      "fill-translate": [0, 0],
-      "fill-pattern": "none"
+      "fill-translate": [0, 0]
     }
   },
   raster: {
