@@ -55,7 +55,7 @@
                 height: sizeBaseMap - 34 + 'px'
               }"
             >
-              <img style="width: 100%; height: 100%" :src="baseMap.thumbnail" />
+              <map-image :src="baseMap.thumbnail"> </map-image>
             </div>
             <div
               class="base-map-control-setting-item__title"

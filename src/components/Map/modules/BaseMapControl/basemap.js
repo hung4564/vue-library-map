@@ -1,5 +1,12 @@
 const basemap = [
   {
+    link: "",
+    thumbnail: "/static/img/icon-stack.png",
+    type: "no-basemap",
+    title: "None",
+    id: "null"
+  },
+  {
     id: 1,
     title: "Streets",
     type: "vector",

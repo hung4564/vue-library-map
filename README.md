@@ -101,7 +101,7 @@ npm run build
 - [] Base map control
   - [x] Base map card
   - [] Add base map
-  - [] No base map
+  - [x] No base map
   - [] add to layer list control?
 - [] Crs format
   - [] add Crs
