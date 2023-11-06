@@ -39,7 +39,7 @@ import BaseMapCard from "../BaseMapControl/BaseMapCard.vue";
 import LayerCreateControl from "./CreateControl/layer-create-control.vue";
 import LayerItem from "./item/layer-item.vue";
 import LayerItemContextMenu from "./layer-item-context-menu.vue";
-import StyleControl from "./StyleControl/style-control.vue";
+import StyleControl from "../StyleControl/style-control.vue";
 
 const VIEW_KEY_TYPE = "list";
 defineProps({

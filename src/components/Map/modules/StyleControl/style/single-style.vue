@@ -12,6 +12,9 @@ const props = defineProps({
   },
   trans: {
     required: true
+  },
+  mapId: {
+    required: true
   }
 });
 const emit = defineEmits(["input", "update-style"]);
@@ -96,6 +99,7 @@ onMounted(() => {
           @input="emitInput($event, tab, layer)"
           :default_value="default_value[tab.part || 'paint'][tab.key]"
           :trans="trans"
+          :mapId="mapId"
         >
         </TabContent>
       </div>

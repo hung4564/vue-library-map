@@ -14,6 +14,7 @@
       v-bind="attrs"
       :value="form"
       @change="form = $event"
+      :mapId="mapId"
     ></component>
     <div v-if="default_value != null" class="full-width">
       <hr class="map-divider" />
@@ -38,7 +39,12 @@ const props = defineProps({
   },
   default_value: {},
   disabled: Boolean,
-  trans: {}
+  trans: {
+    required: true
+  },
+  mapId: {
+    required: true
+  }
 });
 const emit = defineEmits(["input"]);
 const form = computed({

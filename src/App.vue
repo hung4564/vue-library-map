@@ -106,7 +106,7 @@ export default {
           builds: [
             new LayerMapBuild().setLayers([
               new LayerSimpleMapboxBuild()
-                .setStyleType("line")
+                .setStyleType("area")
                 .setColor("blue")
                 .build(),
               new LayerSimpleMapboxBuild()

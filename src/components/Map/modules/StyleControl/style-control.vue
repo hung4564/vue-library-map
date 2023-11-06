@@ -17,7 +17,7 @@ import rasterStyleLang from "@/lang/en/style/raster-style.json";
 import { AMapLayer } from "@/model/datasource/view/map";
 import { MapSimple } from "@/interface/map";
 const [show, toggleShow] = useShow(false);
-const { c_mapId, $map, callMap } = useMap();
+const { c_mapId, callMap, trans } = useMap();
 updateMapLang(c_mapId.value, {
   map: { "style-control": enLang },
   "circle-style": circleStyleLang,
@@ -73,7 +73,7 @@ defineExpose({ open, close });
       >
         <template #title>
           <span class="layer-control__title">
-            {{ $map.trans("map.style-control.title") }}
+            {{ trans("map.style-control.title") }}
           </span>
         </template>
         <div class="style-control">
@@ -81,7 +81,8 @@ defineExpose({ open, close });
             :is="layer_map_component"
             v-model="layer"
             @update-style="onUpdateStyle"
-            :trans="$map.trans"
+            :trans="trans"
+            :mapId="c_mapId"
           />
         </div>
       </DraggableSidebar>

@@ -98,6 +98,7 @@ npm run build
   - [] icon label for layer
   - [] filter simple
   - [] option simple
+  - [] image
 - [] Base map control
   - [x] Base map card
   - [] Add base map

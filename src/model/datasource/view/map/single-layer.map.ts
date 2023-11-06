@@ -1,9 +1,9 @@
-import { updateLayer } from "@/components/Map/helper/layer";
 import { AMapLayer } from "./ALayer";
 import { IMapSingleLayerOption } from "@/interface/datasource/map";
 import { MapSimple } from "@/interface/map";
+import SingleStyle from "@map/modules/StyleControl/style/single-style.vue";
 import { copyByJson } from "@/utils";
-import SingleStyle from "@map/modules/LayerControl/StyleControl/style/single-style.vue";
+import { updateLayer } from "@/components/Map/helper/layer";
 export class MapSingleLayer extends AMapLayer {
   protected layer: any;
   protected source: any;

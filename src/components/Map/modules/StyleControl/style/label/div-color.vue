@@ -22,15 +22,3 @@ export default {
   methods: {}
 };
 </script>
-
-<style scoped>
-.fill-canvas {
-  background-image: linear-gradient(-45deg, transparent 75%, #f4f7fb 0),
-    linear-gradient(45deg, transparent 75%, #f4f7fb 0),
-    linear-gradient(45deg, #f4f7fb 25%, transparent 0),
-    linear-gradient(-45deg, #f4f7fb 25%, transparent 0);
-  background-size: 12px 12px;
-  background-position: 0 0, 0 -6px, 6px 0, -6px -6px;
-  background-repeat: repeat;
-}
-</style>

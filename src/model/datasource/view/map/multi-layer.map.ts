@@ -1,7 +1,7 @@
 import { AMapLayer } from "./ALayer";
 import { IMapMultiLayerOption } from "@/interface/datasource/map";
 import { MapSimple } from "@/interface/map";
-import MultiStyle from "@map/modules/LayerControl/StyleControl/style/multi-style.vue";
+import MultiStyle from "@map/modules/StyleControl/style/multi-style.vue";
 import { copyByJson } from "@/utils";
 import { updateLayer } from "@/components/Map/helper/layer";
 export class MapMultiLayer extends AMapLayer {

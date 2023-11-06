@@ -9,6 +9,7 @@ import {
 } from "@/components/input";
 
 import { Layer } from "mapbox-gl";
+import inputImage from "./content/input-image.vue";
 
 export const TABS: Record<string, Tab[]> = {
   circle: [
@@ -251,6 +252,16 @@ export const DEFAULT_VALUE: Record<string, Partial<Layer>> = {
   }
 };
 export const CONFIG_TABS: Record<string, Partial<Tab>> = {
+  image: {
+    component: {
+      content: inputImage
+    },
+    props: {
+      content: {
+        class: "tab-content-padding"
+      }
+    }
+  },
   color: {
     component: {
       content: inputColorPicker,

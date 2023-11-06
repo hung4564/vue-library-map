@@ -11,13 +11,16 @@ import enLang from "@/lang/en/setting-control.json";
 import { inputText } from "@/components/input";
 import { ref } from "vue";
 import baseButton from "@/components/base/base-button.vue";
+import { setSprite } from "@/store/store-image";
 const [show, setShow] = useShow(false);
-const { callMap, $map, c_mapId } = useMap();
+const { callMap, $map, c_mapId } = useMap(onInit);
 
 updateMapLang(c_mapId.value, {
   map: { "setting-control": enLang }
 });
-
+function onInit(map) {
+  setSprite(c_mapId.value, map.getStyle().sprite);
+}
 function onToggleShow() {
   setShow(!show.value);
   if (show.value) {
