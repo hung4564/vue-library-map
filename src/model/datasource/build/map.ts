@@ -3,7 +3,8 @@ import {
   FillLayer,
   Layer as LayerMapbox,
   LineLayer,
-  RasterLayer
+  RasterLayer,
+  SymbolLayer
 } from "mapbox-gl";
 
 import { ABuild } from "./_default";
@@ -75,7 +76,7 @@ export class LayerSimpleMapboxBuild implements ILayerMapboxBuild {
 export const getDefaultLayer = (
   type: string,
   color?: Color
-): Omit<LineLayer | FillLayer | CircleLayer, "id"> => {
+): Omit<LineLayer | FillLayer | CircleLayer | SymbolLayer, "id"> => {
   switch (type) {
     case "point":
       return {
@@ -103,6 +104,13 @@ export const getDefaultLayer = (
         paint: {
           "fill-color": color || getChartRandomColor()
         }
+      };
+
+    case "symbol":
+      return {
+        layout: { visibility: "visible" },
+        type: "symbol",
+        paint: {}
       };
 
     default:
