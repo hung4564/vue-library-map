@@ -45,7 +45,7 @@ export default {
   position: relative;
   .draggable-handle {
     flex-grow: 0;
-    background: var(--v-primary-base, #38d4ff);
+    background: var(--v-primary-base, #1a73e8);
   }
   .draggable-handle__icon {
     cursor: n-resize;
@@ -64,7 +64,7 @@ export default {
   }
 }
 .draggale-item-active {
-  outline: 2px solid var(--v-primary-base, #38d4ff);
+  outline: 2px solid var(--v-primary-base, #1a73e8);
 }
 </style>
 <style scoped>

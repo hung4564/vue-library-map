@@ -104,6 +104,6 @@ function onToggleImage(image: IconItem) {
   height: 100%;
 }
 .item-icon-active {
-  border-color: var(--v-primary-base);
+  border-color: var(--v-primary-base, #1a73e8);
 }
 </style>

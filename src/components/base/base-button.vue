@@ -28,7 +28,7 @@ const props = defineProps({ active: Boolean, disabled: Boolean });
   border: none;
 }
 .map-control__button-active {
-  color: var(--v-primary-base, #38d4ff) !important;
+  color: var(--v-primary-base, #1a73e8) !important;
 }
 .map-control__button-disabled {
   pointer-events: none;

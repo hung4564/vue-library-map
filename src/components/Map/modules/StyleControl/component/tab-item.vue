@@ -59,6 +59,6 @@ const attrs = computed(() => {
   text-decoration: none;
 }
 .tab-item-active {
-  color: var(--v-primary-base, #38d4ff);
+  color: var(--v-primary-base, #1a73e8);
 }
 </style>

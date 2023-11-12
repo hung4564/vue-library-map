@@ -210,7 +210,7 @@ export default {
 }
 .base-map-control-setting-item__active {
   --v-primary-base: #1a73e8;
-  color: var(--v-primary-base) !important;
-  caret-color: var(--v-primary-base) !important;
+  color: var(--v-primary-base, #1a73e8) !important;
+  caret-color: var(--v-primary-base, #1a73e8) !important;
 }
 </style>

@@ -66,6 +66,6 @@ export default {
   text-align: center;
 }
 .item-choose-active {
-  color: var(--v-primary-base, #38d4ff);
+  color: var(--v-primary-base, #1a73e8);
 }
 </style>

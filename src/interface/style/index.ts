@@ -1,3 +1,5 @@
+import { Layer } from "mapbox-gl";
+
 export interface ITab {
   trans?: string;
   text?: string;
@@ -17,6 +19,9 @@ export interface ITab {
 export interface UnitTab extends ITab {
   unit?: string;
   type: "unit";
+}
+export interface DividersTab extends ITab {
+  type: "divider";
 }
 export interface ColorTab extends ITab {
   unit?: string;
@@ -41,4 +46,31 @@ export interface ChoseTab extends ITab {
     value: string;
   }[];
 }
-export type Tab = ITab | ColorTab | UnitTab | OpacityTab | NumberTab | ChoseTab;
+export type Tab =
+  | DividersTab
+  | ITab
+  | ColorTab
+  | UnitTab
+  | OpacityTab
+  | NumberTab
+  | ChoseTab;
+
+export type SingleTabConfig = {
+  type: "single";
+  items: Tab[];
+};
+export type MultiTabConfig = {
+  type: "multi";
+  tabs: TabConfig[];
+};
+export type LayerTabsConfig = SingleTabConfig | MultiTabConfig;
+export type LayerTypeConfig<L = Layer> = {
+  TAB: LayerTabsConfig;
+  DEFAULT: Partial<L>;
+};
+
+export type TabConfig = {
+  trans?: string;
+  text?: string;
+  items: Tab[];
+};

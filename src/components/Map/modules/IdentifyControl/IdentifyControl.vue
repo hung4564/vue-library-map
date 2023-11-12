@@ -280,7 +280,7 @@ function close() {
     display: flex;
     flex-direction: column;
     b {
-      color: var(--v-primary-base, #38d4ff);
+      color: var(--v-primary-base, #1a73e8);
       padding-right: 4px;
       font-weight: bolder;
     }
@@ -320,7 +320,7 @@ function close() {
     border-width: thin;
     margin-bottom: 4px;
     &__header {
-      color: var(--v-primary-base, #38d4ff);
+      color: var(--v-primary-base, #1a73e8);
       font-weight: bolder;
       white-space: nowrap !important;
       overflow: hidden !important;

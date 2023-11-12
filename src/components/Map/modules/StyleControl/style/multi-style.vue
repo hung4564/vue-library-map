@@ -133,6 +133,9 @@ const onShowAddStyle = (value: boolean) => {
         <base-button @click="onAddStyleLayer('point')">
           {{ trans("map.style-control.add.point") }}
         </base-button>
+        <base-button @click="onAddStyleLayer('symbol')">
+          {{ trans("map.style-control.add.symbol") }}
+        </base-button>
       </div>
     </div>
     <div class="style-container" v-else-if="tab">
