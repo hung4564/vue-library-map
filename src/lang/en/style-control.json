@@ -6,5 +6,15 @@
     "point": "Point",
     "symbol": "Symbol"
   },
-  "back-to-default": "Back to default value"
+  "back-to-default": "Back to default value",
+  "layer": {
+    "title": "Layer",
+    "id": "Id",
+    "type": "Type",
+    "min-zoom": "Min zoom",
+    "max-zoom": "Max zoom"
+  },
+  "style": {
+    "title": "Style"
+  }
 }
