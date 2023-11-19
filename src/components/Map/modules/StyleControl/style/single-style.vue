@@ -140,6 +140,7 @@ onMounted(() => {
   }
   .tab-group-label {
     display: flex;
+    flex-grow: 0;
     .tab {
       border-bottom-width: 3px;
       border-bottom-color: #fff;
@@ -154,8 +155,10 @@ onMounted(() => {
     }
   }
   .tab-group-container {
+    flex-grow: 1;
     display: flex;
     height: 100%;
+    overflow: hidden;
     width: 100%;
   }
   height: 100%;

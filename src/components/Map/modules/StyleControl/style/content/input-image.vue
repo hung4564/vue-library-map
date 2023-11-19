@@ -85,7 +85,7 @@ function onToggleImage(image: IconItem) {
 }
 .item-icon {
   background: transparent;
-  width: calc(20% - 8px);
+  width: calc(25% - 8px);
   overflow: hidden;
   display: flex;
   justify-content: center;

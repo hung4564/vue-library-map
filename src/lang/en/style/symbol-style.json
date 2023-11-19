@@ -16,6 +16,10 @@
     "text-max-width": "Max width",
     "text-halo-blur": "Halo blur",
     "text-halo-width": "Halo width",
-    "text-halo-color": "Halo color"
+    "text-halo-color": "Halo color",
+    "icon-image": "Image",
+    "icon-size": "Size",
+    "icon-opacity": "Opacity",
+    "icon-text-fit": "Fill icon to text"
   }
 }
