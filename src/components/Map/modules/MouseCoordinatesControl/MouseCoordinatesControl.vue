@@ -28,10 +28,11 @@
               style="margin-left: 4px"
               class="selectable"
               v-html="currentPoint"
-              :style="{ 'min-width': isDMS ? '220px' : '100px' }"
+              :style="{ 'min-width': isDMS && isCrsDegree ? '220px' : '100px' }"
             >
             </div>
             <i
+              v-if="isCrsDegree"
               :title="
                 isDMS
                   ? 'DMS <=> Latitude, Longitude'
@@ -52,6 +53,17 @@
           </span>
           <div style="margin-left: 4px">{{ currentZoom }}</div>
         </div>
+        <div class="crs-coordinates">
+          <select v-model="crs" class="crs-select" style="width: 70px">
+            <option
+              :value="item.epsg"
+              :key="item.epsg"
+              v-for="item in crsItems"
+            >
+              {{ item.name }}
+            </option>
+          </select>
+        </div>
         <div ref="scale" class="scale-custom"> </div>
       </div>
     </template>
@@ -63,6 +75,7 @@ import { mdiCached, mdiMapMarkerOutline, mdiMagnify } from "@mdi/js";
 import ModuleMixin from "@/components/Map/mixins/ModuleMixin";
 
 import { debounce } from "@utils";
+import { getCrsItems, getCrs, setCrs } from "@/store/store-crs";
 
 const defaultOptions = {
   unit: "metric"
@@ -88,6 +101,22 @@ export default {
     },
     isMobile() {
       return this.$map.isMobile;
+    },
+    crsItems() {
+      return getCrsItems(this.c_mapId);
+    },
+    crs: {
+      get() {
+        return this.p_crs;
+      },
+      set(value) {
+        this.p_crs = value;
+        this.crsItem = this.crsItems.find((x) => x.epsg == value);
+        return setCrs(this.c_mapId, value);
+      }
+    },
+    isCrsDegree() {
+      return this.crsItem.unit === "degree";
     }
   },
   data() {
@@ -95,7 +124,9 @@ export default {
       lngLat: { latitude: 0, longitude: 0 },
       currentZoom: 0,
       currentPoint: undefined,
-      isDMS: true
+      isDMS: true,
+      p_crs: "",
+      crsItem: {}
     };
   },
 
@@ -110,6 +141,7 @@ export default {
     },
 
     onInit() {
+      this.p_crs = getCrs(this.c_mapId);
       this.bindedOnMouseMove = this.onMouseMove.bind(this);
       this.bindedOnZoomEnd = this.onZoomEnd.bind(this);
       this.bindedOnMapMove = this.onMapMove.bind(this);
@@ -243,7 +275,8 @@ function getRoundNum(num) {
 <style scoped>
 .mouse-coordinates,
 .scale-custom,
-.zoom-coordinates {
+.zoom-coordinates,
+.crs-coordinates {
   background-color: hsla(0, 0%, 100%, 0.7529411764705882);
   border-radius: 4px;
   min-width: 75px;

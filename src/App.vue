@@ -4,6 +4,7 @@
       <MeasurementControl position="top-right" />
       <SettingControl position="bottom-right" />
       <LayerControl position="top-left" />
+      <CrsControl />
       <PrintControl />
       <GeoLocateControl />
       <HomeControl />
@@ -34,7 +35,8 @@ import {
   MeasurementControl,
   LayerControl,
   IdentifyControl,
-  SettingControl
+  SettingControl,
+  CrsControl
 } from "@map";
 import { addLayer } from "./store/store-datasource";
 import {
@@ -57,7 +59,8 @@ export default {
     MeasurementControl,
     LayerControl,
     IdentifyControl,
-    SettingControl
+    SettingControl,
+    CrsControl
   },
   methods: {
     async onMapLoaded(map) {

@@ -37,6 +37,7 @@
     "lodash.merge": "^4.6.2",
     "mapbox-gl": "1.13.0",
     "mitt": "^3.0.1",
+    "proj4": "^2.9.2",
     "sass": "1.59.2",
     "sass-loader": "13.2.0",
     "v-click-outside": "^3.2.0",

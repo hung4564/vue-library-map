@@ -1,0 +1,9 @@
+{
+  "title": "Crs setting",
+  "field": {
+    "name": "name",
+    "unit": "unit",
+    "epsg": "epsg",
+    "proj4js": "proj4js"
+  }
+}

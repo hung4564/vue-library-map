@@ -97,7 +97,7 @@ npm run build
   - [x] raster simple
   - [] icon label for layer
   - [] filter simple
-  - [] option simple
+  - [x] option simple
   - [x] image
 - [] Base map control
   - [x] Base map card

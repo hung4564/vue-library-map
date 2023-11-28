@@ -1,6 +1,7 @@
 import ActionControl from "./ActionControl/ActionControl.vue";
 import BaseMapCard from "./BaseMapControl/BaseMapCard.vue";
 import BaseMapControl from "./BaseMapControl/BaseMapControl.vue";
+import CrsControl from "./CrsControl/CrsControl.vue";
 import FullScreenControl from "./FullScreenControl/FullScreenControl.vue";
 import GeoLocateControl from "./GeoLocateControl/GeoLocateControl.vue";
 import HomeControl from "./HomeControl/HomeControl.vue";
@@ -24,5 +25,6 @@ export {
   PrintControl,
   ActionControl,
   SettingControl,
-  BaseMapCard
+  BaseMapCard,
+  CrsControl
 };

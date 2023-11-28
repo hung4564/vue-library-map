@@ -47,6 +47,9 @@ import { getGlyphs, getSprite } from "@constant";
 import { getUUIDv4 } from "@utils";
 import { setMap, removeMap, setSideBarCount } from "@/store/store-map";
 import { LangMixin } from "@/mixins/lang.mixins";
+import { getCrsItem } from "@/store/store-crs";
+import proj4 from "proj4";
+
 export default {
   components: { DraggableContainer },
   props: {
@@ -160,13 +163,22 @@ export default {
 
   methods: {
     formatCoordinate({ longitude, latitude } = {}, isDMS = false) {
+      const crsItem = getCrsItem(this.id);
       let currentPoint = { longitude: 0, latitude: 0 };
-      if (isDMS) {
-        currentPoint.longitude = lngDMS(+longitude);
-        currentPoint.latitude = latDMS(+latitude);
+      if (!crsItem.default && crsItem.proj4js) {
+        [longitude, latitude] = proj4(crsItem.proj4js, [longitude, latitude]);
+      }
+      if (crsItem.unit === "meter") {
+        currentPoint.longitude = longitude.toFixed(0);
+        currentPoint.latitude = latitude.toFixed(0);
       } else {
-        currentPoint.longitude = longitude.toFixed(6);
-        currentPoint.latitude = latitude.toFixed(6);
+        if (isDMS) {
+          currentPoint.longitude = lngDMS(+longitude);
+          currentPoint.latitude = latDMS(+latitude);
+        } else {
+          currentPoint.longitude = longitude.toFixed(6);
+          currentPoint.latitude = latitude.toFixed(6);
+        }
       }
       return currentPoint;
     },
