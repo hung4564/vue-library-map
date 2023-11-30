@@ -118,6 +118,7 @@ import LayerSingleTextLegend from "@map/modules/LayerControl/Legend/single-value
 import { LayerLegendBuild } from "@/model/datasource/build/legend";
 import { LayerMapBuild, LayerSimpleMapboxBuild } from "@/model";
 import { addImage } from "@/store/store-image";
+import { getCrsItems } from "@/store/store-crs";
 let handler = new MeasurementHandle();
 const DEFAULT_COLOR_HIGHLIGHT = "#004E98";
 export default {
@@ -332,7 +333,7 @@ export default {
     },
     onMeasureMarker() {
       if (!this.checkMeasureRun("point")) return;
-      handler.setAction(new MeasurePoint());
+      handler.setAction(new MeasurePoint(getCrsItems(this.c_mapId)));
       handler.start();
     },
     onMapClick(event) {

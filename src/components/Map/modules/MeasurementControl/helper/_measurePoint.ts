@@ -1,9 +1,17 @@
 import { CoordinatesNumber } from "@/interface/map";
+import { CrsItem } from "@/store/store-crs";
 import { IViewSetting } from "../types";
 import { Measure } from "./_measurement";
+import { formatCoordinate } from "@/components/Map/helper/formatCoordinate";
 import { point } from "@turf/turf";
+import proj4 from "proj4";
 
 export class MeasurePoint extends Measure {
+  protected crs_items: CrsItem[];
+  constructor(crs_items: CrsItem[] = []) {
+    super();
+    this.crs_items = crs_items;
+  }
   get name() {
     return "Measure Point";
   }
@@ -33,9 +41,46 @@ export class MeasurePoint extends Measure {
       return result;
     }
     result.features = [point(this.coordinates[0])];
-    const lng = this.coordinates[0][0].toFixed(6);
-    const lat = this.coordinates[0][1].toFixed(6);
-    result.value = `${lng}, ${lat}`;
+    const lng = this.coordinates[0][0];
+    const lat = this.coordinates[0][1];
+    const temp = formatCoordinate(
+      { longitude: lng, latitude: lat },
+      undefined,
+      false
+    );
+    if (temp) result.value = `${temp.longitude}, ${temp.latitude}`;
+    if (this.crs_items) {
+      const crs_default = this.crs_items.find((x) => x.default);
+      result.fields = [
+        {
+          trans: crs_default?.name,
+          value: result.value
+        }
+      ];
+      this.crs_items
+        .filter((x) => !x.default)
+        .forEach((crs) => {
+          if (!crs.default && crs.proj4js) {
+            const point = formatCoordinate(
+              { longitude: lng, latitude: lat },
+              crs,
+              false
+            );
+            if (point)
+              result.fields?.push({
+                trans: crs.name,
+                value: `${point.longitude}, ${point.latitude}`
+              });
+          }
+        });
+    } else {
+      result.fields = [
+        {
+          trans: "map.measurement.setting.point",
+          value: result.value
+        }
+      ];
+    }
     result.features_label = [
       {
         type: "Feature",
@@ -47,12 +92,6 @@ export class MeasurePoint extends Measure {
           is_label: true,
           text: result.value
         }
-      }
-    ];
-    result.fields = [
-      {
-        trans: "map.measurement.setting.point",
-        value: result.value
       }
     ];
     return result;

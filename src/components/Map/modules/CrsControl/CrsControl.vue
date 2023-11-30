@@ -41,7 +41,7 @@ const unit_items = [
     <template #draggable="props">
       <DraggablePopup
         v-if="show"
-        :height="400"
+        :height="200"
         :width="400"
         v-bind="props"
         :show.sync="show"
@@ -58,6 +58,7 @@ const unit_items = [
           <div class="crs-item">
             <div>
               <InputText
+                readonly
                 v-model="crs_item.name"
                 :label="$map.trans('map.crs-control.field.name')"
               />
@@ -70,12 +71,14 @@ const unit_items = [
             </div>
             <div v-if="!crs_item.default">
               <InputText
+                readonly
                 v-model="crs_item.proj4js"
                 :label="$map.trans('map.crs-control.field.proj4js')"
               />
             </div>
             <div v-if="!crs_item.default">
               <InputSelect
+                readonly
                 v-model="crs_item.unit"
                 :label="$map.trans('map.crs-control.field.unit')"
                 :items="unit_items"

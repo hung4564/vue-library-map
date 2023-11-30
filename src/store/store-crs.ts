@@ -2,7 +2,7 @@ import { getStore as getMapStore, initStore } from "./store";
 
 import { initForMap } from "./store-map";
 
-type CrsItem = {
+export type CrsItem = {
   name: string;
   epsg: string | number;
   default?: boolean;
@@ -32,20 +32,6 @@ function initStoreForMap(mapId: string) {
         unit: "degree",
         proj4js:
           "+proj=longlat +ellps=WGS84 +towgs84=-191.90441429,-39.30318279,-111.45032835,-0.00928836,0.01975479,-0.00427372,0.252906278 +no_defs +type=crs"
-      },
-      {
-        name: "VN-2000 / UTM zone 48N",
-        epsg: 3405,
-        unit: "meter",
-        proj4js:
-          "+proj=utm +zone=48 +ellps=WGS84 +towgs84=-191.90441429,-39.30318279,-111.45032835,-0.00928836,0.01975479,-0.00427372,0.252906278 +units=m +no_defs +type=crs"
-      },
-      {
-        name: "VN-2000 / UTM zone 49N",
-        epsg: 3406,
-        unit: "meter",
-        proj4js:
-          "+proj=utm +zone=49 +ellps=WGS84 +towgs84=-191.90441429,-39.30318279,-111.45032835,-0.00928836,0.01975479,-0.00427372,0.252906278 +units=m +no_defs +type=crs"
       }
     ]
   };
