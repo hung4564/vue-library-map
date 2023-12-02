@@ -104,8 +104,8 @@ npm run build
   - [] Add base map
   - [x] No base map
   - [] add to layer list control?
-- [] Crs format
-  - [] add Crs
+- [x] Crs format
+  - [x] add Crs
 - [x] setting center,zoom
 
 ## License

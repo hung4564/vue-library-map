@@ -1,5 +1,5 @@
-<script setup>
-import { mdiInboxOutline } from "@mdi/js";
+<script setup lang="ts">
+import { mdiDelete, mdiInboxOutline, mdiPlus } from "@mdi/js";
 import { DraggablePopup } from "@hungpv97/vue-library-draggable";
 import ModuleContainer from "@components/Map/ModuleContainer.vue";
 import MapControlButton from "@components/Map/control/MapControlButton.vue";
@@ -9,24 +9,38 @@ import enLang from "@/lang/en/crs-control.json";
 import { useShow } from "@/hooks/useShow";
 import { updateMapLang } from "@/store/store-lang";
 import Collapse from "@/components/Collapse/index.vue";
-import { ref } from "vue";
+import { computed } from "vue";
 import InputText from "@/components/input/input-text.vue";
 import InputSelect from "@/components/input/input-select.vue";
-import { getCrsItems } from "@/store/store-crs";
+import { getCrsItems, setCrsItems, CrsItem } from "@/store/store-crs";
 const { $map, c_mapId } = useMap();
 const [show, setShow] = useShow(false);
-const crs_items = ref([]);
 updateMapLang(c_mapId.value, {
   map: { "crs-control": enLang }
 });
 function onToggleShow() {
   setShow(!show.value);
-  crs_items.value = getCrsItems(c_mapId.value);
 }
+const crs_items = computed(() => {
+  return getCrsItems(c_mapId.value);
+});
 const unit_items = [
   { text: "degree", value: "degree" },
   { text: "meter", value: "meter" }
 ];
+const path = {
+  delete: mdiDelete,
+  plus: mdiPlus
+};
+const onRemove = (item: CrsItem) => {
+  setCrsItems(
+    c_mapId.value,
+    crs_items.value.filter((x) => x.epsg !== item.epsg)
+  );
+};
+const onAdd = () => {
+  crs_items.value.push({ name: "", unit: "degree", epsg: "" });
+};
 </script>
 <template>
   <ModuleContainer v-bind="$attrs">
@@ -53,32 +67,47 @@ const unit_items = [
           :selected="false"
         >
           <template #header>
-            {{ crs_item.name }}
+            <div class="crs-item-header">
+              <div class="crs-item-header__title">
+                {{ crs_item.name }}
+              </div>
+              <div class="crs-item-header__action">
+                <button
+                  class="layer-item__button"
+                  v-if="!crs_item.default"
+                  @click.stop="onRemove(crs_item)"
+                >
+                  <SvgIcon size="14" type="mdi" :path="path.delete" />
+                </button>
+              </div>
+            </div>
           </template>
           <div class="crs-item">
             <div>
               <InputText
-                readonly
-                v-model="crs_item.name"
+                :readonly="crs_item.default"
+                :value="crs_item.name"
+                @change="crs_item.name = $event"
                 :label="$map.trans('map.crs-control.field.name')"
               />
             </div>
             <div>
               <InputText
-                v-model="crs_item.epsg"
+                :readonly="crs_item.default"
+                :value="crs_item.epsg"
+                @change="crs_item.epsg = $event"
                 :label="$map.trans('map.crs-control.field.epsg')"
               />
             </div>
             <div v-if="!crs_item.default">
               <InputText
-                readonly
-                v-model="crs_item.proj4js"
+                :value="crs_item.proj4js"
+                @change="crs_item.proj4js = $event"
                 :label="$map.trans('map.crs-control.field.proj4js')"
               />
             </div>
             <div v-if="!crs_item.default">
               <InputSelect
-                readonly
                 v-model="crs_item.unit"
                 :label="$map.trans('map.crs-control.field.unit')"
                 :items="unit_items"
@@ -86,6 +115,11 @@ const unit_items = [
             </div>
           </div>
         </Collapse>
+        <div class="crs-item__add">
+          <button class="layer-item__button clickable" @click.stop="onAdd()">
+            <SvgIcon size="14" type="mdi" :path="path.plus" />
+          </button>
+        </div>
       </DraggablePopup>
     </template>
 
@@ -93,10 +127,27 @@ const unit_items = [
   </ModuleContainer>
 </template>
 <style scoped>
+.crs-item-header {
+  display: flex;
+  flex-grow: 1;
+}
+.crs-item-header__title {
+  flex-grow: 1;
+}
+.crs-item-header__action {
+  flex-grow: 0;
+}
 .crs-item {
   padding: 4px 16px;
 }
 .crs-item .form-group {
   padding-bottom: 4px;
+}
+.crs-item__add {
+  padding: 8px;
+}
+.crs-item__add .layer-item__button {
+  padding: 8px;
+  width: 100%;
 }
 </style>

@@ -60,7 +60,7 @@
               :key="item.epsg"
               v-for="item in crsItems"
             >
-              {{ item.name }}
+              {{ item.name || item.epsg }}
             </option>
           </select>
         </div>
@@ -103,7 +103,9 @@ export default {
       return this.$map.isMobile;
     },
     crsItems() {
-      return getCrsItems(this.c_mapId);
+      return getCrsItems(this.c_mapId).filter(
+        (x) => x.default || (x.proj4js && x.epsg)
+      );
     },
     crs: {
       get() {

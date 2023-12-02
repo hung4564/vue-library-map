@@ -4,7 +4,6 @@ import { IViewSetting } from "../types";
 import { Measure } from "./_measurement";
 import { formatCoordinate } from "@/components/Map/helper/formatCoordinate";
 import { point } from "@turf/turf";
-import proj4 from "proj4";
 
 export class MeasurePoint extends Measure {
   protected crs_items: CrsItem[];

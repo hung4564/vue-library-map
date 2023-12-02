@@ -1,5 +1,6 @@
 import { getStore as getMapStore, initStore } from "./store";
 
+import Vue from "vue";
 import { initForMap } from "./store-map";
 
 export type CrsItem = {
@@ -21,7 +22,7 @@ function initStoreForMap(mapId: string) {
   if (getMapStore(KEY)[mapId]) {
     return;
   }
-  getMapStore(KEY)[mapId] = {
+  getMapStore(KEY)[mapId] = Vue.observable({
     crs: 4326,
     item: { name: "WGS 84", epsg: 4326, default: true, unit: "degree" },
     items: [
@@ -34,7 +35,7 @@ function initStoreForMap(mapId: string) {
           "+proj=longlat +ellps=WGS84 +towgs84=-191.90441429,-39.30318279,-111.45032835,-0.00928836,0.01975479,-0.00427372,0.252906278 +no_defs +type=crs"
       }
     ]
-  };
+  });
 }
 const removeStoreForMap = (mapId: string) => {
   delete getMapStore(KEY)[mapId];
