@@ -104,6 +104,9 @@ npm run build
   - [] Add base map
   - [x] No base map
   - [] add to layer list control?
+- Edit data
+  - Geojson edit
+  - Vector data edit
 - [x] Crs format
   - [x] add Crs
 - [x] setting center,zoom

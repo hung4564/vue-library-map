@@ -8,8 +8,8 @@ export function formatCoordinate(
   crs?: CrsItem,
   isDMS = false
 ) {
-  if (!longitude || !latitude) return;
   const currentPoint = { longitude: "0", latitude: "0" };
+  if (!longitude || !latitude) return currentPoint;
   if (crs && !crs.default && crs.proj4js) {
     [longitude, latitude] = proj4(crs.proj4js, [longitude, latitude]);
   }
