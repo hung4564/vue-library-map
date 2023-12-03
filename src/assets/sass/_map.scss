@@ -78,10 +78,14 @@
     flex-direction: column-reverse;
     justify-content: right;
     align-items: flex-end;
-    .mouse-coordinates {
+    .mouse-coordinates,
+    .crs-coordinates {
       flex-grow: 0;
       margin-top: 8px;
       margin-right: 0;
+      select {
+        text-align: center;
+      }
     }
     .mouse-coordinates-point {
       padding-left: 0 !important;
