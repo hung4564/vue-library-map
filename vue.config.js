@@ -27,12 +27,12 @@ function getProdExternals() {
 
 module.exports = {
   pluginOptions: {
-    // webpackBundleAnalyzer: {
-    //   openAnalyzer: false,
-    //   analyzerMode: process.env.NODE_ENV.includes("production")
-    //     ? "disabled"
-    //     : "json"
-    // }
+    webpackBundleAnalyzer: {
+      openAnalyzer: false,
+      analyzerMode: process.env.NODE_ENV.includes("production")
+        ? "disabled"
+        : "json"
+    }
   },
   chainWebpack: (config) => {
     // These are some necessary steps changing the default webpack config of the Vue CLI
