@@ -102,6 +102,7 @@ import {
   mdiMenuLeft,
   mdiPencilOutline
 } from "@mdi/js";
+import { KEY_BUILD } from "@/model/datasource/type";
 const props = defineProps({
   item: {
     require: true,
@@ -176,8 +177,8 @@ const onToBounds = () => {
 const onToggleLegend = () => {
   legendShow.value = !legendShow.value;
   if (legendShow.value) {
-    if (!legendConfig.value) props.item.parent.runBuild("legend");
-    legendConfig.value = props.item.parent.getView("legend").config;
+    if (!legendConfig.value) props.item.parent.runBuild(KEY_BUILD.LEGEND);
+    legendConfig.value = props.item.parent.getView(KEY_BUILD.LEGEND).config;
   }
 };
 </script>

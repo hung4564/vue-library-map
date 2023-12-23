@@ -9,14 +9,14 @@ import {
 
 import { ABuild } from "./_default";
 import { Color } from "@/interface/datasource/list";
+import { KEY_BUILD } from "../type";
 import { Layer } from "../Layer";
 import { MapMultiLayer } from "../view/map";
 import { getChartRandomColor } from "@/utils/color";
 
 export class LayerMapBuild extends ABuild {
-  editable: boolean = false;
   constructor(option = {}) {
-    super("map", option);
+    super(KEY_BUILD.MAP, option);
     this.setBuild((_: any, option: any) => new MapMultiLayer(option));
   }
   setLayers(layers: Omit<LayerMapbox, "id">[]) {
@@ -31,11 +31,8 @@ export class LayerMapBuild extends ABuild {
     this.option.source = source;
     return this;
   }
-  setEditable(editable = true) {
-    this.editable = editable;
-    return this;
-  }
-  runAfterSetLayer(layer: Layer) {
+  setForLayer(layer: Layer) {
+    if (this.build) layer.setBuild(this.key, this.build, this.option);
     layer.getAction().addAction({
       id: "editable",
       menu: {
@@ -45,6 +42,7 @@ export class LayerMapBuild extends ABuild {
       },
       type: "edit-style"
     });
+    return this;
   }
 }
 export interface ILayerMapboxBuild {

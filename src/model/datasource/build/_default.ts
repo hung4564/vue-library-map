@@ -21,5 +21,4 @@ export abstract class ABuild<
     if (this.build) layer.setBuild(this.key, this.build, this.option);
     return this;
   }
-  runAfterSetLayer?(layer: Layer): any;
 }

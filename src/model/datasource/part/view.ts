@@ -1,7 +1,7 @@
 import { LayerPartContainer } from "./_default";
 
 export class LayerViewContainer extends LayerPartContainer {
-  views: any = {};
+  views: Record<string, any> = {};
   add(key = "", view = {}) {
     this.views[key] = view;
     return this;
@@ -26,7 +26,11 @@ export class LayerViewContainer extends LayerPartContainer {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function withViews(views: any[], cb = (view: any) => {}, bind: any) {
+function withViews(
+  views: Record<string, any>,
+  cb = (view: any) => {},
+  bind: any
+) {
   for (const key in views) {
     if (Object.hasOwnProperty.call(views, key)) {
       cb.bind(bind)(views[key]);

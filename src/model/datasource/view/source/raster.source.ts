@@ -1,19 +1,21 @@
-import { IRasterOption, IRasterSource, SourceScheme } from "@/interface/map";
+import { ISource, ISourceBuild } from "@/interface/source";
+import { MapSimple, SourceScheme } from "@/interface/map";
 
 import { ASource } from "./ASource";
 import type { BBox } from "geojson";
-import { ISourceBuild } from "@/interface/source";
+import { RasterSource as MapBoxRasterSource } from "mapbox-gl";
 
-export class RasterSource extends ASource {
-  public option: IRasterOption;
+export class RasterSource extends ASource implements ISource {
+  public option: Partial<MapBoxRasterSource>;
   constructor(option = {}) {
     super();
     this.option = option;
     if (this.option.bounds) {
-      this.setBounds(this.option.bounds);
+      this.setBounds(this.option.bounds as [number, number, number, number]);
     }
   }
-  getMapboxSource(): IRasterSource {
+  updateForMap(map: MapSimple) {}
+  getMapboxSource(): MapBoxRasterSource {
     return {
       type: "raster",
       ...this.option,
@@ -23,7 +25,7 @@ export class RasterSource extends ASource {
 }
 
 export class RasterSourceBuild implements ISourceBuild {
-  option: IRasterOption = {};
+  option: Partial<MapBoxRasterSource> = {};
   setTiles(tiles: string[]) {
     this.option.tiles = tiles;
     return this;

@@ -407,24 +407,22 @@ export default {
                 text: x.trans ? this.$map.trans(x.trans) : x.text
               }))
             ),
-            new LayerMapBuild()
-              .setLayers([
-                new LayerSimpleMapboxBuild()
-                  .setStyleType(handler.action.type)
-                  .setColor(color)
-                  .build(),
-                {
-                  layout: { visibility: "visible" },
-                  type: "circle",
-                  paint: {
-                    "circle-color": "#fff",
-                    "circle-radius": 5,
-                    "circle-stroke-color": color,
-                    "circle-stroke-width": 2
-                  }
+            new LayerMapBuild().setLayers([
+              new LayerSimpleMapboxBuild()
+                .setStyleType(handler.action.type)
+                .setColor(color)
+                .build(),
+              {
+                layout: { visibility: "visible" },
+                type: "circle",
+                paint: {
+                  "circle-color": "#fff",
+                  "circle-radius": 5,
+                  "circle-stroke-color": color,
+                  "circle-stroke-width": 2
                 }
-              ])
-              .setEditable()
+              }
+            ])
           ]
         })
       );

@@ -1,13 +1,10 @@
-import { IView } from "./view";
 import { Menu } from "./list";
 
 export type LayerActionOption = {
   actions: LayerAction[];
 };
-type Action = IView & IAction;
+type Action = IAction;
 export interface LayerActionView extends Action {
-  id: string;
-  name?: string;
   config: LayerActionOption;
 }
 export type LayerAction = {
@@ -17,7 +14,7 @@ export type LayerAction = {
   type?: string;
   option?: any;
 };
-export interface IAction extends IView {
+export interface IAction {
   call: (id: string) => any;
   menus?: Menu[];
   get(id: string): LayerAction;

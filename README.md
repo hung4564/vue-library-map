@@ -105,7 +105,10 @@ npm run build
   - [x] No base map
   - [] add to layer list control?
 - Edit data
-  - Geojson edit
+  - [x] Geojson edit simple
+  - [] Raster edit simple
+  - [] Vector edit simple
+  - [] Draw edit
   - Vector data edit
 - [x] Crs format
   - [x] add Crs

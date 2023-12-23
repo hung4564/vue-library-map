@@ -1,8 +1,10 @@
 import { AView } from "../view";
+import { AnySourceData } from "mapbox-gl";
 import type { BBox } from "geojson";
 import { ISource } from "@/interface/source";
+import { MapSimple } from "@/interface/map";
 
-export class ASource extends AView implements ISource {
+export abstract class ASource extends AView implements ISource {
   bounds: BBox;
   constructor() {
     super();
@@ -19,7 +21,20 @@ export class ASource extends AView implements ISource {
       this.parent.metadata.bounds = bounds;
     }
   }
-  getMapboxSource() {
-    return {};
+  addToMap(map: MapSimple) {
+    if (this.id && !map.getSource(this.id)) {
+      map.addSource(this.id, this.getMapboxSource());
+    }
+  }
+  removeFromMap(map: MapSimple) {
+    if (this.id && map.getSource(this.id)) {
+      map.removeSource(this.id);
+    }
+  }
+  abstract updateForMap(map: MapSimple): void;
+  getMapboxSource(): AnySourceData {
+    return {
+      type: "geojson"
+    };
   }
 }

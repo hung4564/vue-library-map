@@ -20,5 +20,9 @@ export const EVENTBUS_TYPE = {
     ADD: "map:add-event",
     REMOVE: "map:remove-event",
     UPDATE_CURRENT: "map:update-event-current"
+  },
+  COMPONENT: {
+    ADD: "map:add-component",
+    REMOVE: "map:remove-component"
   }
 };

@@ -3,6 +3,7 @@ import {
   LayerMapContainer,
   LayerViewContainer
 } from "./part";
+import { TYPE_BUILD, TYPE_VIEW } from "./type";
 
 import type { BBox } from "geojson";
 import { Base } from "../Base";
@@ -57,13 +58,19 @@ export class Layer<TSource extends ISource = ISource> extends Base {
   isHasMap(map: MapSimple) {
     return this._map.isHas(map.id);
   }
-  addToMap(map: MapSimple, ...args: any[]) {
+  async addToMap(map: MapSimple, ...args: any[]) {
     this._map.add(map.id);
-    return this._view.runWithNameFunction("addToMap", map, ...args);
+    this.source.addToMap(map);
+    await this._view.runWithNameFunction("addToMap", map, ...args);
   }
-  removeFromMap(map: MapSimple, ...args: any[]) {
+  async removeFromMap(map: MapSimple, ...args: any[]) {
     this._map.remove(map.id);
-    return this._view.runWithNameFunction("removeFromMap", map, ...args);
+    await this._view.runWithNameFunction("removeFromMap", map, ...args);
+    this.source.removeFromMap(map);
+  }
+  async updateForMap(map: MapSimple, ...args: any[]) {
+    this.source.updateForMap(map);
+    await this._view.runWithNameFunction("updateForMap", map, ...args);
   }
   setInfo(info: LayerInfo) {
     if (info.metadata == null) {
@@ -87,7 +94,7 @@ export class Layer<TSource extends ISource = ISource> extends Base {
   setView(...args: any[]) {
     return this._view.add(...args);
   }
-  getView(key: string) {
+  getView<T extends TYPE_BUILD>(key: T): TYPE_VIEW<T> {
     return this._view.get(key);
   }
   runBuild(key: string) {
@@ -99,7 +106,6 @@ export class Layer<TSource extends ISource = ISource> extends Base {
   }
   setSource(source: TSource) {
     this.source = source;
-    this.source.setParent(this);
     if (source.bounds) {
       this.metadata.bounds = source.bounds;
     }
@@ -112,7 +118,6 @@ export class Layer<TSource extends ISource = ISource> extends Base {
   }
   setAction(action: IAction) {
     this.action = action;
-    this.action.setParent(this);
   }
   callAction(id: string) {
     return this.action.call(id);

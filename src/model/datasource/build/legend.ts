@@ -1,11 +1,12 @@
 import { LegendOption, LegendView } from "@/interface/datasource/legend";
 
 import { ABuild } from "./_default";
+import { KEY_BUILD } from "../type";
 import { Layer } from "../Layer";
 
 export class LayerLegendBuild extends ABuild<LegendOption> {
   constructor() {
-    super("legend", { items: [] });
+    super(KEY_BUILD.LEGEND, { items: [] });
     this.setBuild(createIdentifyView);
   }
   addItem(item: any) {

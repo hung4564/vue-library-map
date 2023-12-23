@@ -7,11 +7,12 @@ import {
 } from "@/interface/datasource/list";
 
 import { ABuild } from "./_default";
+import { KEY_BUILD } from "../type";
 import { createDefaultViewInList } from "../view/list";
 
 export class LayerListBuild extends ABuild<ListOption, ListView> {
   constructor(option: ListOption = {}) {
-    super("list", option, { show: true, opacity: 1 });
+    super(KEY_BUILD.LIST, option, { show: true, opacity: 1 });
     this.setBuild(createDefaultViewInList);
   }
   disableDelete() {

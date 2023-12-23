@@ -1,10 +1,12 @@
-import { Layer } from "../Layer";
-import { ABuild } from "./_default";
 import { IdentifyOption, IdentifyView } from "@/interface/datasource/identify";
+
+import { ABuild } from "./_default";
+import { KEY_BUILD } from "../type";
+import { Layer } from "../Layer";
 
 export class LayerIdentifyBuild extends ABuild<IdentifyOption> {
   constructor(option: IdentifyOption = {}) {
-    super("identify", option, {});
+    super(KEY_BUILD.IDENTIFY, option, {});
     this.setFieldName().setFieldId();
     this.setBuild(createIdentifyView);
   }

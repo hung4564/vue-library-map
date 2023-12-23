@@ -2,6 +2,7 @@ import { EVENTBUS_TYPE, eventBus } from "@/utils/event-bus";
 import { getMap, initForMap } from "./store-map";
 import { getStore, initStore } from "./store";
 
+import { KEY_BUILD } from "@/model/datasource/type";
 import { Layer } from "../model/datasource";
 import { MapSimple } from "@/interface/map";
 
@@ -19,15 +20,17 @@ const removeStoreForMap = (mapId: string) => {
 };
 export async function addLayer(mapId: string, layer: Layer) {
   getStore(KEY)[mapId][layer.id] = layer;
-  if (layer.canBuildForView("list")) {
-    layer.runBuild("list");
-    layer.getView("list").index = Object.keys(getStore(KEY)[mapId]).length;
+  if (layer.canBuildForView(KEY_BUILD.LIST)) {
+    layer.runBuild(KEY_BUILD.LIST);
+    layer.getView(KEY_BUILD.LIST).index = Object.keys(
+      getStore(KEY)[mapId]
+    ).length;
   }
-  if (layer.canBuildForView("map")) {
-    layer.runBuild("map");
+  if (layer.canBuildForView(KEY_BUILD.MAP)) {
+    layer.runBuild(KEY_BUILD.MAP);
   }
-  if (layer.canBuildForView("identify")) {
-    layer.runBuild("identify");
+  if (layer.canBuildForView(KEY_BUILD.IDENTIFY)) {
+    layer.runBuild(KEY_BUILD.IDENTIFY);
   }
   getMap(mapId, async (map: MapSimple) => {
     layer.addToMap(map);

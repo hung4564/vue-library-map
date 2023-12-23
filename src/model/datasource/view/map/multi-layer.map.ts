@@ -39,9 +39,6 @@ export class MapMultiLayer extends AMapLayer {
     return this.layers.map((x) => x.id);
   }
   addToMap(map: MapSimple, beforeId: string): void {
-    if (this.source && !map.getSource(this.source.id)) {
-      map.addSource(this.source.id, this.source.data);
-    }
     this.layers.forEach((layer) => {
       if (!map.getLayer(layer.id)) {
         if (!layer.source && this.source) {
@@ -60,9 +57,6 @@ export class MapMultiLayer extends AMapLayer {
         map.removeLayer(layer.id);
       }
     });
-    if (this.source && map.getSource(this.source.id)) {
-      map.removeSource(this.source.id);
-    }
   }
   moveLayer(map: MapSimple, beforeId: string): void {
     this.layers.forEach((layer) => {

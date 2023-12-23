@@ -14,7 +14,7 @@ import { useMap } from "@/components/Map/mixins/useMap";
 import ModuleContainer from "@/components/Map/ModuleContainer.vue";
 import { getLayerFromView } from "@/helper/_layer";
 import { useShow } from "@/hooks/useShow";
-import type { LayerAction } from "@/interface/datasource/action";
+import LayerComponent from "./layer-component.vue";
 import type { AGroup, ListView, Menu } from "@/interface/datasource/list";
 import type { IView } from "@/interface/datasource/view";
 import type { MapSimple } from "@/interface/map";
@@ -23,7 +23,6 @@ import type { Layer, TLayer } from "@/model";
 import type { AView } from "@/model/datasource/view/view";
 import { getAllViewForKey, removeLayer } from "@/store/store-datasource";
 import { updateMapLang } from "@/store/store-lang";
-import { getUUIDv4 } from "@/utils";
 import { eventBus, EVENTBUS_TYPE } from "@/utils/event-bus";
 import MapControlButton from "@components/Map/control/MapControlButton.vue";
 import { DraggableSidebar } from "@hungpv97/vue-library-draggable";
@@ -214,13 +213,6 @@ const layer_action: { [key: string]: Function } = {
     styleControlRef.value?.open(layer);
   }
 };
-const components_show = ref<
-  {
-    component: any;
-    id: string;
-    attr: any;
-  }[]
->([]);
 function onLayerAction({ menu, item }: { item: ListView; menu: Menu }) {
   if (!menu) return;
   if (menu.type !== "item") return;
@@ -229,27 +221,11 @@ function onLayerAction({ menu, item }: { item: ListView; menu: Menu }) {
   let layer = getLayerFromView(item);
   if (!layer) return;
   const menu_layer = layer.getAction().get(menu.id);
-  if (menu_layer.component) {
-    onAddComponent(menu_layer, item, menu_layer.option);
-  } else if (menu_layer.type && layer_action[menu_layer.type]) {
+  if (menu_layer.type && layer_action[menu_layer.type]) {
     layer_action[menu_layer.type](layer, menu_layer);
   } else {
     layer.getAction().call(menu.id);
   }
-}
-function onAddComponent(menu: LayerAction, item: ListView, option: any) {
-  components_show.value.push({
-    component: menu.component,
-    id: getUUIDv4(),
-    attr: { item, option }
-  });
-}
-function onRemoveComponent(item: { component: any; id: string; attr: any }) {
-  let index = components_show.value.findIndex((x) => x.id == item.id);
-  if (index < 0) {
-    return;
-  }
-  components_show.value.splice(index, 1);
 }
 </script>
 <template>
@@ -348,14 +324,6 @@ function onRemoveComponent(item: { component: any; id: string; attr: any }) {
           </div>
         </div>
       </DraggableSidebar>
-
-      <component
-        :is="item.component"
-        v-for="item in components_show"
-        :key="item.id"
-        v-bind="{ ...props, ...item.attr }"
-        @close="onRemoveComponent(item)"
-      ></component>
     </template>
 
     <LayerItemContextMenu
@@ -366,6 +334,7 @@ function onRemoveComponent(item: { component: any; id: string; attr: any }) {
     <LayerCreateControl :show.sync="showCreate" />
     <slot />
     <StyleControl ref="styleControlRef" />
+    <LayerComponent />
   </ModuleContainer>
 </template>
 

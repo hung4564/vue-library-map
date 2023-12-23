@@ -16,6 +16,7 @@ import symbolStyleLang from "@/lang/en/style/symbol-style.json";
 import rasterStyleLang from "@/lang/en/style/raster-style.json";
 import { AMapLayer } from "@/model/datasource/view/map";
 import { MapSimple } from "@/interface/map";
+import { KEY_BUILD } from "@/model/datasource/type";
 const [show, toggleShow] = useShow(false);
 const { c_mapId, callMap, trans } = useMap();
 updateMapLang(c_mapId.value, {
@@ -35,7 +36,7 @@ const open = (_layer: Layer) => {
   toggleShow(true);
   layer_map.value = undefined;
   nextTick(() => {
-    layer_map.value = _layer.getView("map") as AMapLayer;
+    layer_map.value = _layer.getView(KEY_BUILD.MAP);
     layer.value = layer_map.value.getValue();
   });
 };

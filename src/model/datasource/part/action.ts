@@ -4,17 +4,14 @@ import {
   LayerActionView
 } from "@/interface/datasource/action";
 
-import { ABuild } from "./_default";
+import { KEY_BUILD } from "../type";
 import { Layer } from "../Layer";
 import { Menu } from "@/interface/datasource/list";
 
-export class LayerActionBuild extends ABuild<
-  LayerActionOption,
-  LayerActionView
-> {
+export class LayerActionBuild {
+  option: LayerActionOption;
   constructor(option: LayerActionOption = { actions: [] }) {
-    super("action", option, { actions: [] });
-    this.setBuild(createActionView);
+    this.option = option;
   }
   addAction(action: LayerAction) {
     this.option.actions.push(action);
@@ -24,16 +21,14 @@ export class LayerActionBuild extends ABuild<
     this.option.actions.push(...actions);
     return this;
   }
-  setForLayer(layer: Layer) {
-    if (this.build) layer.setAction(this.build(layer, this.option));
-    return this;
+  build(layer: Layer) {
+    return createActionView(layer, this.option);
   }
 }
 export function createActionView(
   layer: Layer,
   config: LayerActionOption
 ): LayerActionView {
-  let parent = layer;
   let menu_cache: { [key: string]: LayerAction } = {};
   const resetCacheMenu = () => {
     menu_cache = config.actions.reduce<{ [key: string]: LayerAction }>(
@@ -46,19 +41,12 @@ export function createActionView(
   };
   resetCacheMenu();
   const temp = {
-    setParent(_parent: Layer) {
-      parent = _parent;
-    },
-    get parent() {
-      return parent;
-    },
-    get id() {
-      return parent.id;
-    },
     config,
     call(id: string) {
       const menu = menu_cache[id];
-      console.log("🚀 ~ call ~ id", id, menu, parent);
+      if (menu.component) {
+        layer.getView(KEY_BUILD.COMPONENT).setFromAction(menu);
+      }
     },
     get menus() {
       return config.actions.reduce<Menu[]>((acc, cur) => {

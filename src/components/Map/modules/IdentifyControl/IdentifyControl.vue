@@ -94,6 +94,7 @@ import enLang from "@/lang/en/identify.json";
 
 import { useEventMap } from "@/hooks/useEvent";
 import { EventClick, EventBboxRanger } from "@/model";
+import { KEY_BUILD } from "@/model/datasource/type";
 const VIEW_KEY_TYPE = "identify";
 const path = {
   icon: mdiHandPointingUp,
@@ -177,7 +178,7 @@ function onRemoveBox() {
   removeEventBbox();
 }
 
-function onRemoveIdenity() {
+function onRemoveIdentify() {
   onRemoveMapClick();
   onRemoveBox();
 }
@@ -228,7 +229,7 @@ const hasViews = computed(() => {
 const idLayersMapping = computed(() => {
   return views.value.reduce((acc, view) => {
     let layer = getLayerFromView(view);
-    let view_layer = layer.getView("map");
+    let view_layer = layer.getView(KEY_BUILD.MAP);
     let layer_ids = view_layer.getAllLayerIds();
     layer_ids.forEach((layer_id) => {
       acc[layer_id] = view;
@@ -247,7 +248,7 @@ onMounted(() => {
   });
 });
 onBeforeUnmount(() => {
-  onRemoveIdenity();
+  onRemoveIdentify();
 });
 const formatCoordinate = inject("formatCoordinate");
 const currentPoint = computed(() => {
@@ -258,7 +259,7 @@ const currentPoint = computed(() => {
   return point.longitude + ", &nbsp;" + point.latitude;
 });
 function close() {
-  onRemoveIdenity();
+  onRemoveIdentify();
 }
 </script>
 <style>

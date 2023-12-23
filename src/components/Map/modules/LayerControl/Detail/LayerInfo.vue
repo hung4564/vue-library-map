@@ -11,11 +11,6 @@ import { defineEmits, defineProps } from "vue";
 import TableTdLayer from "./table-td-layer.vue";
 const { $map } = useMap();
 const emit = defineEmits(["close"]);
-function onUpdateShow(val) {
-  if (!val) {
-    emit("close");
-  }
-}
 const props = defineProps({
   item: {},
   option: {
@@ -24,8 +19,13 @@ const props = defineProps({
     })
   }
 });
+function onUpdateShow(val) {
+  if (!val) {
+    emit("close");
+  }
+}
 </script>
-<template lang="">
+<template>
   <DraggablePopup v-bind="$attrs" show @update:show="onUpdateShow" :width="400">
     <template #title>
       {{ $map.trans("map.layer-control.info.title") }}

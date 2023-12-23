@@ -19,18 +19,20 @@ function getProdExternals() {
     "v-click-outside": "v-click-outside",
     vuedraggable: "vuedraggable",
     mitt: "mitt",
-    "@turf/turf": "@turf/turf"
+    "@turf/turf": "@turf/turf",
+    codemirror: "codemirror",
+    "vue-codemirror": "vue-codemirror"
   };
 }
 
 module.exports = {
   pluginOptions: {
-    webpackBundleAnalyzer: {
-      openAnalyzer: false,
-      analyzerMode: process.env.NODE_ENV.includes("production")
-        ? "disabled"
-        : "json"
-    }
+    // webpackBundleAnalyzer: {
+    //   openAnalyzer: false,
+    //   analyzerMode: process.env.NODE_ENV.includes("production")
+    //     ? "disabled"
+    //     : "json"
+    // }
   },
   chainWebpack: (config) => {
     // These are some necessary steps changing the default webpack config of the Vue CLI
