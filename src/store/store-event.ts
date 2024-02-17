@@ -45,7 +45,7 @@ export function removeListenerMap(mapId: string, event: IEvent) {
   eventBus.emit(EVENTBUS_TYPE.EVENT.REMOVE, event);
 }
 export function getListenerMap(mapId: string, event: string) {
-  let listeners = getStore(mapId).items || [];
+  let listeners = (getStore(mapId) && getStore(mapId).items) || [];
   if (event) {
     listeners = listeners.filter((x: IEvent) => x.event_map_type === event);
   }
@@ -61,5 +61,5 @@ export function setCurrentEvent(
 }
 
 export function getCurrentEvent(mapId: string, event_map_type: string) {
-  return getStore(mapId).current[event_map_type];
+  return (getStore(mapId) || {}).current[event_map_type];
 }

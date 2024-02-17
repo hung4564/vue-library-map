@@ -1,9 +1,9 @@
 import { ISource, ISourceBuild } from "@/interface/source";
-import { MapSimple, SourceScheme } from "@/interface/map";
 
 import { ASource } from "./ASource";
 import type { BBox } from "geojson";
 import { RasterSource as MapBoxRasterSource } from "mapbox-gl";
+import { SourceScheme } from "@/interface/map";
 
 export class RasterSource extends ASource implements ISource {
   public option: Partial<MapBoxRasterSource>;
@@ -14,7 +14,7 @@ export class RasterSource extends ASource implements ISource {
       this.setBounds(this.option.bounds as [number, number, number, number]);
     }
   }
-  updateForMap(map: MapSimple) {}
+  updateForMap() {}
   getMapboxSource(): MapBoxRasterSource {
     return {
       type: "raster",

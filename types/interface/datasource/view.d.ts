@@ -1,8 +1,7 @@
-import { ISource } from "../source";
 import { Layer } from "@/model/datasource";
-export interface IView<TSource extends ISource = ISource> {
+export interface IView {
   id: string;
-  parent?: Layer<TSource>;
+  parent?: Layer;
   setParent(_parent: Layer): void;
 }
 export declare type LayerBuildFunction<

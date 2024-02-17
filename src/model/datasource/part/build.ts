@@ -1,5 +1,5 @@
-import { LayerBuildFunction } from "@/interface/datasource/view";
 import { Layer } from "../Layer";
+import { LayerBuildFunction } from "@/interface/datasource/view";
 import { LayerPartContainer } from "./_default";
 
 export class LayerBuildContainer extends LayerPartContainer {

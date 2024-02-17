@@ -1,24 +1,23 @@
-import { ListView, Menu } from "./list";
-import { IView } from "./view";
+import { Menu } from "./list";
 export declare type LayerActionOption = {
   actions: LayerAction[];
 };
-declare type Action = IView & IAction;
+declare type Action = IAction;
 export interface LayerActionView extends Action {
-  id: string;
-  name?: string;
   config: LayerActionOption;
 }
-export declare type LayerAction<T = any> = {
+export declare type LayerAction = {
   id: string;
-  component: any;
-  menu?: Menu;
-  convert?: (view: ListView) => T;
+  component?: any;
+  menu: Menu;
+  type?: string;
   option?: any;
 };
-export interface IAction extends IView {
-  call: (id: string) => any;
+export interface IAction {
+  call: (id: string, map_id: string) => any;
   menus?: Menu[];
   get(id: string): LayerAction;
+  addActions(actions: LayerAction[]): LayerActionView;
+  addAction(action: LayerAction): LayerActionView;
 }
 export {};

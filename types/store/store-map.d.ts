@@ -15,7 +15,7 @@ export declare const getSideBarCount: (id: string) => any;
 export declare const removeMap: (id: string) => void;
 export declare const getMap: (
   id: string | MapSimple,
-  cb?: Function | undefined
+  cb?: ((map: MapSimple) => any) | undefined
 ) => any;
 export declare const initForMap: (
   cb_init: Function,

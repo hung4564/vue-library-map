@@ -79,12 +79,13 @@ export const LINE_CONFIG: LayerTypeConfig = {
       "line-gap-width": 0,
       "line-blur": 0,
       "line-offset": 0,
-      "line-translate": [0, 0],
+      "line-translate": [0, 0]
+    },
+    layout: {
       "line-cap": "butt",
       "line-join": "bevel",
       "line-round-limit": 0,
       "line-miter-limit": 0
-    },
-    layout: {}
+    }
   }
 };

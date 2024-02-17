@@ -1,18 +1,26 @@
-import { BBox, FeatureCollection, Geometry } from "geojson";
+import {
+  BBox,
+  Feature,
+  FeatureCollection,
+  GeoJsonProperties,
+  Geometry
+} from "geojson";
 
 import { IView } from "../datasource/view";
 import { MapSimple } from "../map";
+import { PointLike } from "mapbox-gl";
 
 export interface ISourceBuild {
   build: BuildConstructor;
 }
-export interface ISource extends IView {
-  getMapboxSource: () => object;
-  updateForMap: (map: MapSimple) => void;
-  addToMap: (map: MapSimple) => void;
-  removeFromMap: (map: MapSimple) => void;
-  bounds: BBox;
-}
+export type ISource<IFeature = GeoJsonProperties> = IView &
+  DataHandle<IFeature> & {
+    getMapboxSource: () => object;
+    updateForMap: (map: MapSimple) => void;
+    addToMap: (map: MapSimple) => void;
+    removeFromMap: (map: MapSimple) => void;
+    bounds: BBox;
+  };
 type BuildConstructor = {
   (): ISource;
 };
@@ -20,12 +28,19 @@ export interface IGeojsonOption {
   bounds?: BBox;
 }
 
-export type FeatureReturn<T extends {}> = T & {
-  geometry: Geometry;
-};
-export interface DataHandle<IList = any, IFeature extends {} = any> {
-  setData(data: IList): IList;
-  getAll(format: DataHandleFormatList): IList;
-  convertToGeoJson(geojson: IList): FeatureCollection<Geometry, IFeature>;
+export interface DataHandle<IFeature = GeoJsonProperties> {
+  setData(
+    data?: FeatureCollection<Geometry, IFeature> | string | undefined
+  ): void;
+  getAll(): FeatureCollection<Geometry, IFeature> | undefined;
+  addFeatures?: (
+    features: Feature<Geometry, IFeature>[]
+  ) => Promise<boolean | void>;
+  updateFeatures?: (
+    features: Feature<Geometry, IFeature>[]
+  ) => Promise<boolean | void>;
+  deleteFeatures?: (
+    features: Feature<Geometry, IFeature>[]
+  ) => Promise<boolean | void>;
+  getFeatures?: (point: [number, number]) => Promise<Feature[]>;
 }
-export type DataHandleFormatList = "list" | "geojson";

@@ -7,7 +7,7 @@
       ["build", "--target", "lib", "--name", "map", "build/app.js"],
       { stdio: "inherit" }
     );
-    console.log("build map done");
+    console.info("build map done");
     // await execa(
     //   "vue-cli-service",
     //   [
@@ -21,7 +21,7 @@
     //   ],
     //   { stdio: "inherit" }
     // );
-    // console.log("build helper done");
+    // console.info("build helper done");
     // await execa(
     //   "vue-cli-service",
     //   [
@@ -35,9 +35,9 @@
     //   ],
     //   { stdio: "inherit" }
     // );
-    // console.log("build model done");
+    // console.info("build model done");
   } catch (e) {
-    console.log(e.message);
+    console.error(e.message);
     process.exit(1);
   }
 })();

@@ -233,13 +233,9 @@ function updateScale(map, container, options) {
       map._getUIString("ScaleControl.NauticalMiles")
     );
   } else if (maxMeters >= 1000) {
-    setScale(
-      container,
-      maxMeters / 1000,
-      map._getUIString("ScaleControl.Kilometers")
-    );
+    setScale(container, maxMeters / 1000, "km");
   } else {
-    setScale(container, maxMeters, map._getUIString("ScaleControl.Meters"));
+    setScale(container, maxMeters, "m");
   }
 }
 

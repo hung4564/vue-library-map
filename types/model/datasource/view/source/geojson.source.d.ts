@@ -1,37 +1,38 @@
-import {
-  DataHandle,
-  FeatureReturn,
-  IGeojsonOption,
-  ISourceBuild
-} from "@/interface/source";
-import type { Feature, FeatureCollection, GeoJSON, Geometry } from "geojson";
+import type {
+  Feature,
+  FeatureCollection,
+  GeoJSON,
+  GeoJsonProperties,
+  Geometry
+} from "geojson";
+import { GeoJSONSourceRaw } from "mapbox-gl";
+import { IGeojsonOption, ISource, ISourceBuild } from "@/interface/source";
 import { ASource } from "./ASource";
+import { MapSimple } from "@/interface/map";
 export declare class GeoJsonSourceBuild implements ISourceBuild {
   protected geojson: GeoJSON;
   protected option: IGeojsonOption;
   setData(geojson: GeoJSON): this;
-  build(): GeojsonDataHandle<any>;
+  build(): GeojsonDataHandle<GeoJsonProperties>;
 }
-export declare class GeojsonDataHandle<T extends {} = any>
-  extends ASource
-  implements DataHandle<GeoJSON, T>
+export declare class GeojsonDataHandle<
+    T extends GeoJsonProperties = GeoJsonProperties
+  >
+  extends ASource<T>
+  implements ISource<T>
 {
   geojson: FeatureCollection<Geometry, T>;
   protected field_id: string;
   protected option: IGeojsonOption;
   constructor(geojson: GeoJSON, option?: IGeojsonOption);
-  getMapboxSource(): {
-    type: string;
-    data: FeatureCollection<Geometry, T>;
-  };
-  setData(data: GeoJSON): GeoJSON;
-  getAll(format?: string): FeatureCollection<Geometry, T>;
-  convertToGeoJson(
-    geojson: FeatureCollection<Geometry, T>
-  ): FeatureCollection<Geometry, T>;
-  checkData(data: Feature<Geometry, any>, id: string | number): boolean;
-  find(id: string | number): FeatureReturn<T> | undefined;
-  create(data: FeatureReturn<T>): FeatureReturn<T>;
-  update(id: string | number, data: FeatureReturn<T>): FeatureReturn<T>;
-  delete(id: string | number): boolean;
+  getMapboxSource(): GeoJSONSourceRaw;
+  updateForMap(map: MapSimple): void;
+  setData(
+    data?: FeatureCollection<Geometry, T> | GeoJSON | string | undefined
+  ): undefined;
+  getAll(): FeatureCollection<Geometry, T>;
+  addFeatures(features?: Feature<Geometry, T>[]): Promise<void>;
+  updateFeatures(features?: Feature<Geometry, T>[]): Promise<void>;
+  deleteFeatures(features?: Feature<Geometry, T>[]): Promise<void>;
+  getFeatures(point: [number, number]): Promise<Feature<Geometry, T>[]>;
 }

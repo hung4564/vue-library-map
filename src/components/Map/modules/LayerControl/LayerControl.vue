@@ -170,7 +170,7 @@ const closeContextMenu = () => {
   menu_context.view = undefined;
   if (contextMenuRef.value) contextMenuRef.value.close();
 };
-function eventAddLayer() {
+function eventUpdateLayer() {
   getViewFromStore();
   updateTree();
 }
@@ -187,12 +187,14 @@ function eventRemoveLayer(layer: TLayer) {
 }
 onMounted(() => {
   getViewFromStore();
-  eventBus.on(EVENTBUS_TYPE.MAP.SET_LAYER, eventAddLayer);
+  eventBus.on(EVENTBUS_TYPE.MAP.SET_LAYER, eventUpdateLayer);
+  eventBus.on(EVENTBUS_TYPE.MAP.UPDATE_LAYER, eventUpdateLayer);
   eventBus.on(EVENTBUS_TYPE.MAP.REMOVE_LAYER, eventRemoveLayer);
 });
 onBeforeUnmount(() => {
-  eventBus.off(EVENTBUS_TYPE.MAP.SET_LAYER, eventAddLayer);
-  eventBus.on(EVENTBUS_TYPE.MAP.REMOVE_LAYER, eventRemoveLayer);
+  eventBus.off(EVENTBUS_TYPE.MAP.SET_LAYER, eventUpdateLayer);
+  eventBus.off(EVENTBUS_TYPE.MAP.UPDATE_LAYER, eventUpdateLayer);
+  eventBus.off(EVENTBUS_TYPE.MAP.REMOVE_LAYER, eventRemoveLayer);
 });
 const updateTree = () => {
   if (groupRef.value) groupRef.value.update(views.value);
@@ -224,7 +226,7 @@ function onLayerAction({ menu, item }: { item: ListView; menu: Menu }) {
   if (menu_layer.type && layer_action[menu_layer.type]) {
     layer_action[menu_layer.type](layer, menu_layer);
   } else {
-    layer.getAction().call(menu.id);
+    layer.getAction().call(menu.id, c_mapId.value);
   }
 }
 </script>

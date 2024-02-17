@@ -24,6 +24,8 @@ export declare class ConfigGeojsonHelper extends ConfigHelper {
   get create(): (
     form: any
   ) => import("../../../../../../../model").Layer<
-    import("../../../../../../../interface/source").ISource
+    import("../../../../../../../interface/source").ISource<
+      import("geojson").GeoJsonProperties
+    >
   >;
 }

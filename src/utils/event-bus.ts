@@ -9,6 +9,7 @@ export default eventBus;
 export const EVENTBUS_TYPE = {
   MAP: {
     SET_LAYER: "map:set-layer",
+    UPDATE_LAYER: "map:update-layer",
     SET_BASEMAP: "map:set-basemap",
     UPDATE_LAYERS: "map:update-layers",
     REMOVE_LAYER: "map:remove-layer",
@@ -20,6 +21,10 @@ export const EVENTBUS_TYPE = {
     ADD: "map:add-event",
     REMOVE: "map:remove-event",
     UPDATE_CURRENT: "map:update-event-current"
+  },
+  DRAW: {
+    ADD: "map:add-draw",
+    REMOVE: "map:remove-draw"
   },
   COMPONENT: {
     ADD: "map:add-component",

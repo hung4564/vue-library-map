@@ -24,7 +24,6 @@ import { Layer } from "./Layer";
 import { LayerAction } from "@/interface/datasource/action";
 import { LayerActionBuild } from "./part/action";
 import { LayerComponentBuild } from "./part/component";
-import { LayerEditSourceBuild } from "./extra/edit-source";
 import { LayerInfoShowBuild } from "./extra/info-show";
 import { getChartRandomColor } from "@/utils/color";
 
@@ -158,8 +157,7 @@ export function createGeoJsonLayer(options: OptionGeojson) {
           inline: true
         }
       ]
-    }),
-    new LayerEditSourceBuild()
+    })
   ];
   if (type) {
     builds.push(

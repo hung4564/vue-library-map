@@ -3,6 +3,7 @@ import {
   LayerActionOption,
   LayerActionView
 } from "@/interface/datasource/action";
+import eventBus, { EVENTBUS_TYPE } from "@/utils/event-bus";
 
 import { KEY_BUILD } from "../type";
 import { Layer } from "../Layer";
@@ -42,10 +43,12 @@ export function createActionView(
   resetCacheMenu();
   const temp = {
     config,
-    call(id: string) {
+    call(id: string, map_id: string) {
       const menu = menu_cache[id];
       if (menu.component) {
         layer.getView(KEY_BUILD.COMPONENT).setFromAction(menu);
+      } else if (menu.menu.type == "item") {
+        menu.menu.click && menu.menu.click(layer, map_id);
       }
     },
     get menus() {
@@ -68,6 +71,19 @@ export function createActionView(
     addAction(action: LayerAction) {
       if (action) config.actions.push(action);
       resetCacheMenu();
+      return this;
+    },
+    updateAction(action: LayerAction) {
+      const index = config.actions.findIndex((x) => x.id === action.id);
+      if (index >= 0) {
+        config.actions[index] = action;
+        resetCacheMenu();
+      }
+      const view_list = layer.getView("list");
+      if (view_list) {
+        view_list.updateMenus();
+        eventBus.emit(EVENTBUS_TYPE.MAP.UPDATE_LAYER);
+      }
       return this;
     }
   };

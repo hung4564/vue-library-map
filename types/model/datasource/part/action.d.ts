@@ -3,15 +3,13 @@ import {
   LayerActionOption,
   LayerActionView
 } from "@/interface/datasource/action";
-import { ABuild } from "./_default";
 import { Layer } from "../Layer";
-export declare class LayerActionBuild extends ABuild<
-  LayerActionOption,
-  LayerActionView
-> {
+export declare class LayerActionBuild {
+  option: LayerActionOption;
   constructor(option?: LayerActionOption);
   addAction(action: LayerAction): this;
-  setForLayer(layer: Layer): this;
+  addActions(actions?: LayerAction[]): this;
+  build(layer: Layer): LayerActionView;
 }
 export declare function createActionView(
   layer: Layer,

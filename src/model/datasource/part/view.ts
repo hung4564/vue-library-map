@@ -25,9 +25,9 @@ export class LayerViewContainer extends LayerPartContainer {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function withViews(
   views: Record<string, any>,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   cb = (view: any) => {},
   bind: any
 ) {

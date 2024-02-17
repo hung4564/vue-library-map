@@ -1,10 +1,19 @@
-import type { Feature, FeatureCollection, GeoJSON, Geometry } from "geojson";
+import type {
+  Feature,
+  FeatureCollection,
+  GeoJSON,
+  GeoJsonProperties,
+  Geometry
+} from "geojson";
 import { GeoJSONSource, GeoJSONSourceRaw } from "mapbox-gl";
-import { IGeojsonOption, ISourceBuild } from "@/interface/source";
+import { IGeojsonOption, ISource, ISourceBuild } from "@/interface/source";
 
 import { ASource } from "./ASource";
 import { MapSimple } from "@/interface/map";
 import bbox from "@turf/bbox";
+import booleanIntersects from "@turf/boolean-intersects";
+import { copyByJson } from "@/utils";
+import { point as pointTurf } from "@turf/turf";
 
 export class GeoJsonSourceBuild implements ISourceBuild {
   protected geojson!: GeoJSON;
@@ -17,7 +26,10 @@ export class GeoJsonSourceBuild implements ISourceBuild {
     return new GeojsonDataHandle(this.geojson, this.option);
   }
 }
-export class GeojsonDataHandle<T extends {} = any> extends ASource {
+export class GeojsonDataHandle<T extends GeoJsonProperties = GeoJsonProperties>
+  extends ASource<T>
+  implements ISource<T>
+{
   public geojson!: FeatureCollection<Geometry, T>;
   protected field_id: string = "id";
   protected option: IGeojsonOption;
@@ -29,14 +41,25 @@ export class GeojsonDataHandle<T extends {} = any> extends ASource {
   getMapboxSource(): GeoJSONSourceRaw {
     return {
       type: "geojson",
-      data: this.getAll("geojson")
+      data: this.getAll()
     };
   }
   updateForMap(map: MapSimple) {
     const source = map.getSource(this.id) as GeoJSONSource;
-    if (source) source.setData(this.geojson);
+    if (source)
+      source.setData(
+        this.geojson || {
+          type: "FeatureCollection",
+          features: []
+        }
+      );
   }
-  setData(data: GeoJSON | string) {
+  setData(
+    data?: FeatureCollection<Geometry, T> | GeoJSON | string | undefined
+  ) {
+    if (!data) {
+      return undefined;
+    }
     if (typeof data === "string") {
       data = JSON.parse(data) as GeoJSON;
     }
@@ -62,17 +85,48 @@ export class GeojsonDataHandle<T extends {} = any> extends ASource {
     }
     this.geojson = temp;
     this.setBounds(bbox(data));
-    return data;
   }
-  getAll(format = "list") {
-    if (format === "geojson") {
-      return this.convertToGeoJson(this.geojson);
-    }
+  getAll() {
     return this.geojson;
   }
-  convertToGeoJson(
-    geojson: FeatureCollection<Geometry, T>
-  ): FeatureCollection<Geometry, T> {
-    return geojson;
+  async addFeatures(features: Feature<Geometry, T>[] = []) {
+    this.geojson.features.push(
+      ...features.map((x) => {
+        delete x.id;
+        return x;
+      })
+    );
+    this.geojson = copyByJson(this.geojson);
+  }
+  async updateFeatures(features: Feature<Geometry, T>[] = []) {
+    const object_cache = features.reduce<Record<string, Feature<Geometry, T>>>(
+      (acc, cur) => {
+        acc[cur.properties!.id] = cur;
+        return acc;
+      },
+      {}
+    );
+    this.geojson.features.forEach((feature, i) => {
+      if (object_cache[feature.properties!.id]) {
+        this.geojson.features[i] = object_cache[feature.properties!.id];
+      }
+    });
+  }
+  async deleteFeatures(features: Feature<Geometry, T>[] = []) {
+    const object_cache = features.reduce<Record<string, Feature<Geometry, T>>>(
+      (acc, cur) => {
+        acc[cur.properties!.id] = cur;
+        return acc;
+      },
+      {}
+    );
+    this.geojson.features = this.geojson.features.filter(
+      (x) => !object_cache[x.properties!.id]
+    );
+  }
+  async getFeatures(point: [number, number]) {
+    return this.geojson.features.filter((feature) =>
+      booleanIntersects(feature, pointTurf(point))
+    );
   }
 }

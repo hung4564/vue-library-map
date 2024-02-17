@@ -18,7 +18,7 @@ function initStoreForMap(mapId: string) {
 const removeStoreForMap = (mapId: string) => {
   delete getStore(KEY)[mapId];
 };
-export async function addLayer(mapId: string, layer: Layer) {
+export function addLayer(mapId: string, layer: Layer) {
   getStore(KEY)[mapId][layer.id] = layer;
   if (layer.canBuildForView(KEY_BUILD.LIST)) {
     layer.runBuild(KEY_BUILD.LIST);

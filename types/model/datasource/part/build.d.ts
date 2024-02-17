@@ -6,11 +6,6 @@ export declare class LayerBuildContainer extends LayerPartContainer {
     [key: string]: [LayerBuildFunction, any];
   };
   set(key: string | undefined, build: LayerBuildFunction, option?: any): this;
-  build(
-    key: string,
-    layer: Layer
-  ): import("@/interface/datasource/view").IView<
-    import("../../../interface/source").ISource
-  >;
+  build(key: string, layer: Layer): import("@/interface/datasource/view").IView;
   canForView(key: string): boolean;
 }

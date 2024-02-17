@@ -1,10 +1,14 @@
+import type { BBox, FeatureCollection, GeoJSON, Geometry } from "geojson";
+
 import { AView } from "../view";
 import { AnySourceData } from "mapbox-gl";
-import type { BBox } from "geojson";
 import { ISource } from "@/interface/source";
 import { MapSimple } from "@/interface/map";
 
-export abstract class ASource extends AView implements ISource {
+export abstract class ASource<IFeature = any>
+  extends AView
+  implements ISource<IFeature>
+{
   bounds: BBox;
   constructor() {
     super();
@@ -14,6 +18,15 @@ export abstract class ASource extends AView implements ISource {
         this.parent.metadata.bounds = this.bounds;
       }
     };
+  }
+  getAll(): FeatureCollection<Geometry, IFeature> | undefined {
+    return undefined;
+  }
+  setData(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _?: FeatureCollection<Geometry, IFeature> | GeoJSON | string | undefined
+  ) {
+    return;
   }
   setBounds(bounds: BBox) {
     this.bounds = bounds;

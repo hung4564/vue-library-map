@@ -6,5 +6,5 @@ export declare class Reader {
   getFileContent(
     file: File,
     parser: AParser
-  ): Promise<string | ArrayBuffer | File | null>;
+  ): Promise<string | File | ArrayBuffer | null>;
 }

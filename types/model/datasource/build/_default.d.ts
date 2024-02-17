@@ -7,7 +7,7 @@ export declare abstract class ABuild<
   key: string;
   option: T;
   build?: LayerBuildFunction<IBuildReturn>;
-  constructor(key: string, option?: T, default_option?: T);
+  constructor(key: string, option?: T, default_option?: Partial<T>);
   setBuild(build: any): this;
   setForLayer(layer: Layer): this;
 }

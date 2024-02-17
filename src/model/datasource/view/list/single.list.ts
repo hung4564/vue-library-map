@@ -9,16 +9,20 @@ export function createDefaultViewInList(
 ): ListSingleView {
   const show = option.show != null ? option.show : true;
   const opacity = option.opacity != null ? option.opacity : 1;
-  if (!option.menus) {
-    option.menus = [];
-  }
+  let menus = option.menus?.slice() || [];
   if (layer.action && layer.action.menus) {
-    option.menus.push(...layer.action.menus);
+    menus.push(...layer.action.menus);
   }
   let parent: Layer | undefined;
   const temp: ListSingleView = {
     setParent(_parent: Layer) {
       parent = _parent;
+    },
+    updateMenus() {
+      menus = option.menus?.slice() || [];
+      if (layer.action && layer.action.menus) {
+        menus.push(...layer.action.menus);
+      }
     },
     get parent() {
       return parent;
@@ -28,7 +32,7 @@ export function createDefaultViewInList(
     show,
     opacity,
     get menus() {
-      return option.menus || [];
+      return menus || [];
     },
     get extra_buttons() {
       return option.extra_buttons || [];

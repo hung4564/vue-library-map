@@ -7,9 +7,13 @@ export declare function useEventMap(
   | {
       add: () => void;
       remove: () => void;
-      isActive: import("vue").Ref<boolean>;
+      isActive?: undefined;
     }
-  | undefined;
+  | {
+      add: () => void;
+      remove: () => void;
+      isActive: import("vue").Ref<boolean>;
+    };
 export declare function setEventMap(
   $map: MapSimple,
   event: Event

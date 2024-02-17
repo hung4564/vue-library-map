@@ -191,7 +191,8 @@
   .right-bottom-container {
     bottom: 0;
     right: 0;
-    & > * {
+    & > .button-container,
+    & > .button-custom-container {
       margin: 0 10px 10px 0;
       float: right;
       clear: both;
@@ -200,7 +201,8 @@
   .left-bottom-container {
     bottom: 0;
     left: 0;
-    & > * {
+    & > .button-container,
+    & > .button-custom-container {
       margin: 0 0 10px 10px;
       float: left;
     }
@@ -208,7 +210,8 @@
   .left-top-container {
     top: 0;
     left: 0;
-    & > * {
+    & > .button-container,
+    & > .button-custom-container {
       margin: 10px 0 0 10px;
       float: left;
     }
@@ -216,7 +219,8 @@
   .right-top-container {
     top: 0;
     right: 0;
-    & > * {
+    & > .button-container,
+    & > .button-custom-container {
       margin: 10px 10px 0 0;
       float: right;
     }

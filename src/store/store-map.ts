@@ -42,12 +42,16 @@ export const removeMap = (id: string) => {
   delete getStore("store")[id];
   eventBus.emit(EVENTBUS_TYPE.MAP.DESTROY, id);
 };
-export const getMap = (id: string | MapSimple, cb?: Function) => {
+export const getMap = (
+  id: string | MapSimple,
+  cb?: (map: MapSimple) => any
+) => {
   if (!id) return;
-  let map = id;
+  const map_id = id;
   if (typeof id !== "string") {
-    id = (map as MapSimple).id;
+    id = (map_id as MapSimple).id;
   }
+  let map: MapSimple | MapSimple[] = [];
   if (id && MAP_OBJECT_STORE[id]) {
     map = MAP_OBJECT_STORE[id];
   }

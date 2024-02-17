@@ -9,4 +9,5 @@ export function useMap(
   }>;
   callMap: (cb: any) => void;
   $map: any;
+  trans: any;
 };

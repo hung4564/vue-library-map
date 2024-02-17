@@ -1,6 +1,6 @@
-import { Layer } from "../Layer";
-import { ABuild } from "./_default";
 import { IdentifyOption, IdentifyView } from "@/interface/datasource/identify";
+import { ABuild } from "./_default";
+import { Layer } from "../Layer";
 export declare class LayerIdentifyBuild extends ABuild<IdentifyOption> {
   constructor(option?: IdentifyOption);
   setFieldName(field_name?: string): this;

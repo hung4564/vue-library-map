@@ -1,7 +1,12 @@
 <template>
   <div id="app">
-    <Map locale="en" @map-loaded="onMapLoaded">
+    <Map
+      locale="en"
+      @map-loaded="onMapLoaded"
+      :mapboxAccessToken="mapboxAccessToken"
+    >
       <MeasurementControl position="top-right" />
+      <DrawControl position="top-right" />
       <SettingControl position="bottom-right" />
       <LayerControl position="top-left" />
       <CrsControl />
@@ -11,7 +16,7 @@
       <ZoomControl />
 
       <FullScreenControl />
-      <BaseMapControl position="bottom-left"></BaseMapControl>
+      <BaseMapControl position="bottom-left" />
       <MouseCoordinatesControl />
       <IdentifyControl position="top-right" />
       <ActionControl />
@@ -36,7 +41,8 @@ import {
   LayerControl,
   IdentifyControl,
   SettingControl,
-  CrsControl
+  CrsControl,
+  DrawControl
 } from "@map";
 import { addLayer } from "./store/store-datasource";
 import {
@@ -44,9 +50,12 @@ import {
   createRasterUrlLayer
 } from "./model/datasource/sample";
 import { LayerMapBuild, LayerSimpleMapboxBuild } from "./model";
+import { LayerDrawBuild } from "./model/datasource/extra/draw";
+import { LayerEditSourceBuild } from "./model/datasource/extra/edit-source";
 export default {
   name: "App",
   components: {
+    DrawControl,
     FullScreenControl,
     MouseCoordinatesControl,
     ZoomControl,
@@ -62,6 +71,7 @@ export default {
     SettingControl,
     CrsControl
   },
+  data: () => ({ mapboxAccessToken: process.env.VUE_APP_MAPBOX_ACCESS_TOKEN }),
   methods: {
     async onMapLoaded(map) {
       addLayer(
@@ -116,7 +126,9 @@ export default {
                 .setStyleType("point")
                 .setColor("red")
                 .build()
-            ])
+            ]),
+            new LayerEditSourceBuild(),
+            new LayerDrawBuild()
           ]
         })
       );

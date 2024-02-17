@@ -11,7 +11,7 @@ import { MapSimple } from "@/interface/map";
 
 export function useEventMap(event: Event, immediate = false) {
   const $map: MapSimple | undefined = inject("$map");
-  if (!$map) return;
+  if (!$map) return { add: () => {}, remove: () => {} };
   const { add, remove, isActive, updateEventActive } = setEventMap($map, event);
   onBeforeUnmount(() => {
     remove();

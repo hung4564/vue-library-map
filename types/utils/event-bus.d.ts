@@ -16,4 +16,12 @@ export declare const EVENTBUS_TYPE: {
     REMOVE: string;
     UPDATE_CURRENT: string;
   };
+  DRAW: {
+    ADD: string;
+    REMOVE: string;
+  };
+  COMPONENT: {
+    ADD: string;
+    REMOVE: string;
+  };
 };

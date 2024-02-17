@@ -1,21 +1,29 @@
 import type {
+  OptionDefault,
   OptionGeojson,
   OptionRasterJson,
   OptionRasterTile
 } from "@/interface/sample";
 import { Layer } from "./Layer";
-export declare function createRasterUrlLayer({
-  name,
-  tiles,
-  bounds
-}: OptionRasterTile): Layer<import("../../interface/source").ISource>;
-export declare function createRasterJsonLayer({
-  name,
-  url
-}: OptionRasterJson): Layer<import("../../interface/source").ISource>;
-export declare function createGeoJsonLayer({
-  name,
-  geojson,
-  type,
-  color
-}: OptionGeojson): Layer<import("../../interface/source").ISource>;
+export declare function setupDefault(
+  layer: Layer,
+  default_options: Required<OptionDefault>,
+  options?: OptionDefault
+): Layer<
+  import("../../interface/source").ISource<import("geojson").GeoJsonProperties>
+>;
+export declare function createRasterUrlLayer(
+  options: OptionRasterTile
+): Layer<
+  import("../../interface/source").ISource<import("geojson").GeoJsonProperties>
+>;
+export declare function createRasterJsonLayer(
+  options: OptionRasterJson
+): Layer<
+  import("../../interface/source").ISource<import("geojson").GeoJsonProperties>
+>;
+export declare function createGeoJsonLayer(
+  options: OptionGeojson
+): Layer<
+  import("../../interface/source").ISource<import("geojson").GeoJsonProperties>
+>;

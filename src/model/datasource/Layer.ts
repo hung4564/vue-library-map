@@ -119,8 +119,8 @@ export class Layer<TSource extends ISource = ISource> extends Base {
   setAction(action: IAction) {
     this.action = action;
   }
-  callAction(id: string) {
-    return this.action.call(id);
+  callAction(id: string, map_id: string) {
+    return this.action.call(id, map_id);
   }
 }
 export type TLayer = Layer & {

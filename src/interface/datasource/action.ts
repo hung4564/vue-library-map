@@ -15,9 +15,10 @@ export type LayerAction = {
   option?: any;
 };
 export interface IAction {
-  call: (id: string) => any;
+  call: (id: string, map_id: string) => any;
   menus?: Menu[];
   get(id: string): LayerAction;
   addActions(actions: LayerAction[]): LayerActionView;
   addAction(action: LayerAction): LayerActionView;
+  updateAction(action: LayerAction): LayerActionView;
 }

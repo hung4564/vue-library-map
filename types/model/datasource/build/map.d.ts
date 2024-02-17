@@ -1,99 +1,35 @@
-import { Color } from "@/interface/datasource/list";
+import {
+  CircleLayer,
+  FillLayer,
+  Layer as LayerMapbox,
+  LineLayer,
+  RasterLayer,
+  SymbolLayer
+} from "mapbox-gl";
 import { ABuild } from "./_default";
+import { Color } from "@/interface/datasource/list";
+import { Layer } from "../Layer";
 export declare class LayerMapBuild extends ABuild {
   constructor(option?: {});
-  setLayers(layers: any[]): this;
-  setLayer(layer: any): this;
+  setLayers(layers: Omit<LayerMapbox, "id">[]): this;
+  setLayer(layer: Omit<LayerMapbox, "id">): this;
   setSource(source: any): this;
+  setForLayer(layer: Layer): this;
 }
-export declare class LayerSimpleMapboxBuild {
+export interface ILayerMapboxBuild {
+  build(): Omit<LayerMapbox, "id">;
+}
+export declare class LayerRasterMapboxBuild implements ILayerMapboxBuild {
+  build(): Omit<RasterLayer, "id">;
+}
+export declare class LayerSimpleMapboxBuild implements ILayerMapboxBuild {
   color?: Color;
   type: string;
   setColor(color: Color): this;
   setStyleType(type: string): this;
-  build():
-    | {
-        layout: {
-          visibility: string;
-        };
-        type: string;
-        paint: {
-          "circle-color": Color;
-          "circle-radius": number;
-          "line-color"?: undefined;
-          "line-width"?: undefined;
-          "fill-color"?: undefined;
-        };
-      }
-    | {
-        layout: {
-          visibility: string;
-        };
-        type: string;
-        paint: {
-          "line-color": Color;
-          "line-width": number;
-          "circle-color"?: undefined;
-          "circle-radius"?: undefined;
-          "fill-color"?: undefined;
-        };
-      }
-    | {
-        layout: {
-          visibility: string;
-        };
-        type: string;
-        paint: {
-          "fill-color": Color;
-          "circle-color"?: undefined;
-          "circle-radius"?: undefined;
-          "line-color"?: undefined;
-          "line-width"?: undefined;
-        };
-      }
-    | undefined;
+  build(): Omit<LayerMapbox, "id">;
 }
 export declare const getDefaultLayer: (
   type: string,
   color?: Color | undefined
-) =>
-  | {
-      layout: {
-        visibility: string;
-      };
-      type: string;
-      paint: {
-        "circle-color": Color;
-        "circle-radius": number;
-        "line-color"?: undefined;
-        "line-width"?: undefined;
-        "fill-color"?: undefined;
-      };
-    }
-  | {
-      layout: {
-        visibility: string;
-      };
-      type: string;
-      paint: {
-        "line-color": Color;
-        "line-width": number;
-        "circle-color"?: undefined;
-        "circle-radius"?: undefined;
-        "fill-color"?: undefined;
-      };
-    }
-  | {
-      layout: {
-        visibility: string;
-      };
-      type: string;
-      paint: {
-        "fill-color": Color;
-        "circle-color"?: undefined;
-        "circle-radius"?: undefined;
-        "line-color"?: undefined;
-        "line-width"?: undefined;
-      };
-    }
-  | undefined;
+) => Omit<LineLayer | FillLayer | CircleLayer | SymbolLayer, "id">;

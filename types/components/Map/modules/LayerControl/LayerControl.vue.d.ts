@@ -1,11 +1,10 @@
-import MapControlButton from "@components/Map/control/MapControlButton.vue";
-import SvgIcon from "@jamescoyle/vue-icon";
-import type { ListView, Menu, AGroup } from "@/interface/datasource/list";
-import type { IView } from "@/interface/datasource/view";
-import type { TLayer } from "@/model";
 import type { BBox } from "geojson";
-import type { LayerAction } from "@/interface/datasource/action";
+import DraggableGroupList from "@/components/DraggableList/draggable-group-list.vue";
+import type { AGroup, ListView, Menu } from "@/interface/datasource/list";
+import type { IView } from "@/interface/datasource/view";
 import type { MapSimple } from "@/interface/map";
+import type { Layer, TLayer } from "@/model";
+import SvgIcon from "@jamescoyle/vue-icon";
 declare const _default: import("vue").DefineComponent<
   {
     disabledDrag: BooleanConstructor;
@@ -54,7 +53,16 @@ declare const _default: import("vue").DefineComponent<
               type: "item";
               class?: string | undefined;
               name: string;
-              click?: string | Function | undefined;
+              click?:
+                | ((
+                    layer: Layer<
+                      import("../../../../interface/source").ISource<
+                        import("geojson").GeoJsonProperties
+                      >
+                    >,
+                    map_id: string
+                  ) => any)
+                | undefined;
               icon?: string | undefined;
               attr?: any;
             }
@@ -68,7 +76,16 @@ declare const _default: import("vue").DefineComponent<
               type: "item";
               class?: string | undefined;
               name: string;
-              click?: string | Function | undefined;
+              click?:
+                | ((
+                    layer: Layer<
+                      import("../../../../interface/source").ISource<
+                        import("geojson").GeoJsonProperties
+                      >
+                    >,
+                    map_id: string
+                  ) => any)
+                | undefined;
               icon?: string | undefined;
               attr?: any;
             }
@@ -104,18 +121,72 @@ declare const _default: import("vue").DefineComponent<
                             name?: string | undefined;
                           };
                           source: {
-                            getMapboxSource: () => object;
-                            bounds: BBox;
                             id: string;
                             parent?: any | undefined;
                             setParent: (
-                              _parent: import("@/model").Layer<
-                                import("../../../../interface/source").ISource
+                              _parent: Layer<
+                                import("../../../../interface/source").ISource<
+                                  import("geojson").GeoJsonProperties
+                                >
                               >
                             ) => void;
+                            setData: (
+                              data?:
+                                | string
+                                | import("geojson").FeatureCollection<
+                                    import("geojson").Geometry,
+                                    import("geojson").GeoJsonProperties
+                                  >
+                                | undefined
+                            ) => void;
+                            getAll: () =>
+                              | import("geojson").FeatureCollection<
+                                  import("geojson").Geometry,
+                                  import("geojson").GeoJsonProperties
+                                >
+                              | undefined;
+                            addFeatures?:
+                              | ((
+                                  features: import("geojson").Feature<
+                                    import("geojson").Geometry,
+                                    import("geojson").GeoJsonProperties
+                                  >[]
+                                ) => Promise<boolean | void>)
+                              | undefined;
+                            updateFeatures?:
+                              | ((
+                                  features: import("geojson").Feature<
+                                    import("geojson").Geometry,
+                                    import("geojson").GeoJsonProperties
+                                  >[]
+                                ) => Promise<boolean | void>)
+                              | undefined;
+                            deleteFeatures?:
+                              | ((
+                                  features: import("geojson").Feature<
+                                    import("geojson").Geometry,
+                                    import("geojson").GeoJsonProperties
+                                  >[]
+                                ) => Promise<boolean | void>)
+                              | undefined;
+                            getFeatures?:
+                              | ((
+                                  point: [number, number]
+                                ) => Promise<
+                                  import("geojson").Feature<
+                                    import("geojson").Geometry,
+                                    import("geojson").GeoJsonProperties
+                                  >[]
+                                >)
+                              | undefined;
+                            getMapboxSource: () => object;
+                            updateForMap: (map: MapSimple) => void;
+                            addToMap: (map: MapSimple) => void;
+                            removeFromMap: (map: MapSimple) => void;
+                            bounds: BBox;
                           };
                           action: {
-                            call: (id: string) => any;
+                            call: (id: string, map_id: string) => any;
                             menus?:
                               | (
                                   | {
@@ -126,20 +197,30 @@ declare const _default: import("vue").DefineComponent<
                                       type: "item";
                                       class?: string | undefined;
                                       name: string;
-                                      click?: string | Function | undefined;
+                                      click?:
+                                        | ((
+                                            layer: Layer<
+                                              import("../../../../interface/source").ISource<
+                                                import("geojson").GeoJsonProperties
+                                              >
+                                            >,
+                                            map_id: string
+                                          ) => any)
+                                        | undefined;
                                       icon?: string | undefined;
                                       attr?: any;
                                     }
                                 )[]
                               | undefined;
-                            get: (id: string) => LayerAction<any>;
-                            id: string;
-                            parent?: any | undefined;
-                            setParent: (
-                              _parent: import("@/model").Layer<
-                                import("../../../../interface/source").ISource
-                              >
-                            ) => void;
+                            get: (
+                              id: string
+                            ) => import("../../../../interface/datasource/action").LayerAction;
+                            addActions: (
+                              actions: import("../../../../interface/datasource/action").LayerAction[]
+                            ) => import("../../../../interface/datasource/action").LayerActionView;
+                            addAction: (
+                              action: import("../../../../interface/datasource/action").LayerAction
+                            ) => import("../../../../interface/datasource/action").LayerActionView;
                           };
                           readonly metadata: {
                             loading?:
@@ -155,22 +236,26 @@ declare const _default: import("vue").DefineComponent<
                           addToMap: (
                             map: MapSimple,
                             ...args: any[]
-                          ) => Promise<any[]>;
+                          ) => Promise<void>;
                           removeFromMap: (
                             map: MapSimple,
                             ...args: any[]
-                          ) => Promise<any[]>;
+                          ) => Promise<void>;
+                          updateForMap: (
+                            map: MapSimple,
+                            ...args: any[]
+                          ) => Promise<void>;
                           setInfo: (
                             info: import("../../../../model/datasource/Layer").LayerInfo
-                          ) => import("@/model").Layer<
-                            import("../../../../interface/source").ISource
+                          ) => Layer<
+                            import("../../../../interface/source").ISource<
+                              import("geojson").GeoJsonProperties
+                            >
                           >;
                           setBuild: (
                             key: string,
                             build: import("@/interface/datasource/view").LayerBuildFunction<
-                              IView<
-                                import("../../../../interface/source").ISource
-                              >,
+                              IView,
                               any
                             >,
                             option?: {}
@@ -179,23 +264,33 @@ declare const _default: import("vue").DefineComponent<
                           setView: (
                             ...args: any[]
                           ) => import("../../../../model/datasource/part").LayerViewContainer;
-                          getView: (key: string) => any;
+                          getView: <
+                            T extends import("../../../../model/datasource/type").TYPE_BUILD
+                          >(
+                            key: T
+                          ) => import("../../../../model/datasource/type").TYPE_VIEW<T>;
                           runBuild: (
                             key: string
                           ) =>
-                            | import("@/model").Layer<
-                                import("../../../../interface/source").ISource
+                            | Layer<
+                                import("../../../../interface/source").ISource<
+                                  import("geojson").GeoJsonProperties
+                                >
                               >
                             | undefined;
                           setSource: (
-                            source: import("../../../../interface/source").ISource
+                            source: import("../../../../interface/source").ISource<
+                              import("geojson").GeoJsonProperties
+                            >
                           ) => void;
-                          getSource: () => import("../../../../interface/source").ISource;
-                          getAction: () => import("@/interface/datasource/action").IAction;
+                          getSource: () => import("../../../../interface/source").ISource<
+                            import("geojson").GeoJsonProperties
+                          >;
+                          getAction: () => import("../../../../interface/datasource/action").IAction;
                           setAction: (
-                            action: import("@/interface/datasource/action").IAction
+                            action: import("../../../../interface/datasource/action").IAction
                           ) => void;
-                          callAction: (id: string) => any;
+                          callAction: (id: string, map_id: string) => any;
                           _id: string;
                           readonly id: string;
                         }
@@ -203,8 +298,10 @@ declare const _default: import("vue").DefineComponent<
                     runAfterSetParent?: CallableFunction | undefined;
                     data_id?: string | undefined;
                     setParent: (
-                      _parent: import("@/model").Layer<
-                        import("../../../../interface/source").ISource
+                      _parent: Layer<
+                        import("../../../../interface/source").ISource<
+                          import("geojson").GeoJsonProperties
+                        >
                       >
                     ) => void;
                     _id: string;
@@ -214,7 +311,6 @@ declare const _default: import("vue").DefineComponent<
             }
           | undefined;
         multi: boolean;
-        addMenus: (menus: Menu[]) => ListView;
         show: any;
         id: string;
         parent?:
@@ -232,18 +328,72 @@ declare const _default: import("vue").DefineComponent<
                 name?: string | undefined;
               };
               source: {
-                getMapboxSource: () => object;
-                bounds: BBox;
                 id: string;
                 parent?: any | undefined;
                 setParent: (
-                  _parent: import("@/model").Layer<
-                    import("../../../../interface/source").ISource
+                  _parent: Layer<
+                    import("../../../../interface/source").ISource<
+                      import("geojson").GeoJsonProperties
+                    >
                   >
                 ) => void;
+                setData: (
+                  data?:
+                    | string
+                    | import("geojson").FeatureCollection<
+                        import("geojson").Geometry,
+                        import("geojson").GeoJsonProperties
+                      >
+                    | undefined
+                ) => void;
+                getAll: () =>
+                  | import("geojson").FeatureCollection<
+                      import("geojson").Geometry,
+                      import("geojson").GeoJsonProperties
+                    >
+                  | undefined;
+                addFeatures?:
+                  | ((
+                      features: import("geojson").Feature<
+                        import("geojson").Geometry,
+                        import("geojson").GeoJsonProperties
+                      >[]
+                    ) => Promise<boolean | void>)
+                  | undefined;
+                updateFeatures?:
+                  | ((
+                      features: import("geojson").Feature<
+                        import("geojson").Geometry,
+                        import("geojson").GeoJsonProperties
+                      >[]
+                    ) => Promise<boolean | void>)
+                  | undefined;
+                deleteFeatures?:
+                  | ((
+                      features: import("geojson").Feature<
+                        import("geojson").Geometry,
+                        import("geojson").GeoJsonProperties
+                      >[]
+                    ) => Promise<boolean | void>)
+                  | undefined;
+                getFeatures?:
+                  | ((
+                      point: [number, number]
+                    ) => Promise<
+                      import("geojson").Feature<
+                        import("geojson").Geometry,
+                        import("geojson").GeoJsonProperties
+                      >[]
+                    >)
+                  | undefined;
+                getMapboxSource: () => object;
+                updateForMap: (map: MapSimple) => void;
+                addToMap: (map: MapSimple) => void;
+                removeFromMap: (map: MapSimple) => void;
+                bounds: BBox;
               };
               action: {
-                call: (id: string) => any;
+                call: (id: string, map_id: string) => any;
                 menus?:
                   | (
                       | {
@@ -254,20 +404,30 @@ declare const _default: import("vue").DefineComponent<
                           type: "item";
                           class?: string | undefined;
                           name: string;
-                          click?: string | Function | undefined;
+                          click?:
+                            | ((
+                                layer: Layer<
+                                  import("../../../../interface/source").ISource<
+                                    import("geojson").GeoJsonProperties
+                                  >
+                                >,
+                                map_id: string
+                              ) => any)
+                            | undefined;
                           icon?: string | undefined;
                           attr?: any;
                         }
                     )[]
                   | undefined;
-                get: (id: string) => LayerAction<any>;
-                id: string;
-                parent?: any | undefined;
-                setParent: (
-                  _parent: import("@/model").Layer<
-                    import("../../../../interface/source").ISource
-                  >
-                ) => void;
+                get: (
+                  id: string
+                ) => import("../../../../interface/datasource/action").LayerAction;
+                addActions: (
+                  actions: import("../../../../interface/datasource/action").LayerAction[]
+                ) => import("../../../../interface/datasource/action").LayerActionView;
+                addAction: (
+                  action: import("../../../../interface/datasource/action").LayerAction
+                ) => import("../../../../interface/datasource/action").LayerActionView;
               };
               readonly metadata: {
                 loading?:
@@ -280,17 +440,20 @@ declare const _default: import("vue").DefineComponent<
               readonly name: string | undefined;
               asProxy: () => any;
               isHasMap: (map: MapSimple) => boolean;
-              addToMap: (map: MapSimple, ...args: any[]) => Promise<any[]>;
-              removeFromMap: (map: MapSimple, ...args: any[]) => Promise<any[]>;
+              addToMap: (map: MapSimple, ...args: any[]) => Promise<void>;
+              removeFromMap: (map: MapSimple, ...args: any[]) => Promise<void>;
+              updateForMap: (map: MapSimple, ...args: any[]) => Promise<void>;
               setInfo: (
                 info: import("../../../../model/datasource/Layer").LayerInfo
-              ) => import("@/model").Layer<
-                import("../../../../interface/source").ISource
+              ) => Layer<
+                import("../../../../interface/source").ISource<
+                  import("geojson").GeoJsonProperties
+                >
               >;
               setBuild: (
                 key: string,
                 build: import("@/interface/datasource/view").LayerBuildFunction<
-                  IView<import("../../../../interface/source").ISource>,
+                  IView,
                   any
                 >,
                 option?: {}
@@ -299,30 +462,42 @@ declare const _default: import("vue").DefineComponent<
               setView: (
                 ...args: any[]
               ) => import("../../../../model/datasource/part").LayerViewContainer;
-              getView: (key: string) => any;
+              getView: <
+                T extends import("../../../../model/datasource/type").TYPE_BUILD
+              >(
+                key: T
+              ) => import("../../../../model/datasource/type").TYPE_VIEW<T>;
               runBuild: (
                 key: string
               ) =>
-                | import("@/model").Layer<
-                    import("../../../../interface/source").ISource
+                | Layer<
+                    import("../../../../interface/source").ISource<
+                      import("geojson").GeoJsonProperties
+                    >
                   >
                 | undefined;
               setSource: (
-                source: import("../../../../interface/source").ISource
+                source: import("../../../../interface/source").ISource<
+                  import("geojson").GeoJsonProperties
+                >
               ) => void;
-              getSource: () => import("../../../../interface/source").ISource;
-              getAction: () => import("@/interface/datasource/action").IAction;
+              getSource: () => import("../../../../interface/source").ISource<
+                import("geojson").GeoJsonProperties
+              >;
+              getAction: () => import("../../../../interface/datasource/action").IAction;
               setAction: (
-                action: import("@/interface/datasource/action").IAction
+                action: import("../../../../interface/datasource/action").IAction
               ) => void;
-              callAction: (id: string) => any;
+              callAction: (id: string, map_id: string) => any;
               _id: string;
               readonly id: string;
             }
           | undefined;
         setParent: (
-          _parent: import("@/model").Layer<
-            import("../../../../interface/source").ISource
+          _parent: Layer<
+            import("../../../../interface/source").ISource<
+              import("geojson").GeoJsonProperties
+            >
           >
         ) => void;
       }[]
@@ -343,7 +518,16 @@ declare const _default: import("vue").DefineComponent<
             type: "item";
             class?: string | undefined;
             name: string;
-            click?: string | Function | undefined;
+            click?:
+              | ((
+                  layer: Layer<
+                    import("../../../../interface/source").ISource<
+                      import("geojson").GeoJsonProperties
+                    >
+                  >,
+                  map_id: string
+                ) => any)
+              | undefined;
             icon?: string | undefined;
             attr?: any;
           }
@@ -361,7 +545,16 @@ declare const _default: import("vue").DefineComponent<
                   type: "item";
                   class?: string | undefined;
                   name: string;
-                  click?: string | Function | undefined;
+                  click?:
+                    | ((
+                        layer: Layer<
+                          import("../../../../interface/source").ISource<
+                            import("geojson").GeoJsonProperties
+                          >
+                        >,
+                        map_id: string
+                      ) => any)
+                    | undefined;
                   icon?: string | undefined;
                   attr?: any;
                 }
@@ -375,7 +568,16 @@ declare const _default: import("vue").DefineComponent<
                   type: "item";
                   class?: string | undefined;
                   name: string;
-                  click?: string | Function | undefined;
+                  click?:
+                    | ((
+                        layer: Layer<
+                          import("../../../../interface/source").ISource<
+                            import("geojson").GeoJsonProperties
+                          >
+                        >,
+                        map_id: string
+                      ) => any)
+                    | undefined;
                   icon?: string | undefined;
                   attr?: any;
                 }
@@ -411,18 +613,72 @@ declare const _default: import("vue").DefineComponent<
                                 name?: string | undefined;
                               };
                               source: {
-                                getMapboxSource: () => object;
-                                bounds: BBox;
                                 id: string;
                                 parent?: any | undefined;
                                 setParent: (
-                                  _parent: import("@/model").Layer<
-                                    import("../../../../interface/source").ISource
+                                  _parent: Layer<
+                                    import("../../../../interface/source").ISource<
+                                      import("geojson").GeoJsonProperties
+                                    >
                                   >
                                 ) => void;
+                                setData: (
+                                  data?:
+                                    | string
+                                    | import("geojson").FeatureCollection<
+                                        import("geojson").Geometry,
+                                        import("geojson").GeoJsonProperties
+                                      >
+                                    | undefined
+                                ) => void;
+                                getAll: () =>
+                                  | import("geojson").FeatureCollection<
+                                      import("geojson").Geometry,
+                                      import("geojson").GeoJsonProperties
+                                    >
+                                  | undefined;
+                                addFeatures?:
+                                  | ((
+                                      features: import("geojson").Feature<
+                                        import("geojson").Geometry,
+                                        import("geojson").GeoJsonProperties
+                                      >[]
+                                    ) => Promise<boolean | void>)
+                                  | undefined;
+                                updateFeatures?:
+                                  | ((
+                                      features: import("geojson").Feature<
+                                        import("geojson").Geometry,
+                                        import("geojson").GeoJsonProperties
+                                      >[]
+                                    ) => Promise<boolean | void>)
+                                  | undefined;
+                                deleteFeatures?:
+                                  | ((
+                                      features: import("geojson").Feature<
+                                        import("geojson").Geometry,
+                                        import("geojson").GeoJsonProperties
+                                      >[]
+                                    ) => Promise<boolean | void>)
+                                  | undefined;
+                                getFeatures?:
+                                  | ((
+                                      point: [number, number]
+                                    ) => Promise<
+                                      import("geojson").Feature<
+                                        import("geojson").Geometry,
+                                        import("geojson").GeoJsonProperties
+                                      >[]
+                                    >)
+                                  | undefined;
+                                getMapboxSource: () => object;
+                                updateForMap: (map: MapSimple) => void;
+                                addToMap: (map: MapSimple) => void;
+                                removeFromMap: (map: MapSimple) => void;
+                                bounds: BBox;
                               };
                               action: {
-                                call: (id: string) => any;
+                                call: (id: string, map_id: string) => any;
                                 menus?:
                                   | (
                                       | {
@@ -433,20 +689,30 @@ declare const _default: import("vue").DefineComponent<
                                           type: "item";
                                           class?: string | undefined;
                                           name: string;
-                                          click?: string | Function | undefined;
+                                          click?:
+                                            | ((
+                                                layer: Layer<
+                                                  import("../../../../interface/source").ISource<
+                                                    import("geojson").GeoJsonProperties
+                                                  >
+                                                >,
+                                                map_id: string
+                                              ) => any)
+                                            | undefined;
                                           icon?: string | undefined;
                                           attr?: any;
                                         }
                                     )[]
                                   | undefined;
-                                get: (id: string) => LayerAction<any>;
-                                id: string;
-                                parent?: any | undefined;
-                                setParent: (
-                                  _parent: import("@/model").Layer<
-                                    import("../../../../interface/source").ISource
-                                  >
-                                ) => void;
+                                get: (
+                                  id: string
+                                ) => import("../../../../interface/datasource/action").LayerAction;
+                                addActions: (
+                                  actions: import("../../../../interface/datasource/action").LayerAction[]
+                                ) => import("../../../../interface/datasource/action").LayerActionView;
+                                addAction: (
+                                  action: import("../../../../interface/datasource/action").LayerAction
+                                ) => import("../../../../interface/datasource/action").LayerActionView;
                               };
                               readonly metadata: {
                                 loading?:
@@ -462,22 +728,26 @@ declare const _default: import("vue").DefineComponent<
                               addToMap: (
                                 map: MapSimple,
                                 ...args: any[]
-                              ) => Promise<any[]>;
+                              ) => Promise<void>;
                               removeFromMap: (
                                 map: MapSimple,
                                 ...args: any[]
-                              ) => Promise<any[]>;
+                              ) => Promise<void>;
+                              updateForMap: (
+                                map: MapSimple,
+                                ...args: any[]
+                              ) => Promise<void>;
                               setInfo: (
                                 info: import("../../../../model/datasource/Layer").LayerInfo
-                              ) => import("@/model").Layer<
-                                import("../../../../interface/source").ISource
+                              ) => Layer<
+                                import("../../../../interface/source").ISource<
+                                  import("geojson").GeoJsonProperties
+                                >
                               >;
                               setBuild: (
                                 key: string,
                                 build: import("@/interface/datasource/view").LayerBuildFunction<
-                                  IView<
-                                    import("../../../../interface/source").ISource
-                                  >,
+                                  IView,
                                   any
                                 >,
                                 option?: {}
@@ -486,23 +756,33 @@ declare const _default: import("vue").DefineComponent<
                               setView: (
                                 ...args: any[]
                               ) => import("../../../../model/datasource/part").LayerViewContainer;
-                              getView: (key: string) => any;
+                              getView: <
+                                T extends import("../../../../model/datasource/type").TYPE_BUILD
+                              >(
+                                key: T
+                              ) => import("../../../../model/datasource/type").TYPE_VIEW<T>;
                               runBuild: (
                                 key: string
                               ) =>
-                                | import("@/model").Layer<
-                                    import("../../../../interface/source").ISource
+                                | Layer<
+                                    import("../../../../interface/source").ISource<
+                                      import("geojson").GeoJsonProperties
+                                    >
                                   >
                                 | undefined;
                               setSource: (
-                                source: import("../../../../interface/source").ISource
+                                source: import("../../../../interface/source").ISource<
+                                  import("geojson").GeoJsonProperties
+                                >
                               ) => void;
-                              getSource: () => import("../../../../interface/source").ISource;
-                              getAction: () => import("@/interface/datasource/action").IAction;
+                              getSource: () => import("../../../../interface/source").ISource<
+                                import("geojson").GeoJsonProperties
+                              >;
+                              getAction: () => import("../../../../interface/datasource/action").IAction;
                               setAction: (
-                                action: import("@/interface/datasource/action").IAction
+                                action: import("../../../../interface/datasource/action").IAction
                               ) => void;
-                              callAction: (id: string) => any;
+                              callAction: (id: string, map_id: string) => any;
                               _id: string;
                               readonly id: string;
                             }
@@ -510,8 +790,10 @@ declare const _default: import("vue").DefineComponent<
                         runAfterSetParent?: CallableFunction | undefined;
                         data_id?: string | undefined;
                         setParent: (
-                          _parent: import("@/model").Layer<
-                            import("../../../../interface/source").ISource
+                          _parent: Layer<
+                            import("../../../../interface/source").ISource<
+                              import("geojson").GeoJsonProperties
+                            >
                           >
                         ) => void;
                         _id: string;
@@ -521,7 +803,6 @@ declare const _default: import("vue").DefineComponent<
                 }
               | undefined;
             multi: boolean;
-            addMenus: (menus: Menu[]) => ListView;
             show: any;
             id: string;
             parent?:
@@ -539,18 +820,72 @@ declare const _default: import("vue").DefineComponent<
                     name?: string | undefined;
                   };
                   source: {
-                    getMapboxSource: () => object;
-                    bounds: BBox;
                     id: string;
                     parent?: any | undefined;
                     setParent: (
-                      _parent: import("@/model").Layer<
-                        import("../../../../interface/source").ISource
+                      _parent: Layer<
+                        import("../../../../interface/source").ISource<
+                          import("geojson").GeoJsonProperties
+                        >
                       >
                     ) => void;
+                    setData: (
+                      data?:
+                        | string
+                        | import("geojson").FeatureCollection<
+                            import("geojson").Geometry,
+                            import("geojson").GeoJsonProperties
+                          >
+                        | undefined
+                    ) => void;
+                    getAll: () =>
+                      | import("geojson").FeatureCollection<
+                          import("geojson").Geometry,
+                          import("geojson").GeoJsonProperties
+                        >
+                      | undefined;
+                    addFeatures?:
+                      | ((
+                          features: import("geojson").Feature<
+                            import("geojson").Geometry,
+                            import("geojson").GeoJsonProperties
+                          >[]
+                        ) => Promise<boolean | void>)
+                      | undefined;
+                    updateFeatures?:
+                      | ((
+                          features: import("geojson").Feature<
+                            import("geojson").Geometry,
+                            import("geojson").GeoJsonProperties
+                          >[]
+                        ) => Promise<boolean | void>)
+                      | undefined;
+                    deleteFeatures?:
+                      | ((
+                          features: import("geojson").Feature<
+                            import("geojson").Geometry,
+                            import("geojson").GeoJsonProperties
+                          >[]
+                        ) => Promise<boolean | void>)
+                      | undefined;
+                    getFeatures?:
+                      | ((
+                          point: [number, number]
+                        ) => Promise<
+                          import("geojson").Feature<
+                            import("geojson").Geometry,
+                            import("geojson").GeoJsonProperties
+                          >[]
+                        >)
+                      | undefined;
+                    getMapboxSource: () => object;
+                    updateForMap: (map: MapSimple) => void;
+                    addToMap: (map: MapSimple) => void;
+                    removeFromMap: (map: MapSimple) => void;
+                    bounds: BBox;
                   };
                   action: {
-                    call: (id: string) => any;
+                    call: (id: string, map_id: string) => any;
                     menus?:
                       | (
                           | {
@@ -561,20 +896,30 @@ declare const _default: import("vue").DefineComponent<
                               type: "item";
                               class?: string | undefined;
                               name: string;
-                              click?: string | Function | undefined;
+                              click?:
+                                | ((
+                                    layer: Layer<
+                                      import("../../../../interface/source").ISource<
+                                        import("geojson").GeoJsonProperties
+                                      >
+                                    >,
+                                    map_id: string
+                                  ) => any)
+                                | undefined;
                               icon?: string | undefined;
                               attr?: any;
                             }
                         )[]
                       | undefined;
-                    get: (id: string) => LayerAction<any>;
-                    id: string;
-                    parent?: any | undefined;
-                    setParent: (
-                      _parent: import("@/model").Layer<
-                        import("../../../../interface/source").ISource
-                      >
-                    ) => void;
+                    get: (
+                      id: string
+                    ) => import("../../../../interface/datasource/action").LayerAction;
+                    addActions: (
+                      actions: import("../../../../interface/datasource/action").LayerAction[]
+                    ) => import("../../../../interface/datasource/action").LayerActionView;
+                    addAction: (
+                      action: import("../../../../interface/datasource/action").LayerAction
+                    ) => import("../../../../interface/datasource/action").LayerActionView;
                   };
                   readonly metadata: {
                     loading?:
@@ -587,20 +932,26 @@ declare const _default: import("vue").DefineComponent<
                   readonly name: string | undefined;
                   asProxy: () => any;
                   isHasMap: (map: MapSimple) => boolean;
-                  addToMap: (map: MapSimple, ...args: any[]) => Promise<any[]>;
+                  addToMap: (map: MapSimple, ...args: any[]) => Promise<void>;
                   removeFromMap: (
                     map: MapSimple,
                     ...args: any[]
-                  ) => Promise<any[]>;
+                  ) => Promise<void>;
+                  updateForMap: (
+                    map: MapSimple,
+                    ...args: any[]
+                  ) => Promise<void>;
                   setInfo: (
                     info: import("../../../../model/datasource/Layer").LayerInfo
-                  ) => import("@/model").Layer<
-                    import("../../../../interface/source").ISource
+                  ) => Layer<
+                    import("../../../../interface/source").ISource<
+                      import("geojson").GeoJsonProperties
+                    >
                   >;
                   setBuild: (
                     key: string,
                     build: import("@/interface/datasource/view").LayerBuildFunction<
-                      IView<import("../../../../interface/source").ISource>,
+                      IView,
                       any
                     >,
                     option?: {}
@@ -609,30 +960,42 @@ declare const _default: import("vue").DefineComponent<
                   setView: (
                     ...args: any[]
                   ) => import("../../../../model/datasource/part").LayerViewContainer;
-                  getView: (key: string) => any;
+                  getView: <
+                    T extends import("../../../../model/datasource/type").TYPE_BUILD
+                  >(
+                    key: T
+                  ) => import("../../../../model/datasource/type").TYPE_VIEW<T>;
                   runBuild: (
                     key: string
                   ) =>
-                    | import("@/model").Layer<
-                        import("../../../../interface/source").ISource
+                    | Layer<
+                        import("../../../../interface/source").ISource<
+                          import("geojson").GeoJsonProperties
+                        >
                       >
                     | undefined;
                   setSource: (
-                    source: import("../../../../interface/source").ISource
+                    source: import("../../../../interface/source").ISource<
+                      import("geojson").GeoJsonProperties
+                    >
                   ) => void;
-                  getSource: () => import("../../../../interface/source").ISource;
-                  getAction: () => import("@/interface/datasource/action").IAction;
+                  getSource: () => import("../../../../interface/source").ISource<
+                    import("geojson").GeoJsonProperties
+                  >;
+                  getAction: () => import("../../../../interface/datasource/action").IAction;
                   setAction: (
-                    action: import("@/interface/datasource/action").IAction
+                    action: import("../../../../interface/datasource/action").IAction
                   ) => void;
-                  callAction: (id: string) => any;
+                  callAction: (id: string, map_id: string) => any;
                   _id: string;
                   readonly id: string;
                 }
               | undefined;
             setParent: (
-              _parent: import("@/model").Layer<
-                import("../../../../interface/source").ISource
+              _parent: Layer<
+                import("../../../../interface/source").ISource<
+                  import("geojson").GeoJsonProperties
+                >
               >
             ) => void;
           }
@@ -653,18 +1016,19 @@ declare const _default: import("vue").DefineComponent<
     showCreate: import("vue").Ref<boolean>;
     toggleShowCreate: (value?: boolean | undefined) => void;
     openAddLayer: () => void;
-    components_show: import("vue").Ref<
-      {
-        component: any;
-        id: string;
-        attr: any;
-      }[]
+    styleControlRef: import("vue").Ref<
+      | {
+          open(layer: Layer): void;
+          close(): void;
+        }
+      | undefined
     >;
+    layer_action: {
+      [key: string]: Function;
+    };
     onLayerAction: ({ menu, item }: { item: ListView; menu: Menu }) => void;
-    onAddComponent: (menu: LayerAction, item: ListView, option: any) => void;
-    onRemoveComponent: (item: LayerAction) => void;
-    DraggableSidebar: import("vue").VueConstructor<
-      MapControlButton<
+    DraggableGroupList: import("vue").VueConstructor<
+      DraggableGroupList<
         Record<string, any>,
         Record<string, any>,
         never,
@@ -672,25 +1036,7 @@ declare const _default: import("vue").DefineComponent<
         (
           event: string,
           ...args: any[]
-        ) => MapControlButton<
-          Record<string, any>,
-          Record<string, any>,
-          never,
-          never,
-          any
-        >
-      >
-    >;
-    MapControlButton: import("vue").VueConstructor<
-      MapControlButton<
-        Record<string, any>,
-        Record<string, any>,
-        never,
-        never,
-        (
-          event: string,
-          ...args: any[]
-        ) => MapControlButton<
+        ) => DraggableGroupList<
           Record<string, any>,
           Record<string, any>,
           never,
@@ -700,7 +1046,7 @@ declare const _default: import("vue").DefineComponent<
       >
     >;
     ModuleContainer: import("vue").VueConstructor<
-      MapControlButton<
+      DraggableGroupList<
         Record<string, any>,
         Record<string, any>,
         never,
@@ -708,7 +1054,61 @@ declare const _default: import("vue").DefineComponent<
         (
           event: string,
           ...args: any[]
-        ) => MapControlButton<
+        ) => DraggableGroupList<
+          Record<string, any>,
+          Record<string, any>,
+          never,
+          never,
+          any
+        >
+      >
+    >;
+    LayerComponent: import("vue").VueConstructor<
+      DraggableGroupList<
+        Record<string, any>,
+        Record<string, any>,
+        never,
+        never,
+        (
+          event: string,
+          ...args: any[]
+        ) => DraggableGroupList<
+          Record<string, any>,
+          Record<string, any>,
+          never,
+          never,
+          any
+        >
+      >
+    >;
+    MapControlButton: import("vue").VueConstructor<
+      DraggableGroupList<
+        Record<string, any>,
+        Record<string, any>,
+        never,
+        never,
+        (
+          event: string,
+          ...args: any[]
+        ) => DraggableGroupList<
+          Record<string, any>,
+          Record<string, any>,
+          never,
+          never,
+          any
+        >
+      >
+    >;
+    DraggableSidebar: import("vue").VueConstructor<
+      DraggableGroupList<
+        Record<string, any>,
+        Record<string, any>,
+        never,
+        never,
+        (
+          event: string,
+          ...args: any[]
+        ) => DraggableGroupList<
           Record<string, any>,
           Record<string, any>,
           never,
@@ -718,8 +1118,8 @@ declare const _default: import("vue").DefineComponent<
       >
     >;
     SvgIcon: typeof SvgIcon;
-    DraggableGroupList: import("vue").VueConstructor<
-      MapControlButton<
+    BaseMapCard: import("vue").VueConstructor<
+      DraggableGroupList<
         Record<string, any>,
         Record<string, any>,
         never,
@@ -727,25 +1127,7 @@ declare const _default: import("vue").DefineComponent<
         (
           event: string,
           ...args: any[]
-        ) => MapControlButton<
-          Record<string, any>,
-          Record<string, any>,
-          never,
-          never,
-          any
-        >
-      >
-    >;
-    LayerItemContextMenu: import("vue").VueConstructor<
-      MapControlButton<
-        Record<string, any>,
-        Record<string, any>,
-        never,
-        never,
-        (
-          event: string,
-          ...args: any[]
-        ) => MapControlButton<
+        ) => DraggableGroupList<
           Record<string, any>,
           Record<string, any>,
           never,
@@ -755,7 +1137,7 @@ declare const _default: import("vue").DefineComponent<
       >
     >;
     LayerCreateControl: import("vue").VueConstructor<
-      MapControlButton<
+      DraggableGroupList<
         Record<string, any>,
         Record<string, any>,
         never,
@@ -763,7 +1145,7 @@ declare const _default: import("vue").DefineComponent<
         (
           event: string,
           ...args: any[]
-        ) => MapControlButton<
+        ) => DraggableGroupList<
           Record<string, any>,
           Record<string, any>,
           never,
@@ -773,7 +1155,7 @@ declare const _default: import("vue").DefineComponent<
       >
     >;
     LayerItem: import("vue").VueConstructor<
-      MapControlButton<
+      DraggableGroupList<
         Record<string, any>,
         Record<string, any>,
         never,
@@ -781,7 +1163,43 @@ declare const _default: import("vue").DefineComponent<
         (
           event: string,
           ...args: any[]
-        ) => MapControlButton<
+        ) => DraggableGroupList<
+          Record<string, any>,
+          Record<string, any>,
+          never,
+          never,
+          any
+        >
+      >
+    >;
+    LayerItemContextMenu: import("vue").VueConstructor<
+      DraggableGroupList<
+        Record<string, any>,
+        Record<string, any>,
+        never,
+        never,
+        (
+          event: string,
+          ...args: any[]
+        ) => DraggableGroupList<
+          Record<string, any>,
+          Record<string, any>,
+          never,
+          never,
+          any
+        >
+      >
+    >;
+    StyleControl: import("vue").VueConstructor<
+      DraggableGroupList<
+        Record<string, any>,
+        Record<string, any>,
+        never,
+        never,
+        (
+          event: string,
+          ...args: any[]
+        ) => DraggableGroupList<
           Record<string, any>,
           Record<string, any>,
           never,

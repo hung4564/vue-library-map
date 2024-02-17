@@ -1,5 +1,6 @@
 import { AView } from "@/model/datasource/view/view";
 import { IView } from "./view";
+import { Layer } from "@/model";
 
 export interface ListOption {
   disable_delete?: boolean;
@@ -19,7 +20,7 @@ export interface MenuItem {
   type: "item";
   class?: string;
   name: string;
-  click?: Function | string;
+  click?: (layer: Layer, map_id: string) => any;
   icon?: string;
   attr?: any;
 }
@@ -50,6 +51,7 @@ export interface ListView extends IView {
   group?: Group;
   multi: boolean;
   show: any;
+  updateMenus(): void;
 }
 export interface ListSingleView extends ListView {
   show: boolean;
