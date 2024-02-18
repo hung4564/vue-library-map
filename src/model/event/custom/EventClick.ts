@@ -13,13 +13,19 @@ export class EventClick extends Event<"click", EventClickOption> {
   addToMap(map: MapSimple) {
     if (this.options.classPointer)
       map.getCanvas().classList.add(this.options.classPointer);
-    if (this.handler) map.on(this.event_map_type, this.handler);
+    if (this.handler) {
+      map.on("click", this.handler);
+      map.on("touchstart", this.handler);
+    }
     return this;
   }
   removeFromMap(map: MapSimple) {
     if (this.options.classPointer)
       map.getCanvas().classList.remove(this.options.classPointer);
-    if (this.handler) map.off(this.event_map_type, this.handler);
+    if (this.handler) {
+      map.off("click", this.handler);
+      map.off("touchstart", this.handler);
+    }
     return this;
   }
 }

@@ -61,5 +61,5 @@ export function setCurrentEvent(
 }
 
 export function getCurrentEvent(mapId: string, event_map_type: string) {
-  return (getStore(mapId) || {}).current[event_map_type];
+  return ((getStore(mapId) || {}).current || {})[event_map_type];
 }

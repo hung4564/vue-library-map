@@ -353,8 +353,7 @@ function onLayerAction({ menu, item }: { item: ListView; menu: Menu }) {
 .layer-control-container {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  width: 100%;
+  overflow: auto;
   flex-grow: 1;
 }
 .base-map-card-container {
